@@ -1,20 +1,1386 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sistema de Diseño Accesible - Boletines INE</title>
-    <meta name="description" content="Sistema de diseño y observatorio ciudadano accesible para boletines estadísticos del INE, con Atomic Design, alto contraste y traducción a lenguaje simple." />
-    <meta property="og:title" content="Sistema de Diseño Accesible - Boletines INE" />
-    <meta property="og:description" content="Sistema de diseño y observatorio ciudadano accesible para boletines estadísticos del INE, con Atomic Design, alto contraste y traducción a lenguaje simple." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <title>Presentación: Sistema de Diseño Accesible para Boletines INE</title>
+  <meta name="description" content="Presentación interactiva en diapositivas del Sistema de Diseño Accesible para Boletines del Instituto Nacional de Estadísticas de Chile (INE). Metodología Atomic Design.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-accent-690: #F04E23;
+      --color-accent-hover: #D93D14;
+      --color-tinta: #0A0A0A;
+      --color-papel-1: #FFFFFF;
+      --color-papel-2: #F5F5F7;
+      --color-papel-3: #EAEAEA;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--color-papel-2);
+      color: var(--color-tinta);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 8px;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 74px; /* Espacio para barra de navegación inferior móvil */
+    }
+
+    @media (min-width: 640px) {
+      body {
+        padding: 16px;
+        padding-bottom: 24px;
+      }
+    }
+
+    /* Contenedor principal de la presentación */
+    .slide-wrapper {
+      max-width: 1024px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+      transition: max-width 0.3s ease;
+    }
+
+    /* Modo celular en escritorio (solo se aplica en pantallas grandes para simular celular) */
+    @media (min-width: 641px) {
+      .slide-wrapper.mobile-viewport {
+        max-width: 410px;
+        border: 4px solid #262626;
+        border-radius: 40px;
+        padding: 14px;
+        background: #0A0A0A;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        margin: 10px auto;
+      }
+
+      .slide-wrapper.mobile-viewport .mobile-notch {
+        display: block;
+      }
+    }
+
+    /* En celulares reales, el modo móvil se ajusta al 100% sin marcos estorbosos */
+    @media (max-width: 640px) {
+      .slide-wrapper.mobile-viewport {
+        max-width: 100%;
+        border: none;
+        padding: 0;
+        background: transparent;
+        box-shadow: none;
+      }
+    }
+
+    .mobile-notch {
+      display: none;
+      width: 80px;
+      height: 8px;
+      background: #333;
+      border-radius: 10px;
+      margin: 0 auto 10px;
+    }
+
+    /* Barra Superior */
+    .top-bar {
+      background: var(--color-papel-1);
+      border: 2px solid var(--color-tinta);
+      border-radius: 16px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-logo {
+      background: var(--color-accent-690);
+      color: #fff;
+      font-weight: 900;
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 8px;
+    }
+
+    .brand-titles h1 {
+      font-size: 13px;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .brand-titles p {
+      font-size: 10px;
+      color: #525252;
+      font-weight: 600;
+    }
+
+    /* Cinta de herramientas rápida */
+    .tools-ribbon {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      background: #fff;
+      border: 2px solid var(--color-tinta);
+      border-radius: 14px;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .tools-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .tool-btn {
+      background: var(--color-papel-2);
+      border: 1px solid var(--color-tinta);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      min-height: 38px;
+      touch-action: manipulation;
+    }
+
+    .tool-btn.active {
+      background: var(--color-accent-690);
+      color: #fff;
+      border-color: var(--color-accent-690);
+    }
+
+    /* Tokens clickeables */
+    .token-chip {
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(0,0,0,0.15);
+      transition: transform 0.1s ease;
+      min-height: 32px;
+      touch-action: manipulation;
+    }
+
+    /* Píldoras de navegación de diapositivas */
+    .slide-indicators {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .indicator-btn {
+      background: #fff;
+      border: 1px solid var(--color-tinta);
+      color: #525252;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 20px;
+      white-space: nowrap;
+      cursor: pointer;
+      min-height: 36px;
+      touch-action: manipulation;
+      transition: all 0.15s ease;
+    }
+
+    .indicator-btn.active {
+      background: var(--color-accent-690);
+      color: #fff;
+      border-color: var(--color-accent-690);
+      transform: scale(1.03);
+    }
+
+    /* Tarjeta de la Diapositiva */
+    .slide-card {
+      background: var(--color-papel-1);
+      border: 2px solid var(--color-tinta);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 460px;
+      position: relative;
+    }
+
+    @media (min-width: 640px) {
+      .slide-card {
+        border-width: 3px;
+        border-radius: 28px;
+        padding: 24px;
+      }
+    }
+
+    .slide-content {
+      display: none;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+
+    .slide-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(3px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide-header {
+      border-bottom: 2px solid var(--color-tinta);
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+
+    .slide-badge {
+      display: inline-block;
+      background: var(--color-papel-2);
+      border: 1px solid var(--color-tinta);
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 10px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .slide-title {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+
+    @media (min-width: 640px) {
+      .slide-title {
+        font-size: 28px;
+      }
+    }
+
+    .slide-subtitle {
+      font-size: 11px;
+      color: #525252;
+      font-weight: 600;
+      margin-top: 3px;
+    }
+
+    /* Grid interactivo del Atomic Design */
+    .atomic-interactive-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    @media (min-width: 768px) {
+      .atomic-interactive-grid {
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+
+    .atomic-col {
+      background: #1A1A1A;
+      color: #fff;
+      border: 2px solid #333;
+      border-radius: 14px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      transition: border-color 0.15s ease;
+    }
+
+    .atomic-col h4 {
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--color-accent-690);
+      text-transform: uppercase;
+    }
+
+    .atomic-col p {
+      font-size: 10px;
+      color: #A1A1AA;
+    }
+
+    /* Navegador por Etapas en Celular */
+    .mobile-stage-bar {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 8px;
+      scrollbar-width: none;
+    }
+
+    @media (min-width: 768px) {
+      .mobile-stage-bar,
+      .mobile-stage-nav {
+        display: none !important;
+      }
+    }
+
+    .mobile-stage-btn {
+      padding: 6px 10px;
+      background: #1F1F1F;
+      color: #A1A1AA;
+      border: 1px solid #333;
+      border-radius: 8px;
+      font-size: 10px;
+      font-weight: 800;
+      white-space: nowrap;
+      cursor: pointer;
+      min-height: 38px;
+    }
+
+    .mobile-stage-btn.active {
+      background: var(--color-accent-690);
+      color: #fff;
+      border-color: var(--color-accent-690);
+    }
+
+    .mobile-stage-nav {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      align-items: center;
+    }
+
+    .mobile-stage-nav button {
+      flex: 1;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      border: 1px solid #333;
+      min-height: 44px;
+    }
+
+    /* Grids informativos */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    @media (min-width: 640px) {
+      .grid-2 {
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    @media (min-width: 640px) {
+      .grid-3 {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 14px;
+      }
+    }
+
+    .info-card {
+      background: var(--color-papel-2);
+      border: 2px solid var(--color-tinta);
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    @media (min-width: 640px) {
+      .info-card {
+        padding: 16px;
+      }
+    }
+
+    .info-card h4 {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+      color: var(--color-accent-690);
+    }
+
+    .info-card p {
+      font-size: 11px;
+      line-height: 1.5;
+      color: #262626;
+      font-weight: 500;
+    }
+
+    .big-number {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -1px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    @media (min-width: 640px) {
+      .big-number {
+        font-size: 52px;
+      }
+    }
+
+    /* Barra Inferior de Navegación (Escritorio) */
+    .bottom-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 2px solid var(--color-tinta);
+      padding-top: 12px;
+      margin-top: 12px;
+      gap: 8px;
+    }
+
+    .nav-btn {
+      background: var(--color-tinta);
+      color: #fff;
+      border: none;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 10px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 44px;
+      min-width: 90px;
+      justify-content: center;
+      touch-action: manipulation;
+    }
+
+    .nav-btn.primary {
+      background: var(--color-accent-690);
+    }
+
+    .nav-btn.secondary {
+      background: #fff;
+      color: var(--color-tinta);
+      border: 2px solid var(--color-tinta);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .slide-counter {
+      font-size: 11px;
+      font-weight: 800;
+      color: #525252;
+      text-align: center;
+    }
+
+    /* BARRA INFERIOR FIJA PARA CELULARES (Thumb-zone) */
+    .mobile-thumb-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 90;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-top: 2px solid var(--color-tinta);
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.1);
+    }
+
+    @media (min-width: 641px) {
+      .mobile-thumb-bar {
+        display: none;
+      }
+    }
+
+    .mobile-thumb-btn {
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
+      border: 2px solid var(--color-tinta);
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      touch-action: manipulation;
+    }
+
+    .mobile-thumb-btn.primary {
+      background: var(--color-accent-690);
+      color: #fff;
+      border-color: var(--color-accent-690);
+    }
+
+    .mobile-thumb-btn.secondary {
+      background: #fff;
+      color: var(--color-tinta);
+    }
+
+    .mobile-thumb-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    /* Toast */
+    .toast-msg {
+      position: fixed;
+      bottom: 74px;
+      right: 16px;
+      background: #0A0A0A;
+      color: #fff;
+      border: 2px solid var(--color-accent-690);
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      display: none;
+      z-index: 1000;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .toast-msg.show {
+      display: block;
+      animation: fadeIn 0.2s ease-in;
+    }
+
+    /* Modal */
+    .modal-overlay, .index-drawer {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 12px;
+    }
+
+    .modal-overlay.active, .index-drawer.active {
+      display: flex;
+    }
+
+    .modal-content, .index-box {
+      background: #fff;
+      border: 3px solid var(--color-tinta);
+      border-radius: 18px;
+      max-width: 500px;
+      width: 100%;
+      padding: 18px;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+
+    .index-item {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: var(--color-papel-2);
+      border: 1px solid #E5E5E5;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      cursor: pointer;
+      min-height: 44px;
+    }
+
+    .index-item:hover, .index-item:active {
+      background: var(--color-accent-690);
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Toast de copia de token -->
+  <div class="toast-msg" id="toastMsg">¡Token copiado!</div>
+
+  <div class="slide-wrapper" id="slideWrapper">
+    <!-- Barra Superior Compacta -->
+    <header class="top-bar">
+      <div class="brand-group">
+        <div class="brand-logo">INE</div>
+        <div class="brand-titles">
+          <h1>Observatorio Laboral</h1>
+          <p>Atomic Design · Boletines</p>
+        </div>
+      </div>
+      <div class="slide-counter" id="topSlideCounter">
+        Diapositiva <strong>1</strong> de 7
+      </div>
+    </header>
+
+    <!-- Cinta de Herramientas: Índice, Región, Viewport y Tokens -->
+    <div class="tools-ribbon">
+      <div class="tools-group">
+        <button class="tool-btn" onclick="openIndexModal()">📋 Índice</button>
+
+        <span>Región:</span>
+        <select id="regionPicker" onchange="changeRegion(this.value)" style="border: 1px solid var(--color-tinta); border-radius: 6px; font-weight: 800; padding: 4px 6px; font-size: 11px; min-height: 36px;">
+          <option value="nuble" selected>Ñuble (11,2%)</option>
+          <option value="metropolitana">Metropolitana (8,9%)</option>
+          <option value="biobio">Biobío (9,1%)</option>
+          <option value="araucania">Araucanía (10,3%)</option>
+          <option value="magallanes">Magallanes (5,8%)</option>
+          <option value="tarapaca">Tarapacá (8,4%)</option>
+        </select>
+      </div>
+
+      <div class="tools-group">
+        <button class="tool-btn active" id="btnDesktop" onclick="setViewport('desktop')">💻 Escritorio</button>
+        <button class="tool-btn" id="btnMobile" onclick="setViewport('mobile')">📱 390px</button>
+      </div>
+    </div>
+
+    <!-- Tira de Tokens con Copia con 1 Clic -->
+    <div style="display: flex; gap: 6px; overflow-x: auto; padding: 2px 0; font-size: 10px; font-weight: 700; align-items: center; scrollbar-width: none;">
+      <span style="color: #525252; white-space: nowrap;">Tokens:</span>
+      <button class="token-chip" style="background: #F04E23; color: #fff;" onclick="copyToken('#F04E23', 'Acento 690')">#F04E23</button>
+      <button class="token-chip" style="background: #0A0A0A; color: #fff;" onclick="copyToken('#0A0A0A', 'Tinta')">#0A0A0A</button>
+      <button class="token-chip" style="background: #fff; color: #000;" onclick="copyToken('#FFFFFF', 'Papel')">#FFFFFF</button>
+      <button class="token-chip" style="background: #F5F5F7; color: #000;" onclick="copyToken('Plus Jakarta Sans', 'Tipografía Sans-serif')">Plus Jakarta Sans</button>
+    </div>
+
+    <!-- Píldoras de Navegación Rápida -->
+    <nav class="slide-indicators" aria-label="Selector de diapositivas">
+      <button class="indicator-btn active" onclick="goToSlide(0)">1. Portada</button>
+      <button class="indicator-btn" onclick="goToSlide(1)">2. Átomos</button>
+      <button class="indicator-btn" onclick="goToSlide(2)">3. Moléculas</button>
+      <button class="indicator-btn" onclick="goToSlide(3)">4. Organismos</button>
+      <button class="indicator-btn" onclick="goToSlide(4)">5. Plantillas</button>
+      <button class="indicator-btn" onclick="goToSlide(5)">6. Páginas</button>
+      <button class="indicator-btn" onclick="goToSlide(6)">7. Estados</button>
+    </nav>
+
+    <!-- Tarjeta de la Diapositiva -->
+    <main class="slide-card" id="slideCard">
+
+      <!-- SLIDE 1: PORTADA CON BANNER INTERACTIVO MEJORADO -->
+      <section class="slide-content active" id="slide-0">
+        <div class="slide-header">
+          <span class="slide-badge">Metodología Atomic Design</span>
+          <h2 class="slide-title">Sistema de Diseño Accesible para Boletines INE</h2>
+          <p class="slide-subtitle">Traducción de la Encuesta Nacional de Empleo (ENE) en lenguaje claro y alto contraste</p>
+        </div>
+
+        <!-- Selector de Etapas en Celular -->
+        <div class="mobile-stage-bar">
+          <button class="mobile-stage-btn active" onclick="setMobileStage(0)">1. Átomos</button>
+          <button class="mobile-stage-btn" onclick="setMobileStage(1)">2. Moléculas</button>
+          <button class="mobile-stage-btn" onclick="setMobileStage(2)">3. Organismos</button>
+          <button class="mobile-stage-btn" onclick="setMobileStage(3)">4. Plantillas</button>
+          <button class="mobile-stage-btn" onclick="setMobileStage(4)">5. Páginas</button>
+        </div>
+
+        <!-- Banner Interactivo Recreando las 5 Columnas -->
+        <div class="atomic-interactive-grid" id="atomicGrid">
+          <!-- Col 1: Átomos -->
+          <div class="atomic-col" id="col-stage-0">
+            <div>
+              <h4>1. ÁTOMOS</h4>
+              <p>piezas mínimas</p>
+              <div style="margin: 8px 0; display: flex; gap: 4px;">
+                <span class="token-chip" style="background: #F04E23; color:#fff;" onclick="copyToken('#F04E23', 'Acento 690')">690</span>
+                <span class="token-chip" style="background: #000; color:#fff;" onclick="copyToken('#0A0A0A', 'Tinta')">tinta</span>
+                <span class="token-chip" style="background: #F5F5F7; color:#000;" onclick="copyToken('#F5F5F7', 'Papel 2')">papel 2</span>
+              </div>
+              <div class="big-number" style="font-size: 32px;" id="bannerRate1">11,2%</div>
+              <p style="font-size: 10px;">Sans-serif legible</p>
+            </div>
+            <button style="background: #F04E23; color:#fff; border:none; padding: 10px; border-radius: 10px; font-weight:800; font-size:11px; cursor:pointer; min-height:42px;" onclick="cycleRegion()">Cambiar región</button>
+          </div>
+
+          <!-- Col 2: Moléculas -->
+          <div class="atomic-col" id="col-stage-1" style="background: #222;">
+            <div>
+              <h4>2. MOLÉCULAS</h4>
+              <p>átomos juntos</p>
+              <div style="background: #fff; color: #000; padding: 10px; border-radius: 10px; text-align: center; margin: 8px 0;">
+                <span style="font-size: 11px; font-weight: 800;" id="bannerRegion2">Ñuble</span>
+                <div style="font-size: 28px; font-weight: 900;" id="bannerRate2">11,2%</div>
+                <span style="color: #F04E23; font-weight: 800; font-size: 11px;" id="bannerVar2">+1,1 pp en un año</span>
+              </div>
+            </div>
+            <p style="font-size: 10px; color: #ccc;">Leyenda monocromática 6% a 12%+</p>
+          </div>
+
+          <!-- Col 3: Organismos -->
+          <div class="atomic-col" id="col-stage-2">
+            <div>
+              <h4>3. ORGANISMOS</h4>
+              <p>secciones</p>
+              <div style="background: #fff; color: #000; padding: 8px; border-radius: 10px; margin: 8px 0; font-size: 11px;">
+                <div style="display: flex; justify-content: space-between; font-weight: 800;">
+                  <span id="bannerRegion3">Ñuble</span>
+                  <span id="bannerRate3">11,2%</span>
+                </div>
+                <div style="height: 8px; background: #F04E23; border-radius: 4px; margin: 6px 0;"></div>
+                <div style="height: 8px; background: #737373; border-radius: 4px;"></div>
+              </div>
+            </div>
+            <p style="font-size: 10px; text-align: center;">16 regiones de Chile</p>
+          </div>
+
+          <!-- Col 4: Plantillas -->
+          <div class="atomic-col" id="col-stage-3" style="text-align: center;">
+            <div>
+              <h4>4. PLANTILLAS</h4>
+              <p>esqueleto móvil</p>
+              <div style="background: #000; border: 1px solid #444; border-radius: 12px; padding: 8px; margin: 8px 0; display: flex; flex-direction: column; gap: 6px;">
+                <div style="background: #D4D4D8; color: #000; font-size: 9px; font-weight: 800; padding: 6px; border-radius: 6px;">cabecera</div>
+                <div style="background: #D4D4D8; color: #000; font-size: 9px; font-weight: 800; padding: 16px 6px; border-radius: 6px;">ficha de tu región</div>
+                <div style="background: #D4D4D8; color: #000; font-size: 9px; font-weight: 800; padding: 20px 6px; border-radius: 6px;">mapa</div>
+              </div>
+            </div>
+            <p style="font-size: 10px;">estructura de pantalla</p>
+          </div>
+
+          <!-- Col 5: Páginas -->
+          <div class="atomic-col" id="col-stage-4" style="border-color: #F04E23; text-align: center;">
+            <div>
+              <h4 style="color: #fff;">5. PÁGINAS</h4>
+              <p style="color: #F04E23;">el producto vivo</p>
+              <div style="background: #fff; color: #000; border-radius: 12px; padding: 8px; margin: 8px 0;">
+                <span style="font-size: 9px; font-weight: 800;" id="bannerRegion5">Tu región: Ñuble</span>
+                <div style="font-size: 24px; font-weight: 900;" id="bannerRate5">11,2%</div>
+                <span style="font-size: 9px; color: #F04E23; font-weight: 800;">+1,1 pp país 9,6%</span>
+              </div>
+            </div>
+            <p style="font-size: 10px; color: #fff;">datos de /regiones</p>
+          </div>
+        </div>
+
+        <!-- Controles de Etapa en Móvil -->
+        <div class="mobile-stage-nav">
+          <button style="background: #1F1F1F; color: #fff;" onclick="prevMobileStage()">← Etapa anterior</button>
+          <button style="background: #F04E23; color: #fff;" onclick="nextMobileStage()">Siguiente etapa →</button>
+        </div>
+
+        <!-- Botón para ver imagen original -->
+        <div style="text-align: center; margin-top: 8px;">
+          <button onclick="openModal()" class="tool-btn" style="background: #FFF0EB; border-color: #F04E23; color: #F04E23; min-height: 40px;">
+            🔍 Ver la infografía original en alta resolución
+          </button>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: ÁTOMOS -->
+      <section class="slide-content" id="slide-1">
+        <div class="slide-header">
+          <span class="slide-badge">Columna 1</span>
+          <h2 class="slide-title">Átomos: Las Piezas Mínimas</h2>
+          <p class="slide-subtitle">Tokens, colores, tipografía sans-serif y elementos de interfaz básicos</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="info-card">
+            <h4>Tokens de Color (Alto Contraste)</h4>
+            <p>Toca cualquier ficha para copiar su valor:</p>
+            <div style="display: flex; gap: 6px; margin: 10px 0;">
+              <div class="token-chip" style="flex: 1; background: #F04E23; color: #fff; padding: 12px 6px; border-radius: 10px; text-align: center;" onclick="copyToken('#F04E23', 'Acento 690')">
+                acento 690<br><span style="font-size: 10px; opacity: 0.9;">#F04E23</span>
+              </div>
+              <div class="token-chip" style="flex: 1; background: #0A0A0A; color: #fff; padding: 12px 6px; border-radius: 10px; text-align: center;" onclick="copyToken('#0A0A0A', 'Tinta')">
+                tinta<br><span style="font-size: 10px; opacity: 0.9;">#0A0A0A</span>
+              </div>
+              <div class="token-chip" style="flex: 1; background: #fff; color: #0A0A0A; border: 2px solid #0A0A0A; padding: 12px 6px; border-radius: 10px; text-align: center;" onclick="copyToken('#F5F5F7', 'Papel 2')">
+                papel 2<br><span style="font-size: 10px; color: #525252;">#F5F5F7</span>
+              </div>
+            </div>
+            <p>Cumple con el estándar de accesibilidad WCAG 2.1 AA/AAA con ratio superior a 5.0:1.</p>
+          </div>
+
+          <div class="info-card">
+            <h4>Tipografía Sans-serif Accesible</h4>
+            <div class="big-number" id="atomRate">11,2%</div>
+            <p style="margin-top: 6px;">Sans-serif accesible y legible con números tabulares (<code>tabular-nums</code>) para evitar que los números salten de línea en celular.</p>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top: 10px;">
+          <div class="info-card">
+            <h4>Botón y Etiquetas</h4>
+            <div style="display: flex; gap: 8px; align-items: center; margin-top: 8px; flex-wrap: wrap;">
+              <button style="background: #F04E23; color: #fff; border: none; font-size: 13px; font-weight: 800; padding: 10px 16px; border-radius: 12px; cursor: pointer; min-height: 44px;">Cambiar región</button>
+              <span style="border: 2px solid #0A0A0A; font-size: 12px; font-weight: 800; padding: 6px 12px; border-radius: 16px;">INE · ENE</span>
+            </div>
+          </div>
+          <div class="info-card">
+            <h4>Espaciado Oficial: 4 - 8 - 16 - 24 - 32</h4>
+            <p style="margin-top: 8px; font-weight: 700;">Garantiza zonas táctiles seguras de más de 44px para interacción con el dedo en celular.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: MOLÉCULAS -->
+      <section class="slide-content" id="slide-2">
+        <div class="slide-header">
+          <span class="slide-badge">Columna 2</span>
+          <h2 class="slide-title">Moléculas: Átomos que Trabajan Juntos</h2>
+          <p class="slide-subtitle">Fórmula: átomos + átomos = una función con valor informativo</p>
+        </div>
+
+        <div class="grid-3">
+          <div class="info-card" style="text-align: center; border-width: 3px;">
+            <span style="font-size: 11px; font-weight: 800; color: #525252; text-transform: uppercase;">Tarjeta de cifra</span>
+            <h3 style="font-size: 20px; font-weight: 900; margin: 4px 0 2px;" id="molRegion">Ñuble</h3>
+            <div style="font-size: 42px; font-weight: 900; line-height: 1; margin: 4px 0;" id="molRate">11,2%</div>
+            <span style="color: #F04E23; font-weight: 800; font-size: 12px;" id="molVar">+1,1 pp en un año</span>
+            <div style="border-top: 1px solid #E5E5E5; margin-top: 10px; padding-top: 6px; font-size: 10px; color: #525252;">
+              Fuente: INE, ENE Jun-ago
+            </div>
+          </div>
+
+          <div class="info-card">
+            <h4>Selector de región</h4>
+            <div style="background: #fff; border: 2px solid #0A0A0A; border-radius: 12px; padding: 10px; font-weight: 800; display: flex; justify-content: space-between; margin: 8px 0; min-height: 44px; align-items: center;">
+              <span id="molSelectorText">Ñuble</span>
+              <span>▼</span>
+            </div>
+            <p>Permite alternar instantáneamente la región para cualquier persona del país.</p>
+          </div>
+
+          <div class="info-card">
+            <h4>Leyenda del mapa</h4>
+            <div style="display: flex; height: 16px; border-radius: 4px; overflow: hidden; border: 1px solid #0A0A0A; margin: 10px 0 6px;">
+              <div style="flex: 1; background: #FFE5D9;"></div>
+              <div style="flex: 1; background: #FFB899;"></div>
+              <div style="flex: 1; background: #FF8A5C;"></div>
+              <div style="flex: 1; background: #F04E23;"></div>
+              <div style="flex: 1; background: #992600;"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 10px; font-weight: 800;">
+              <span>6%</span>
+              <span style="color: #737373;">país 9,6%</span>
+              <span>12%+</span>
+            </div>
+            <p style="margin-top: 8px;">Escala monocromática en naranjo intenso para personas daltónicas.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: ORGANISMOS -->
+      <section class="slide-content" id="slide-3">
+        <div class="slide-header">
+          <span class="slide-badge">Columna 3</span>
+          <h2 class="slide-title">Organismos: Secciones Completas</h2>
+          <p class="slide-subtitle">Ficha comparativa y mapa esquemático de Chile apilado de norte a sur</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="info-card">
+            <h4>Ficha de tu región</h4>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin: 6px 0 10px;">
+              <h3 style="font-size: 24px; font-weight: 900;" id="orgRegion">Ñuble</h3>
+              <span style="font-size: 28px; font-weight: 900; color: #F04E23;" id="orgRate">11,2%</span>
+            </div>
+
+            <div style="margin: 8px 0;">
+              <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; margin-bottom: 4px;">
+                <span id="orgRegionLabel">Ñuble (Tu región)</span>
+                <span id="orgRateLabel">11,2%</span>
+              </div>
+              <div style="background: #E5E5E5; height: 14px; border-radius: 20px; overflow: hidden; padding: 2px;">
+                <div style="background: #F04E23; height: 100%; border-radius: 20px; width: 75%;" id="orgBar"></div>
+              </div>
+            </div>
+
+            <div style="margin: 8px 0;">
+              <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; margin-bottom: 4px;">
+                <span>país 9.6%</span>
+                <span>9,6%</span>
+              </div>
+              <div style="background: #E5E5E5; height: 14px; border-radius: 20px; overflow: hidden; padding: 2px;">
+                <div style="background: #737373; height: 100%; border-radius: 20px; width: 60%;"></div>
+              </div>
+            </div>
+
+            <div style="margin-top: 10px; font-size: 10px; font-weight: 700; color: #525252; border-top: 1px solid #E5E5E5; padding-top: 6px;">
+              Fuente: INE · Datos comparados frente al promedio nacional.
+            </div>
+          </div>
+
+          <div class="info-card" style="text-align: center;">
+            <h4>Mapa con leyenda (16 Regiones)</h4>
+            <div style="width: 130px; margin: 8px auto; background: #fff; padding: 8px; border-radius: 12px; border: 2px solid #0A0A0A; display: flex; flex-direction: column; gap: 3px;">
+              <div style="height: 8px; background: #FFE5D9; border-radius: 2px;"></div>
+              <div style="height: 8px; background: #FFB899; border-radius: 2px;"></div>
+              <div style="height: 8px; background: #FFB899; border-radius: 2px;"></div>
+              <div style="height: 8px; background: #FF8A5C; border-radius: 2px;"></div>
+              <div style="height: 8px; background: #FF8A5C; border-radius: 2px;"></div>
+              <div style="height: 8px; background: #FFB899; border-radius: 2px;"></div>
+              <div style="height: 8px; background: #FFB899; border-radius: 2px;"></div>
+              <div style="height: 8px; background: #FFB899; border-radius: 2px;"></div>
+              <div style="height: 8px; background: #FFB899; border-radius: 2px;"></div>
+              <div style="height: 12px; background: #F04E23; border: 2px solid #0A0A0A; border-radius: 3px; transform: scale(1.05);"></div>
+              <div style="height: 8px; background: #FF8A5C; border-radius: 2px;"></div>
+              <div style="height: 8px; background: #FF8A5C; border-radius: 2px;"></div>
+              <div style="height: 8px; background: #FFB899; border-radius: 2px;"></div>
+              <div style="height: 8px; background: #FFE5D9; border-radius: 2px;"></div>
+              <div style="height: 8px; background: #FFE5D9; border-radius: 2px;"></div>
+              <div style="height: 8px; background: #FFE5D9; border-radius: 2px;"></div>
+            </div>
+            <p style="font-size: 10px; color: #525252;">Estructura gráfica de norte a sur con región activa.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: PLANTILLAS -->
+      <section class="slide-content" id="slide-4">
+        <div class="slide-header">
+          <span class="slide-badge">Columna 4</span>
+          <h2 class="slide-title">Plantillas: El Esqueleto sin Contenido</h2>
+          <p class="slide-subtitle">Arquitectura estructural para pantallas de teléfonos inteligentes</p>
+        </div>
+
+        <div class="grid-2" style="align-items: center;">
+          <div style="display: flex; justify-content: center;">
+            <div style="width: 200px; background: #0A0A0A; border-radius: 32px; padding: 10px; border: 3px solid #333;">
+              <div style="width: 50px; height: 6px; background: #333; border-radius: 10px; margin: 0 auto 8px;"></div>
+              <div style="background: #FAFAFA; border-radius: 20px; padding: 10px; display: flex; flex-direction: column; gap: 6px; text-align: center;">
+                <div style="background: #D4D4D8; padding: 8px; border-radius: 8px; font-size: 10px; font-weight: 800; color: #3F3F46;">cabecera</div>
+                <div style="background: #D4D4D8; padding: 26px 8px; border-radius: 8px; font-size: 10px; font-weight: 800; color: #3F3F46;">ficha de tu región</div>
+                <div style="background: #D4D4D8; padding: 32px 8px; border-radius: 8px; font-size: 10px; font-weight: 800; color: #3F3F46;">mapa</div>
+                <div style="background: #D4D4D8; padding: 8px; border-radius: 8px; font-size: 9px; font-weight: 800; color: #3F3F46;">fuente</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <h4>Estructura de la Pantalla Celular</h4>
+            <ul style="padding-left: 18px; font-size: 11px; line-height: 1.8; color: #262626; font-weight: 600;">
+              <li><strong>Cabecera:</strong> Marca INE y selector inmediato de región.</li>
+              <li><strong>Ficha de tu región:</strong> Cifra masiva de desempleo y comparación directa con el país.</li>
+              <li><strong>Mapa:</strong> Resumen territorial con colores monocromáticos.</li>
+              <li><strong>Línea de fuente:</strong> Transparencia obligatoria y uso de IA.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: PÁGINAS -->
+      <section class="slide-content" id="slide-5">
+        <div class="slide-header">
+          <span class="slide-badge">Columna 5</span>
+          <h2 class="slide-title">Páginas: La Plantilla con Datos Reales</h2>
+          <p class="slide-subtitle">Lo que ve el lector final al consultar con datos de /api/regiones</p>
+        </div>
+
+        <div class="grid-2" style="align-items: center;">
+          <div style="display: flex; justify-content: center;">
+            <div style="width: 210px; background: #0A0A0A; border-radius: 32px; padding: 10px; border: 3px solid #333;">
+              <div style="width: 50px; height: 6px; background: #333; border-radius: 10px; margin: 0 auto 8px;"></div>
+              <div style="background: #fff; border-radius: 20px; padding: 10px; display: flex; flex-direction: column; gap: 6px; text-align: center;">
+                <div style="background: #0A0A0A; color: #fff; padding: 5px; border-radius: 8px; font-size: 10px; font-weight: 800; display: flex; justify-content: space-between;">
+                  <span>Observatorio</span>
+                  <span style="background: #F04E23; padding: 1px 4px; border-radius: 4px; font-size: 8px;">INE</span>
+                </div>
+                <div style="border: 2px solid #0A0A0A; border-radius: 10px; padding: 8px; background: #F5F5F7;">
+                  <span style="font-size: 9px; font-weight: 800; color: #525252;" id="pagRegion">Tu región: Ñuble</span>
+                  <div style="font-size: 28px; font-weight: 900; margin: 2px 0;" id="pagRate">11,2%</div>
+                  <span style="font-size: 10px; font-weight: 800; color: #F04E23;" id="pagVar">+1,1 pp país 9,6%</span>
+                </div>
+                <div style="font-size: 9px; color: #525252; display: flex; justify-content: space-between; border-top: 1px solid #E5E5E5; padding-top: 4px;">
+                  <span>Fuente: INE, ENE</span>
+                  <span style="color: #F04E23; font-weight: 800;">Uso de IA</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <h4>El Producto en Funcionamiento</h4>
+            <p>La vista inyecta los datos reales de la encuesta trimestral del INE, permitiendo:</p>
+            <ul style="padding-left: 18px; font-size: 11px; line-height: 1.8; color: #262626; font-weight: 600; margin-top: 6px;">
+              <li>Visualizar la tasa exacta con coma decimal chilena.</li>
+              <li>Apreciar la variación interanual en puntos porcentuales (pp).</li>
+              <li>Comparar directamente con el promedio del país (9,6%).</li>
+              <li>Acceder a la respuesta asistida por IA para dudas ciudadanas.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: MATRIZ DE ESTADOS EN VIVO -->
+      <section class="slide-content" id="slide-6">
+        <div class="slide-header">
+          <span class="slide-badge">Sección 8, 9 y 10</span>
+          <h2 class="slide-title">Matriz de Estados, Voz y Ética de IA</h2>
+          <p class="slide-subtitle">Toca los botones para previsualizar cada estado en vivo</p>
+        </div>
+
+        <!-- Botones de Estado -->
+        <div style="display: flex; gap: 4px; overflow-x: auto; margin-bottom: 10px; scrollbar-width: none;">
+          <button class="tool-btn active" id="stBtn-success" onclick="showStateDemo('success')">1. Éxito</button>
+          <button class="tool-btn" id="stBtn-loading" onclick="showStateDemo('loading')">2. Cargando</button>
+          <button class="tool-btn" id="stBtn-empty" onclick="showStateDemo('empty')">3. Vacío</button>
+          <button class="tool-btn" id="stBtn-error" onclick="showStateDemo('error')">4. Error</button>
+          <button class="tool-btn" id="stBtn-noconsta" onclick="showStateDemo('noconsta')">5. No Consta</button>
+        </div>
+
+        <!-- Caja de Demostración de Estados -->
+        <div id="stateDemoBox" style="min-height: 140px; border: 2px solid #0A0A0A; border-radius: 14px; padding: 14px; background: #F0FDF4;">
+          <h4 style="color: #166534; font-size: 12px; font-weight: 800; margin-bottom: 4px;">✓ Estado: Éxito / Datos Disponibles</h4>
+          <p style="font-size: 11px; color: #14532D; line-height: 1.5;">Los datos del boletín se descargaron correctamente. Tasa de desempleo regional disponible para consulta ciudadana.</p>
+        </div>
+
+        <div style="background: #0A0A0A; color: #fff; padding: 12px; border-radius: 14px; margin-top: 12px; text-align: center;">
+          <h4 style="color: #F04E23; font-size: 12px; margin-bottom: 2px;">Regla de Oro de Lenguaje Claro</h4>
+          <p style="font-size: 11px; color: #E5E5E5;">Las tasas se comparan siempre en <strong>puntos porcentuales (pp)</strong>, jamás en porcentaje (%).</p>
+        </div>
+      </section>
+
+      <!-- Barra Inferior de Navegación (visible en escritorio) -->
+      <footer class="bottom-bar">
+        <button class="nav-btn secondary" id="prevBtn" onclick="prevSlide()" disabled>
+          ◀ Anterior
+        </button>
+
+        <div class="slide-counter" id="bottomSlideCounter">
+          1 / 7
+        </div>
+
+        <button class="nav-btn primary" id="nextBtn" onclick="nextSlide()">
+          Siguiente ▶
+        </button>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- BARRA INFERIOR FIJA PARA CELULARES (Thumb-zone) -->
+  <div class="mobile-thumb-bar">
+    <button class="mobile-thumb-btn secondary" id="mobPrevBtn" onclick="prevSlide()" disabled>
+      ◀ Ant.
+    </button>
+    <button class="mobile-thumb-btn secondary" onclick="openIndexModal()">
+      📋 <span id="mobSlideCounter">1 / 7</span>
+    </button>
+    <button class="mobile-thumb-btn primary" id="mobNextBtn" onclick="nextSlide()">
+      Sig. ▶
+    </button>
+  </div>
+
+  <!-- Modal de Índice de Secciones -->
+  <div class="index-drawer" id="indexModal" onclick="closeIndexModal()">
+    <div class="index-box" onclick="event.stopPropagation()">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 12px;">
+        <h3 style="font-size: 15px; font-weight: 900;">Índice de Secciones</h3>
+        <button onclick="closeIndexModal()" style="border: none; background: transparent; font-size: 18px; font-weight: 900; cursor: pointer; padding: 4px 8px;">✕</button>
+      </div>
+
+      <button class="index-item" onclick="goToSlide(0); closeIndexModal();">1. Portada & Banner Interactivo</button>
+      <button class="index-item" onclick="goToSlide(1); closeIndexModal();">2. Átomos (Tokens, Colores, Fuentes)</button>
+      <button class="index-item" onclick="goToSlide(2); closeIndexModal();">3. Moléculas (Tarjeta, Selector, Leyenda)</button>
+      <button class="index-item" onclick="goToSlide(3); closeIndexModal();">4. Organismos (Ficha y Mapa de Chile)</button>
+      <button class="index-item" onclick="goToSlide(4); closeIndexModal();">5. Plantillas (Esqueleto móvil)</button>
+      <button class="index-item" onclick="goToSlide(5); closeIndexModal();">6. Páginas (El producto con datos reales)</button>
+      <button class="index-item" onclick="goToSlide(6); closeIndexModal();">7. Matriz de Estados (Cargando, Vacío, Error, No Consta)</button>
+    </div>
+  </div>
+
+  <!-- Modal Lightbox para Ampliar la Infografía -->
+  <div class="modal-overlay" id="zoomModal" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button style="position: absolute; top: -38px; right: 0; background: #fff; border:none; padding: 6px 12px; border-radius: 8px; font-weight:900; cursor:pointer;" onclick="closeModal()">✕ Cerrar</button>
+      <img src="/assets/aistudio/Gemini_Generated_Image_4lvrqz4lvrqz4lvr_0578b393.jpeg" alt="Infografía Oficial Ampliada" style="width: 100%; max-height: 80vh; object-fit: contain; border-radius: 12px;">
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const totalSlides = 7;
+    let currentMobileStage = 0;
+
+    const regionDataMap = {
+      nuble: { name: 'Ñuble', rate: '11,2%', var: '+1,1 pp en un año', width: '75%' },
+      metropolitana: { name: 'Metropolitana', rate: '8,9%', var: '-0,1 pp en un año', width: '58%' },
+      biobio: { name: 'Biobío', rate: '9,1%', var: '+0,7 pp en un año', width: '60%' },
+      araucania: { name: 'Araucanía', rate: '10,3%', var: '+0,9 pp en un año', width: '68%' },
+      magallanes: { name: 'Magallanes', rate: '5,8%', var: '+0,2 pp en un año', width: '38%' },
+      tarapaca: { name: 'Tarapacá', rate: '8,4%', var: '-0,2 pp en un año', width: '55%' },
+    };
+
+    function updateSlideUI() {
+      for (let i = 0; i < totalSlides; i++) {
+        const slideEl = document.getElementById('slide-' + i);
+        if (slideEl) {
+          slideEl.classList.toggle('active', i === currentSlide);
+        }
+      }
+
+      const indicators = document.querySelectorAll('.indicator-btn');
+      indicators.forEach((btn, idx) => {
+        btn.classList.toggle('active', idx === currentSlide);
+      });
+
+      document.getElementById('topSlideCounter').innerHTML =
+        'Diapositiva <strong>' + (currentSlide + 1) + '</strong> de ' + totalSlides;
+      document.getElementById('bottomSlideCounter').innerText =
+        (currentSlide + 1) + ' / ' + totalSlides;
+      document.getElementById('mobSlideCounter').innerText =
+        (currentSlide + 1) + ' / ' + totalSlides;
+
+      const isFirst = currentSlide === 0;
+      const isLast = currentSlide === totalSlides - 1;
+
+      document.getElementById('prevBtn').disabled = isFirst;
+      document.getElementById('nextBtn').disabled = isLast;
+      document.getElementById('mobPrevBtn').disabled = isFirst;
+      document.getElementById('mobNextBtn').disabled = isLast;
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goToSlide(idx) {
+      if (idx >= 0 && idx < totalSlides) {
+        currentSlide = idx;
+        updateSlideUI();
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateSlideUI();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlideUI();
+      }
+    }
+
+    function setMobileStage(stageIdx) {
+      currentMobileStage = stageIdx;
+      const isMobile = window.innerWidth < 768;
+      for (let i = 0; i < 5; i++) {
+        const col = document.getElementById('col-stage-' + i);
+        if (col && isMobile) {
+          col.style.display = (i === stageIdx) ? 'flex' : 'none';
+        } else if (col) {
+          col.style.display = 'flex';
+        }
+      }
+      const stageBtns = document.querySelectorAll('.mobile-stage-btn');
+      stageBtns.forEach((btn, idx) => {
+        btn.classList.toggle('active', idx === stageIdx);
+      });
+    }
+
+    function nextMobileStage() {
+      if (currentMobileStage < 4) {
+        setMobileStage(currentMobileStage + 1);
+      }
+    }
+
+    function prevMobileStage() {
+      if (currentMobileStage > 0) {
+        setMobileStage(currentMobileStage - 1);
+      }
+    }
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768) {
+        for (let i = 0; i < 5; i++) {
+          const col = document.getElementById('col-stage-' + i);
+          if (col) col.style.display = 'flex';
+        }
+      } else {
+        setMobileStage(currentMobileStage);
+      }
+    });
+
+    function changeRegion(regionKey) {
+      const data = regionDataMap[regionKey] || regionDataMap.nuble;
+      document.getElementById('bannerRate1').innerText = data.rate;
+      document.getElementById('bannerRegion2').innerText = data.name;
+      document.getElementById('bannerRate2').innerText = data.rate;
+      document.getElementById('bannerVar2').innerText = data.var;
+      document.getElementById('bannerRegion3').innerText = data.name;
+      document.getElementById('bannerRate3').innerText = data.rate;
+      document.getElementById('bannerRegion5').innerText = 'Tu región: ' + data.name;
+      document.getElementById('bannerRate5').innerText = data.rate;
+      document.getElementById('atomRate').innerText = data.rate;
+      document.getElementById('molRegion').innerText = data.name;
+      document.getElementById('molRate').innerText = data.rate;
+      document.getElementById('molVar').innerText = data.var;
+      document.getElementById('molSelectorText').innerText = data.name;
+      document.getElementById('orgRegion').innerText = data.name;
+      document.getElementById('orgRate').innerText = data.rate;
+      document.getElementById('orgRegionLabel').innerText = data.name + ' (Tu región)';
+      document.getElementById('orgRateLabel').innerText = data.rate;
+      document.getElementById('orgBar').style.width = data.width;
+      document.getElementById('pagRegion').innerText = 'Tu región: ' + data.name;
+      document.getElementById('pagRate').innerText = data.rate;
+      document.getElementById('regionPicker').value = regionKey;
+    }
+
+    function cycleRegion() {
+      const keys = Object.keys(regionDataMap);
+      const current = document.getElementById('regionPicker').value;
+      const nextIdx = (keys.indexOf(current) + 1) % keys.length;
+      changeRegion(keys[nextIdx]);
+    }
+
+    function setViewport(mode) {
+      const wrapper = document.getElementById('slideWrapper');
+      const btnDesk = document.getElementById('btnDesktop');
+      const btnMob = document.getElementById('btnMobile');
+
+      if (mode === 'mobile') {
+        wrapper.classList.add('mobile-viewport');
+        btnMob.classList.add('active');
+        btnDesk.classList.remove('active');
+      } else {
+        wrapper.classList.remove('mobile-viewport');
+        btnDesk.classList.add('active');
+        btnMob.classList.remove('active');
+      }
+    }
+
+    function copyToken(text, label) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('¡' + label + ' (' + text + ') copiado!');
+      }).catch(() => {
+        showToast('Token: ' + text);
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toastMsg');
+      toast.innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    function showStateDemo(state) {
+      const box = document.getElementById('stateDemoBox');
+      const buttons = document.querySelectorAll('[id^="stBtn-"]');
+      buttons.forEach(b => b.classList.remove('active'));
+      const activeBtn = document.getElementById('stBtn-' + state);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      if (state === 'success') {
+        box.style.background = '#F0FDF4';
+        box.style.borderColor = '#86EFAC';
+        box.innerHTML = '<h4 style="color: #166534; font-size: 12px; font-weight: 800; margin-bottom: 4px;">✓ Estado: Éxito / Datos Disponibles</h4><p style="font-size: 11px; color: #14532D; line-height: 1.5;">Los datos del boletín se descargaron correctamente. Tasa regional disponible.</p>';
+      } else if (state === 'loading') {
+        box.style.background = '#F5F5F7';
+        box.style.borderColor = '#E5E5E5';
+        box.innerHTML = '<h4 style="color: #0A0A0A; font-size: 12px; font-weight: 800; margin-bottom: 4px;">⏳ Estado: Cargando datos (Skeleton)...</h4><p style="font-size: 11px; color: #525252; line-height: 1.5;">Consultando /api/regiones con indicador aria-live para lectores de pantalla.</p>';
+      } else if (state === 'empty') {
+        box.style.background = '#FAFAFA';
+        box.style.borderColor = '#A1A1AA';
+        box.innerHTML = '<h4 style="color: #0A0A0A; font-size: 12px; font-weight: 800; margin-bottom: 4px;">📭 Estado: Vacío / Sin Resultados</h4><p style="font-size: 11px; color: #525252; line-height: 1.5;">No hay registros para la búsqueda. Restablece el filtro.</p>';
+      } else if (state === 'error') {
+        box.style.background = '#FEF2F2';
+        box.style.borderColor = '#FCA5A5';
+        box.innerHTML = '<h4 style="color: #991B1B; font-size: 12px; font-weight: 800; margin-bottom: 4px;">⚠ Estado: Error de Conexión</h4><p style="font-size: 11px; color: #7F1D1D; line-height: 1.5;">Fallo de red al conectar con el INE. Botón de reintento accesible activo.</p>';
+      } else if (state === 'noconsta') {
+        box.style.background = '#FFFBEB';
+        box.style.borderColor = '#FCD34D';
+        box.innerHTML = '<h4 style="color: #92400E; font-size: 12px; font-weight: 800; margin-bottom: 4px;">ℹ Estado: No Consta en este Boletín</h4><p style="font-size: 11px; color: #78350F; line-height: 1.5;">La ENE mide ocupación e informalidad. Para IPC o inflación consulta el boletín de precios.</p>';
+      }
+    }
+
+    function openModal() {
+      document.getElementById('zoomModal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('zoomModal').classList.remove('active');
+    }
+
+    function openIndexModal() {
+      document.getElementById('indexModal').classList.add('active');
+    }
+
+    function closeIndexModal() {
+      document.getElementById('indexModal').classList.remove('active');
+    }
+
+    // Navegación por gestos táctiles (Swipe)
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    document.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) nextSlide();
+        else prevSlide();
+      }
+    }
+
+    // Navegación por teclado
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+      else if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    // Iniciar con la etapa 0 en móvil
+    setMobileStage(0);
+  </script>
+</body>
 </html>
