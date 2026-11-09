@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-  <title>Presentación: Sistema de Diseño Accesible para Boletines INE</title>
-  <meta name="description" content="Presentación interactiva en diapositivas del Sistema de Diseño Accesible para Boletines del Instituto Nacional de Estadísticas de Chile (INE). Metodología Atomic Design.">
+  <title>Design System | Boletines INE (Referencia Poptaim)</title>
+  <meta name="description" content="Sistema de Diseño Accesible para Boletines del Instituto Nacional de Estadísticas de Chile (INE). Metodología Atomic Design y arquitectura editorial de referencia Poptaim.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -15,8 +15,10 @@
       --color-tinta: #0A0A0A;
       --color-papel-1: #FFFFFF;
       --color-papel-2: #F5F5F7;
-      --color-papel-3: #EAEAEA;
-      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --color-papel-3: #E5E5E5;
+      --color-muted: #525252;
+      --color-border: #0A0A0A;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     }
 
     * {
@@ -28,1359 +30,1059 @@
     body {
       background-color: var(--color-papel-2);
       color: var(--color-tinta);
+      font-family: var(--font-sans);
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 8px;
+      padding: 12px;
       -webkit-font-smoothing: antialiased;
-      padding-bottom: 74px; /* Espacio para barra de navegación inferior móvil */
+      line-height: 1.5;
     }
 
-    @media (min-width: 640px) {
+    @media (min-width: 768px) {
       body {
-        padding: 16px;
-        padding-bottom: 24px;
-      }
-    }
-
-    /* Contenedor principal de la presentación */
-    .slide-wrapper {
-      max-width: 1024px;
-      width: 100%;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      flex: 1;
-      transition: max-width 0.3s ease;
-    }
-
-    /* Modo celular en escritorio (solo se aplica en pantallas grandes para simular celular) */
-    @media (min-width: 641px) {
-      .slide-wrapper.mobile-viewport {
-        max-width: 410px;
-        border: 4px solid #262626;
-        border-radius: 40px;
-        padding: 14px;
-        background: #0A0A0A;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        margin: 10px auto;
-      }
-
-      .slide-wrapper.mobile-viewport .mobile-notch {
-        display: block;
-      }
-    }
-
-    /* En celulares reales, el modo móvil se ajusta al 100% sin marcos estorbosos */
-    @media (max-width: 640px) {
-      .slide-wrapper.mobile-viewport {
-        max-width: 100%;
-        border: none;
-        padding: 0;
-        background: transparent;
-        box-shadow: none;
-      }
-    }
-
-    .mobile-notch {
-      display: none;
-      width: 80px;
-      height: 8px;
-      background: #333;
-      border-radius: 10px;
-      margin: 0 auto 10px;
-    }
-
-    /* Barra Superior */
-    .top-bar {
-      background: var(--color-papel-1);
-      border: 2px solid var(--color-tinta);
-      border-radius: 16px;
-      padding: 8px 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
-    .brand-group {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .brand-logo {
-      background: var(--color-accent-690);
-      color: #fff;
-      font-weight: 900;
-      font-size: 12px;
-      padding: 4px 8px;
-      border-radius: 8px;
-    }
-
-    .brand-titles h1 {
-      font-size: 13px;
-      font-weight: 900;
-      line-height: 1.2;
-    }
-
-    .brand-titles p {
-      font-size: 10px;
-      color: #525252;
-      font-weight: 600;
-    }
-
-    /* Cinta de herramientas rápida */
-    .tools-ribbon {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-      background: #fff;
-      border: 2px solid var(--color-tinta);
-      border-radius: 14px;
-      padding: 6px 10px;
-      font-size: 11px;
-      font-weight: 700;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-
-    .tools-group {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-shrink: 0;
-    }
-
-    .tool-btn {
-      background: var(--color-papel-2);
-      border: 1px solid var(--color-tinta);
-      padding: 6px 10px;
-      border-radius: 8px;
-      font-size: 11px;
-      font-weight: 800;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      min-height: 38px;
-      touch-action: manipulation;
-    }
-
-    .tool-btn.active {
-      background: var(--color-accent-690);
-      color: #fff;
-      border-color: var(--color-accent-690);
-    }
-
-    /* Tokens clickeables */
-    .token-chip {
-      padding: 6px 10px;
-      border-radius: 6px;
-      font-size: 10px;
-      font-weight: 800;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      border: 1px solid rgba(0,0,0,0.15);
-      transition: transform 0.1s ease;
-      min-height: 32px;
-      touch-action: manipulation;
-    }
-
-    /* Píldoras de navegación de diapositivas */
-    .slide-indicators {
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      padding-bottom: 4px;
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .indicator-btn {
-      background: #fff;
-      border: 1px solid var(--color-tinta);
-      color: #525252;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 6px 12px;
-      border-radius: 20px;
-      white-space: nowrap;
-      cursor: pointer;
-      min-height: 36px;
-      touch-action: manipulation;
-      transition: all 0.15s ease;
-    }
-
-    .indicator-btn.active {
-      background: var(--color-accent-690);
-      color: #fff;
-      border-color: var(--color-accent-690);
-      transform: scale(1.03);
-    }
-
-    /* Tarjeta de la Diapositiva */
-    .slide-card {
-      background: var(--color-papel-1);
-      border: 2px solid var(--color-tinta);
-      border-radius: 20px;
-      padding: 16px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 460px;
-      position: relative;
-    }
-
-    @media (min-width: 640px) {
-      .slide-card {
-        border-width: 3px;
-        border-radius: 28px;
         padding: 24px;
       }
     }
 
-    .slide-content {
-      display: none;
-      animation: fadeIn 0.2s ease-in-out;
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
-    .slide-content.active {
+    /* Masthead institucional */
+    .masthead {
+      background: var(--color-papel-1);
+      border: 2px solid var(--color-border);
+      border-radius: 16px;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .masthead-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-badge {
+      background: var(--color-accent-690);
+      color: #fff;
+      font-weight: 900;
+      font-size: 13px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-title {
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-subtitle {
+      font-size: 11px;
+      color: var(--color-muted);
+      font-weight: 600;
       display: block;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(3px); }
-      to { opacity: 1; transform: translateY(0); }
+    .masthead-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .slide-header {
-      border-bottom: 2px solid var(--color-tinta);
-      padding-bottom: 10px;
+    .btn-action {
+      background: var(--color-papel-2);
+      border: 1.5px solid var(--color-border);
+      color: var(--color-tinta);
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      min-height: 36px;
+      text-decoration: none;
+    }
+
+    .btn-action:hover {
+      background: var(--color-border);
+      color: #fff;
+    }
+
+    .btn-primary {
+      background: var(--color-accent-690);
+      color: #fff;
+      border-color: var(--color-accent-690);
+    }
+
+    .btn-primary:hover {
+      background: var(--color-accent-hover);
+      border-color: var(--color-accent-hover);
+    }
+
+    /* Cartelera Clara / Hero (Poptaim Reference) */
+    .hero-cartelera {
+      background: var(--color-tinta);
+      color: #FFFFFF;
+      border: 3px solid var(--color-accent-690);
+      border-radius: 24px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+      .hero-cartelera {
+        padding: 40px;
+        border-width: 4px;
+      }
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .badge-code {
+      background: var(--color-accent-690);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-subcode {
+      font-size: 11px;
+      color: #A1A1AA;
+      font-weight: 600;
+    }
+
+    .hero-title {
+      font-size: 26px;
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
       margin-bottom: 12px;
     }
 
-    .slide-badge {
-      display: inline-block;
-      background: var(--color-papel-2);
-      border: 1px solid var(--color-tinta);
-      font-size: 10px;
-      font-weight: 800;
-      padding: 3px 8px;
-      border-radius: 10px;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-
-    .slide-title {
-      font-size: 20px;
-      font-weight: 900;
-      letter-spacing: -0.5px;
-      line-height: 1.2;
-    }
-
-    @media (min-width: 640px) {
-      .slide-title {
-        font-size: 28px;
-      }
-    }
-
-    .slide-subtitle {
-      font-size: 11px;
-      color: #525252;
-      font-weight: 600;
-      margin-top: 3px;
-    }
-
-    /* Grid interactivo del Atomic Design */
-    .atomic-interactive-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      margin: 12px 0;
-    }
-
     @media (min-width: 768px) {
-      .atomic-interactive-grid {
-        grid-template-columns: repeat(5, 1fr);
+      .hero-title {
+        font-size: 42px;
       }
     }
 
-    .atomic-col {
-      background: #1A1A1A;
-      color: #fff;
-      border: 2px solid #333;
-      border-radius: 14px;
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 10px;
-      transition: border-color 0.15s ease;
-    }
-
-    .atomic-col h4 {
-      font-size: 11px;
-      font-weight: 900;
-      color: var(--color-accent-690);
-      text-transform: uppercase;
-    }
-
-    .atomic-col p {
-      font-size: 10px;
-      color: #A1A1AA;
-    }
-
-    /* Navegador por Etapas en Celular */
-    .mobile-stage-bar {
-      display: flex;
-      gap: 4px;
-      overflow-x: auto;
-      padding-bottom: 6px;
-      margin-bottom: 8px;
-      scrollbar-width: none;
-    }
-
-    @media (min-width: 768px) {
-      .mobile-stage-bar,
-      .mobile-stage-nav {
-        display: none !important;
-      }
-    }
-
-    .mobile-stage-btn {
-      padding: 6px 10px;
-      background: #1F1F1F;
-      color: #A1A1AA;
-      border: 1px solid #333;
-      border-radius: 8px;
-      font-size: 10px;
-      font-weight: 800;
-      white-space: nowrap;
-      cursor: pointer;
-      min-height: 38px;
-    }
-
-    .mobile-stage-btn.active {
-      background: var(--color-accent-690);
-      color: #fff;
-      border-color: var(--color-accent-690);
-    }
-
-    .mobile-stage-nav {
-      display: flex;
-      gap: 8px;
-      margin-top: 8px;
-      align-items: center;
-    }
-
-    .mobile-stage-nav button {
-      flex: 1;
-      padding: 10px;
-      border-radius: 10px;
-      font-size: 11px;
-      font-weight: 800;
-      cursor: pointer;
-      border: 1px solid #333;
-      min-height: 44px;
-    }
-
-    /* Grids informativos */
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    @media (min-width: 640px) {
-      .grid-2 {
-        grid-template-columns: 1fr 1fr;
-        gap: 14px;
-      }
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    @media (min-width: 640px) {
-      .grid-3 {
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 14px;
-      }
-    }
-
-    .info-card {
-      background: var(--color-papel-2);
-      border: 2px solid var(--color-tinta);
-      border-radius: 14px;
-      padding: 12px;
-    }
-
-    @media (min-width: 640px) {
-      .info-card {
-        padding: 16px;
-      }
-    }
-
-    .info-card h4 {
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 4px;
-      color: var(--color-accent-690);
-    }
-
-    .info-card p {
-      font-size: 11px;
-      line-height: 1.5;
-      color: #262626;
+    .hero-desc {
+      font-size: 13px;
+      color: #D4D4D8;
+      max-width: 720px;
+      line-height: 1.6;
       font-weight: 500;
     }
 
-    .big-number {
-      font-size: 40px;
-      font-weight: 900;
-      line-height: 1;
-      letter-spacing: -1px;
-      font-variant-numeric: tabular-nums;
-    }
-
-    @media (min-width: 640px) {
-      .big-number {
-        font-size: 52px;
+    @media (min-width: 768px) {
+      .hero-desc {
+        font-size: 16px;
       }
     }
 
-    /* Barra Inferior de Navegación (Escritorio) */
-    .bottom-bar {
+    .hero-stats {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid #262626;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-top: 2px solid var(--color-tinta);
-      padding-top: 12px;
-      margin-top: 12px;
-      gap: 8px;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #A1A1AA;
     }
 
-    .nav-btn {
-      background: var(--color-tinta);
-      color: #fff;
-      border: none;
-      font-size: 12px;
-      font-weight: 800;
-      padding: 10px 16px;
-      border-radius: 12px;
-      cursor: pointer;
+    .stat-item {
       display: flex;
       align-items: center;
       gap: 6px;
-      min-height: 44px;
-      min-width: 90px;
-      justify-content: center;
-      touch-action: manipulation;
+      color: #fff;
     }
 
-    .nav-btn.primary {
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
       background: var(--color-accent-690);
     }
 
-    .nav-btn.secondary {
-      background: #fff;
-      color: var(--color-tinta);
-      border: 2px solid var(--color-tinta);
-    }
-
-    .nav-btn:disabled {
-      opacity: 0.35;
-      cursor: not-allowed;
-    }
-
-    .slide-counter {
-      font-size: 11px;
-      font-weight: 800;
-      color: #525252;
-      text-align: center;
-    }
-
-    /* BARRA INFERIOR FIJA PARA CELULARES (Thumb-zone) */
-    .mobile-thumb-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 90;
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-top: 2px solid var(--color-tinta);
-      padding: 8px 12px;
+    /* Pestañas de Navegación */
+    .nav-tabs {
+      background: var(--color-papel-1);
+      border: 2px solid var(--color-border);
+      border-radius: 16px;
+      padding: 6px;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 -4px 16px rgba(0,0,0,0.1);
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
     }
 
-    @media (min-width: 641px) {
-      .mobile-thumb-bar {
-        display: none;
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--color-tinta);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 8px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      min-height: 38px;
+    }
+
+    .tab-btn:hover {
+      background: var(--color-papel-2);
+    }
+
+    .tab-btn.active {
+      background: var(--color-accent-690);
+      color: #fff;
+    }
+
+    /* Tarjetas de Áreas del Sistema */
+    .grid-areas {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    @media (min-width: 768px) {
+      .grid-areas {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
-    .mobile-thumb-btn {
-      padding: 10px 16px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 900;
-      cursor: pointer;
-      border: 2px solid var(--color-tinta);
-      min-height: 44px;
+    .area-card {
+      background: var(--color-papel-1);
+      border: 2px solid var(--color-border);
+      border-radius: 16px;
+      padding: 18px;
       display: flex;
-      align-items: center;
-      gap: 4px;
-      touch-action: manipulation;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      transition: all 0.15s ease;
+      cursor: pointer;
     }
 
-    .mobile-thumb-btn.primary {
+    .area-card:hover {
+      border-color: var(--color-accent-690);
+      box-shadow: 0 4px 12px rgba(240, 78, 35, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .area-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .area-code {
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--color-accent-690);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .area-title {
+      font-size: 16px;
+      font-weight: 900;
+      margin: 4px 0;
+    }
+
+    .area-desc {
+      font-size: 12px;
+      color: var(--color-muted);
+      line-height: 1.5;
+    }
+
+    .area-footer {
+      border-top: 1px solid var(--color-papel-3);
+      padding-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-muted);
+    }
+
+    /* Tablas Técnicas (Estilo Poptaim) */
+    .table-container {
+      background: var(--color-papel-1);
+      border: 2px solid var(--color-border);
+      border-radius: 18px;
+      overflow-x: auto;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 12px;
+    }
+
+    th {
+      background: var(--color-tinta);
+      color: #fff;
+      font-weight: 900;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 12px 14px;
+    }
+
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--color-papel-3);
+      vertical-align: top;
+    }
+
+    tr:hover td {
+      background: #FFF8F5;
+    }
+
+    .tag-family {
+      background: var(--color-papel-2);
+      border: 1px solid var(--color-border);
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: 10px;
+    }
+
+    .text-positive {
+      color: #166534;
+      font-weight: 600;
+    }
+
+    .text-negative {
+      color: #991B1B;
+      font-weight: 600;
+    }
+
+    /* Decálogo: Lo que no se negocia */
+    .grid-rules {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .grid-rules {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .rule-card {
+      background: var(--color-papel-1);
+      border: 2px solid var(--color-border);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .rule-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
       background: var(--color-accent-690);
       color: #fff;
-      border-color: var(--color-accent-690);
+      font-weight: 900;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
     }
 
-    .mobile-thumb-btn.secondary {
-      background: #fff;
+    .rule-title {
+      font-size: 14px;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+
+    .rule-desc {
+      font-size: 12px;
+      color: var(--color-muted);
+      line-height: 1.45;
+    }
+
+    /* Sandbox y Ficha interactiva */
+    .sandbox-panel {
+      background: var(--color-papel-1);
+      border: 2px solid var(--color-border);
+      border-radius: 18px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .region-select {
+      background: var(--color-papel-2);
+      border: 2px solid var(--color-border);
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .stat-hero {
+      font-size: 48px;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
       color: var(--color-tinta);
+      line-height: 1;
     }
 
-    .mobile-thumb-btn:disabled {
-      opacity: 0.35;
-      cursor: not-allowed;
+    .pp-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #FFF0EB;
+      color: #C2330D;
+      border: 1px solid #FFB899;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 14px;
+      background: var(--color-papel-3);
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 6px 0 14px;
+      border: 1px solid var(--color-border);
+    }
+
+    .progress-fill-accent {
+      height: 100%;
+      background: var(--color-accent-690);
+    }
+
+    .progress-fill-benchmark {
+      height: 100%;
+      background: #737373;
     }
 
     /* Toast */
-    .toast-msg {
+    .toast {
       position: fixed;
-      bottom: 74px;
-      right: 16px;
-      background: #0A0A0A;
+      bottom: 20px;
+      right: 20px;
+      background: var(--color-tinta);
       color: #fff;
       border: 2px solid var(--color-accent-690);
-      padding: 8px 14px;
-      border-radius: 10px;
-      font-size: 11px;
-      font-weight: 700;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 800;
       display: none;
       z-index: 1000;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
     }
 
-    .toast-msg.show {
+    .toast.show {
       display: block;
-      animation: fadeIn 0.2s ease-in;
+      animation: fadeIn 0.2s ease;
     }
 
-    /* Modal */
-    .modal-overlay, .index-drawer {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.85);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      padding: 12px;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .modal-overlay.active, .index-drawer.active {
+    footer {
+      border-top: 2px solid var(--color-border);
+      padding-top: 20px;
+      margin-top: 20px;
       display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 11px;
+      color: var(--color-muted);
+      text-align: center;
     }
 
-    .modal-content, .index-box {
-      background: #fff;
-      border: 3px solid var(--color-tinta);
-      border-radius: 18px;
-      max-width: 500px;
-      width: 100%;
-      padding: 18px;
-      max-height: 85vh;
-      overflow-y: auto;
-    }
-
-    .index-item {
-      display: block;
-      width: 100%;
-      text-align: left;
-      background: var(--color-papel-2);
-      border: 1px solid #E5E5E5;
-      padding: 12px 14px;
-      border-radius: 10px;
-      font-size: 12px;
-      font-weight: 700;
-      margin-bottom: 6px;
-      cursor: pointer;
-      min-height: 44px;
-    }
-
-    .index-item:hover, .index-item:active {
-      background: var(--color-accent-690);
-      color: #fff;
+    @media (min-width: 768px) {
+      footer {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+      }
     }
   </style>
 </head>
 <body>
-
-  <!-- Toast de copia de token -->
-  <div class="toast-msg" id="toastMsg">¡Token copiado!</div>
-
-  <div class="slide-wrapper" id="slideWrapper">
-    <!-- Barra Superior Compacta -->
-    <header class="top-bar">
-      <div class="brand-group">
-        <div class="brand-logo">INE</div>
-        <div class="brand-titles">
-          <h1>Observatorio Laboral</h1>
-          <p>Atomic Design · Boletines</p>
+  <div class="container">
+    <!-- Masthead Institucional -->
+    <header class="masthead">
+      <div class="masthead-brand">
+        <span class="brand-badge">INE</span>
+        <div>
+          <span class="brand-title">Sistema de Diseño Accesible</span>
+          <span class="brand-subtitle">Boletín ENE · Metodología Atomic Design</span>
         </div>
       </div>
-      <div class="slide-counter" id="topSlideCounter">
-        Diapositiva <strong>1</strong> de 7
+
+      <div class="masthead-actions">
+        <button type="button" class="btn-action" onclick="toggleReducedMotion()" id="btnMotion">
+          ⚡ Reducir movimiento
+        </button>
+        <button type="button" class="btn-action btn-primary" onclick="copyGithubSnippet()">
+          📋 Copiar Código HTML
+        </button>
+        <a href="/presentacion-ine.html" class="btn-action">
+          Diapositivas ENE
+        </a>
       </div>
     </header>
 
-    <!-- Cinta de Herramientas: Índice, Región, Viewport y Tokens -->
-    <div class="tools-ribbon">
-      <div class="tools-group">
-        <button class="tool-btn" onclick="openIndexModal()">📋 Índice</button>
-
-        <span>Región:</span>
-        <select id="regionPicker" onchange="changeRegion(this.value)" style="border: 1px solid var(--color-tinta); border-radius: 6px; font-weight: 800; padding: 4px 6px; font-size: 11px; min-height: 36px;">
-          <option value="nuble" selected>Ñuble (11,2%)</option>
-          <option value="metropolitana">Metropolitana (8,9%)</option>
-          <option value="biobio">Biobío (9,1%)</option>
-          <option value="araucania">Araucanía (10,3%)</option>
-          <option value="magallanes">Magallanes (5,8%)</option>
-          <option value="tarapaca">Tarapacá (8,4%)</option>
-        </select>
+    <!-- Cartelera Clara (Hero Poptaim Reference) -->
+    <section class="hero-cartelera">
+      <div class="hero-eyebrow">
+        <span class="badge-code">Design System · Índice · P3.16</span>
+        <span class="badge-subcode">Arquitectura de Referencia Poptaim adaptada al INE</span>
       </div>
 
-      <div class="tools-group">
-        <button class="tool-btn active" id="btnDesktop" onclick="setViewport('desktop')">💻 Escritorio</button>
-        <button class="tool-btn" id="btnMobile" onclick="setViewport('mobile')">📱 390px</button>
+      <h1 class="hero-title">El sistema del INE: Boletines Claros y Accesibles</h1>
+      <p class="hero-desc">
+        Papel, tinta y un solo naranjo intenso (#F04E23); sans-serif accesible para las cifras y textos que se leen y se tocan. Cada área tiene su página viva con variantes, estados forzados y su contrato de accesibilidad.
+      </p>
+
+      <div class="hero-stats">
+        <span class="stat-item"><span class="dot"></span> 10 Secciones Atómicas</span>
+        <span>·</span>
+        <span class="stat-item">5 Familias de Tokens</span>
+        <span>·</span>
+        <span class="stat-item">16 Regiones de Chile</span>
+        <span>·</span>
+        <span class="stat-item">WCAG 2.1 AA / AAA</span>
       </div>
-    </div>
+    </section>
 
-    <!-- Tira de Tokens con Copia con 1 Clic -->
-    <div style="display: flex; gap: 6px; overflow-x: auto; padding: 2px 0; font-size: 10px; font-weight: 700; align-items: center; scrollbar-width: none;">
-      <span style="color: #525252; white-space: nowrap;">Tokens:</span>
-      <button class="token-chip" style="background: #F04E23; color: #fff;" onclick="copyToken('#F04E23', 'Acento 690')">#F04E23</button>
-      <button class="token-chip" style="background: #0A0A0A; color: #fff;" onclick="copyToken('#0A0A0A', 'Tinta')">#0A0A0A</button>
-      <button class="token-chip" style="background: #fff; color: #000;" onclick="copyToken('#FFFFFF', 'Papel')">#FFFFFF</button>
-      <button class="token-chip" style="background: #F5F5F7; color: #000;" onclick="copyToken('Plus Jakarta Sans', 'Tipografía Sans-serif')">Plus Jakarta Sans</button>
-    </div>
-
-    <!-- Píldoras de Navegación Rápida -->
-    <nav class="slide-indicators" aria-label="Selector de diapositivas">
-      <button class="indicator-btn active" onclick="goToSlide(0)">1. Portada</button>
-      <button class="indicator-btn" onclick="goToSlide(1)">2. Átomos</button>
-      <button class="indicator-btn" onclick="goToSlide(2)">3. Moléculas</button>
-      <button class="indicator-btn" onclick="goToSlide(3)">4. Organismos</button>
-      <button class="indicator-btn" onclick="goToSlide(4)">5. Plantillas</button>
-      <button class="indicator-btn" onclick="goToSlide(5)">6. Páginas</button>
-      <button class="indicator-btn" onclick="goToSlide(6)">7. Estados</button>
+    <!-- Pestañas de Navegación -->
+    <nav class="nav-tabs" role="tablist">
+      <button class="tab-btn active" onclick="switchTab('indice')" id="tabBtn-indice">
+        Índice de Áreas (10 Secciones)
+      </button>
+      <button class="tab-btn" onclick="switchTab('componentes')" id="tabBtn-componentes">
+        Componentes: úsalo para, no lo uses para
+      </button>
+      <button class="tab-btn" onclick="switchTab('tokens')" id="tabBtn-tokens">
+        Tokens por familia
+      </button>
+      <button class="tab-btn" onclick="switchTab('reglas')" id="tabBtn-reglas">
+        Lo que no se negocia
+      </button>
+      <button class="tab-btn" onclick="switchTab('sandbox')" id="tabBtn-sandbox">
+        Sandbox Interactivo
+      </button>
     </nav>
 
-    <!-- Tarjeta de la Diapositiva -->
-    <main class="slide-card" id="slideCard">
-
-      <!-- SLIDE 1: PORTADA CON BANNER INTERACTIVO MEJORADO -->
-      <section class="slide-content active" id="slide-0">
-        <div class="slide-header">
-          <span class="slide-badge">Metodología Atomic Design</span>
-          <h2 class="slide-title">Sistema de Diseño Accesible para Boletines INE</h2>
-          <p class="slide-subtitle">Traducción de la Encuesta Nacional de Empleo (ENE) en lenguaje claro y alto contraste</p>
+    <!-- VISTA 1: ÍNDICE DE ÁREAS -->
+    <section id="view-indice" class="grid-areas">
+      <div class="area-card" onclick="openArea(1)">
+        <div class="area-top">
+          <span class="area-code">P1.1 · El Producto</span>
+          <span>→</span>
         </div>
-
-        <!-- Selector de Etapas en Celular -->
-        <div class="mobile-stage-bar">
-          <button class="mobile-stage-btn active" onclick="setMobileStage(0)">1. Átomos</button>
-          <button class="mobile-stage-btn" onclick="setMobileStage(1)">2. Moléculas</button>
-          <button class="mobile-stage-btn" onclick="setMobileStage(2)">3. Organismos</button>
-          <button class="mobile-stage-btn" onclick="setMobileStage(3)">4. Plantillas</button>
-          <button class="mobile-stage-btn" onclick="setMobileStage(4)">5. Páginas</button>
+        <div>
+          <h3 class="area-title">1. El Producto</h3>
+          <p class="area-desc">Plataforma que consume GET /api/regiones y POST /api/preguntar para traducir datos complejos a lenguaje ciudadano.</p>
         </div>
-
-        <!-- Banner Interactivo Recreando las 5 Columnas -->
-        <div class="atomic-interactive-grid" id="atomicGrid">
-          <!-- Col 1: Átomos -->
-          <div class="atomic-col" id="col-stage-0">
-            <div>
-              <h4>1. ÁTOMOS</h4>
-              <p>piezas mínimas</p>
-              <div style="margin: 8px 0; display: flex; gap: 4px;">
-                <span class="token-chip" style="background: #F04E23; color:#fff;" onclick="copyToken('#F04E23', 'Acento 690')">690</span>
-                <span class="token-chip" style="background: #000; color:#fff;" onclick="copyToken('#0A0A0A', 'Tinta')">tinta</span>
-                <span class="token-chip" style="background: #F5F5F7; color:#000;" onclick="copyToken('#F5F5F7', 'Papel 2')">papel 2</span>
-              </div>
-              <div class="big-number" style="font-size: 32px;" id="bannerRate1">11,2%</div>
-              <p style="font-size: 10px;">Sans-serif legible</p>
-            </div>
-            <button style="background: #F04E23; color:#fff; border:none; padding: 10px; border-radius: 10px; font-weight:800; font-size:11px; cursor:pointer; min-height:42px;" onclick="cycleRegion()">Cambiar región</button>
-          </div>
-
-          <!-- Col 2: Moléculas -->
-          <div class="atomic-col" id="col-stage-1" style="background: #222;">
-            <div>
-              <h4>2. MOLÉCULAS</h4>
-              <p>átomos juntos</p>
-              <div style="background: #fff; color: #000; padding: 10px; border-radius: 10px; text-align: center; margin: 8px 0;">
-                <span style="font-size: 11px; font-weight: 800;" id="bannerRegion2">Ñuble</span>
-                <div style="font-size: 28px; font-weight: 900;" id="bannerRate2">11,2%</div>
-                <span style="color: #F04E23; font-weight: 800; font-size: 11px;" id="bannerVar2">+1,1 pp en un año</span>
-              </div>
-            </div>
-            <p style="font-size: 10px; color: #ccc;">Leyenda monocromática 6% a 12%+</p>
-          </div>
-
-          <!-- Col 3: Organismos -->
-          <div class="atomic-col" id="col-stage-2">
-            <div>
-              <h4>3. ORGANISMOS</h4>
-              <p>secciones</p>
-              <div style="background: #fff; color: #000; padding: 8px; border-radius: 10px; margin: 8px 0; font-size: 11px;">
-                <div style="display: flex; justify-content: space-between; font-weight: 800;">
-                  <span id="bannerRegion3">Ñuble</span>
-                  <span id="bannerRate3">11,2%</span>
-                </div>
-                <div style="height: 8px; background: #F04E23; border-radius: 4px; margin: 6px 0;"></div>
-                <div style="height: 8px; background: #737373; border-radius: 4px;"></div>
-              </div>
-            </div>
-            <p style="font-size: 10px; text-align: center;">16 regiones de Chile</p>
-          </div>
-
-          <!-- Col 4: Plantillas -->
-          <div class="atomic-col" id="col-stage-3" style="text-align: center;">
-            <div>
-              <h4>4. PLANTILLAS</h4>
-              <p>esqueleto móvil</p>
-              <div style="background: #000; border: 1px solid #444; border-radius: 12px; padding: 8px; margin: 8px 0; display: flex; flex-direction: column; gap: 6px;">
-                <div style="background: #D4D4D8; color: #000; font-size: 9px; font-weight: 800; padding: 6px; border-radius: 6px;">cabecera</div>
-                <div style="background: #D4D4D8; color: #000; font-size: 9px; font-weight: 800; padding: 16px 6px; border-radius: 6px;">ficha de tu región</div>
-                <div style="background: #D4D4D8; color: #000; font-size: 9px; font-weight: 800; padding: 20px 6px; border-radius: 6px;">mapa</div>
-              </div>
-            </div>
-            <p style="font-size: 10px;">estructura de pantalla</p>
-          </div>
-
-          <!-- Col 5: Páginas -->
-          <div class="atomic-col" id="col-stage-4" style="border-color: #F04E23; text-align: center;">
-            <div>
-              <h4 style="color: #fff;">5. PÁGINAS</h4>
-              <p style="color: #F04E23;">el producto vivo</p>
-              <div style="background: #fff; color: #000; border-radius: 12px; padding: 8px; margin: 8px 0;">
-                <span style="font-size: 9px; font-weight: 800;" id="bannerRegion5">Tu región: Ñuble</span>
-                <div style="font-size: 24px; font-weight: 900;" id="bannerRate5">11,2%</div>
-                <span style="font-size: 9px; color: #F04E23; font-weight: 800;">+1,1 pp país 9,6%</span>
-              </div>
-            </div>
-            <p style="font-size: 10px; color: #fff;">datos de /regiones</p>
-          </div>
+        <div class="area-footer">
+          <span>Doc producto.md</span>
+          <span>API viva</span>
         </div>
-
-        <!-- Controles de Etapa en Móvil -->
-        <div class="mobile-stage-nav">
-          <button style="background: #1F1F1F; color: #fff;" onclick="prevMobileStage()">← Etapa anterior</button>
-          <button style="background: #F04E23; color: #fff;" onclick="nextMobileStage()">Siguiente etapa →</button>
-        </div>
-
-        <!-- Botón para ver imagen original -->
-        <div style="text-align: center; margin-top: 8px;">
-          <button onclick="openModal()" class="tool-btn" style="background: #FFF0EB; border-color: #F04E23; color: #F04E23; min-height: 40px;">
-            🔍 Ver la infografía original en alta resolución
-          </button>
-        </div>
-      </section>
-
-      <!-- SLIDE 2: ÁTOMOS -->
-      <section class="slide-content" id="slide-1">
-        <div class="slide-header">
-          <span class="slide-badge">Columna 1</span>
-          <h2 class="slide-title">Átomos: Las Piezas Mínimas</h2>
-          <p class="slide-subtitle">Tokens, colores, tipografía sans-serif y elementos de interfaz básicos</p>
-        </div>
-
-        <div class="grid-2">
-          <div class="info-card">
-            <h4>Tokens de Color (Alto Contraste)</h4>
-            <p>Toca cualquier ficha para copiar su valor:</p>
-            <div style="display: flex; gap: 6px; margin: 10px 0;">
-              <div class="token-chip" style="flex: 1; background: #F04E23; color: #fff; padding: 12px 6px; border-radius: 10px; text-align: center;" onclick="copyToken('#F04E23', 'Acento 690')">
-                acento 690<br><span style="font-size: 10px; opacity: 0.9;">#F04E23</span>
-              </div>
-              <div class="token-chip" style="flex: 1; background: #0A0A0A; color: #fff; padding: 12px 6px; border-radius: 10px; text-align: center;" onclick="copyToken('#0A0A0A', 'Tinta')">
-                tinta<br><span style="font-size: 10px; opacity: 0.9;">#0A0A0A</span>
-              </div>
-              <div class="token-chip" style="flex: 1; background: #fff; color: #0A0A0A; border: 2px solid #0A0A0A; padding: 12px 6px; border-radius: 10px; text-align: center;" onclick="copyToken('#F5F5F7', 'Papel 2')">
-                papel 2<br><span style="font-size: 10px; color: #525252;">#F5F5F7</span>
-              </div>
-            </div>
-            <p>Cumple con el estándar de accesibilidad WCAG 2.1 AA/AAA con ratio superior a 5.0:1.</p>
-          </div>
-
-          <div class="info-card">
-            <h4>Tipografía Sans-serif Accesible</h4>
-            <div class="big-number" id="atomRate">11,2%</div>
-            <p style="margin-top: 6px;">Sans-serif accesible y legible con números tabulares (<code>tabular-nums</code>) para evitar que los números salten de línea en celular.</p>
-          </div>
-        </div>
-
-        <div class="grid-2" style="margin-top: 10px;">
-          <div class="info-card">
-            <h4>Botón y Etiquetas</h4>
-            <div style="display: flex; gap: 8px; align-items: center; margin-top: 8px; flex-wrap: wrap;">
-              <button style="background: #F04E23; color: #fff; border: none; font-size: 13px; font-weight: 800; padding: 10px 16px; border-radius: 12px; cursor: pointer; min-height: 44px;">Cambiar región</button>
-              <span style="border: 2px solid #0A0A0A; font-size: 12px; font-weight: 800; padding: 6px 12px; border-radius: 16px;">INE · ENE</span>
-            </div>
-          </div>
-          <div class="info-card">
-            <h4>Espaciado Oficial: 4 - 8 - 16 - 24 - 32</h4>
-            <p style="margin-top: 8px; font-weight: 700;">Garantiza zonas táctiles seguras de más de 44px para interacción con el dedo en celular.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 3: MOLÉCULAS -->
-      <section class="slide-content" id="slide-2">
-        <div class="slide-header">
-          <span class="slide-badge">Columna 2</span>
-          <h2 class="slide-title">Moléculas: Átomos que Trabajan Juntos</h2>
-          <p class="slide-subtitle">Fórmula: átomos + átomos = una función con valor informativo</p>
-        </div>
-
-        <div class="grid-3">
-          <div class="info-card" style="text-align: center; border-width: 3px;">
-            <span style="font-size: 11px; font-weight: 800; color: #525252; text-transform: uppercase;">Tarjeta de cifra</span>
-            <h3 style="font-size: 20px; font-weight: 900; margin: 4px 0 2px;" id="molRegion">Ñuble</h3>
-            <div style="font-size: 42px; font-weight: 900; line-height: 1; margin: 4px 0;" id="molRate">11,2%</div>
-            <span style="color: #F04E23; font-weight: 800; font-size: 12px;" id="molVar">+1,1 pp en un año</span>
-            <div style="border-top: 1px solid #E5E5E5; margin-top: 10px; padding-top: 6px; font-size: 10px; color: #525252;">
-              Fuente: INE, ENE Jun-ago
-            </div>
-          </div>
-
-          <div class="info-card">
-            <h4>Selector de región</h4>
-            <div style="background: #fff; border: 2px solid #0A0A0A; border-radius: 12px; padding: 10px; font-weight: 800; display: flex; justify-content: space-between; margin: 8px 0; min-height: 44px; align-items: center;">
-              <span id="molSelectorText">Ñuble</span>
-              <span>▼</span>
-            </div>
-            <p>Permite alternar instantáneamente la región para cualquier persona del país.</p>
-          </div>
-
-          <div class="info-card">
-            <h4>Leyenda del mapa</h4>
-            <div style="display: flex; height: 16px; border-radius: 4px; overflow: hidden; border: 1px solid #0A0A0A; margin: 10px 0 6px;">
-              <div style="flex: 1; background: #FFE5D9;"></div>
-              <div style="flex: 1; background: #FFB899;"></div>
-              <div style="flex: 1; background: #FF8A5C;"></div>
-              <div style="flex: 1; background: #F04E23;"></div>
-              <div style="flex: 1; background: #992600;"></div>
-            </div>
-            <div style="display: flex; justify-content: space-between; font-size: 10px; font-weight: 800;">
-              <span>6%</span>
-              <span style="color: #737373;">país 9,6%</span>
-              <span>12%+</span>
-            </div>
-            <p style="margin-top: 8px;">Escala monocromática en naranjo intenso para personas daltónicas.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 4: ORGANISMOS -->
-      <section class="slide-content" id="slide-3">
-        <div class="slide-header">
-          <span class="slide-badge">Columna 3</span>
-          <h2 class="slide-title">Organismos: Secciones Completas</h2>
-          <p class="slide-subtitle">Ficha comparativa y mapa esquemático de Chile apilado de norte a sur</p>
-        </div>
-
-        <div class="grid-2">
-          <div class="info-card">
-            <h4>Ficha de tu región</h4>
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin: 6px 0 10px;">
-              <h3 style="font-size: 24px; font-weight: 900;" id="orgRegion">Ñuble</h3>
-              <span style="font-size: 28px; font-weight: 900; color: #F04E23;" id="orgRate">11,2%</span>
-            </div>
-
-            <div style="margin: 8px 0;">
-              <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; margin-bottom: 4px;">
-                <span id="orgRegionLabel">Ñuble (Tu región)</span>
-                <span id="orgRateLabel">11,2%</span>
-              </div>
-              <div style="background: #E5E5E5; height: 14px; border-radius: 20px; overflow: hidden; padding: 2px;">
-                <div style="background: #F04E23; height: 100%; border-radius: 20px; width: 75%;" id="orgBar"></div>
-              </div>
-            </div>
-
-            <div style="margin: 8px 0;">
-              <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; margin-bottom: 4px;">
-                <span>país 9.6%</span>
-                <span>9,6%</span>
-              </div>
-              <div style="background: #E5E5E5; height: 14px; border-radius: 20px; overflow: hidden; padding: 2px;">
-                <div style="background: #737373; height: 100%; border-radius: 20px; width: 60%;"></div>
-              </div>
-            </div>
-
-            <div style="margin-top: 10px; font-size: 10px; font-weight: 700; color: #525252; border-top: 1px solid #E5E5E5; padding-top: 6px;">
-              Fuente: INE · Datos comparados frente al promedio nacional.
-            </div>
-          </div>
-
-          <div class="info-card" style="text-align: center;">
-            <h4>Mapa con leyenda (16 Regiones)</h4>
-            <div style="width: 130px; margin: 8px auto; background: #fff; padding: 8px; border-radius: 12px; border: 2px solid #0A0A0A; display: flex; flex-direction: column; gap: 3px;">
-              <div style="height: 8px; background: #FFE5D9; border-radius: 2px;"></div>
-              <div style="height: 8px; background: #FFB899; border-radius: 2px;"></div>
-              <div style="height: 8px; background: #FFB899; border-radius: 2px;"></div>
-              <div style="height: 8px; background: #FF8A5C; border-radius: 2px;"></div>
-              <div style="height: 8px; background: #FF8A5C; border-radius: 2px;"></div>
-              <div style="height: 8px; background: #FFB899; border-radius: 2px;"></div>
-              <div style="height: 8px; background: #FFB899; border-radius: 2px;"></div>
-              <div style="height: 8px; background: #FFB899; border-radius: 2px;"></div>
-              <div style="height: 8px; background: #FFB899; border-radius: 2px;"></div>
-              <div style="height: 12px; background: #F04E23; border: 2px solid #0A0A0A; border-radius: 3px; transform: scale(1.05);"></div>
-              <div style="height: 8px; background: #FF8A5C; border-radius: 2px;"></div>
-              <div style="height: 8px; background: #FF8A5C; border-radius: 2px;"></div>
-              <div style="height: 8px; background: #FFB899; border-radius: 2px;"></div>
-              <div style="height: 8px; background: #FFE5D9; border-radius: 2px;"></div>
-              <div style="height: 8px; background: #FFE5D9; border-radius: 2px;"></div>
-              <div style="height: 8px; background: #FFE5D9; border-radius: 2px;"></div>
-            </div>
-            <p style="font-size: 10px; color: #525252;">Estructura gráfica de norte a sur con región activa.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 5: PLANTILLAS -->
-      <section class="slide-content" id="slide-4">
-        <div class="slide-header">
-          <span class="slide-badge">Columna 4</span>
-          <h2 class="slide-title">Plantillas: El Esqueleto sin Contenido</h2>
-          <p class="slide-subtitle">Arquitectura estructural para pantallas de teléfonos inteligentes</p>
-        </div>
-
-        <div class="grid-2" style="align-items: center;">
-          <div style="display: flex; justify-content: center;">
-            <div style="width: 200px; background: #0A0A0A; border-radius: 32px; padding: 10px; border: 3px solid #333;">
-              <div style="width: 50px; height: 6px; background: #333; border-radius: 10px; margin: 0 auto 8px;"></div>
-              <div style="background: #FAFAFA; border-radius: 20px; padding: 10px; display: flex; flex-direction: column; gap: 6px; text-align: center;">
-                <div style="background: #D4D4D8; padding: 8px; border-radius: 8px; font-size: 10px; font-weight: 800; color: #3F3F46;">cabecera</div>
-                <div style="background: #D4D4D8; padding: 26px 8px; border-radius: 8px; font-size: 10px; font-weight: 800; color: #3F3F46;">ficha de tu región</div>
-                <div style="background: #D4D4D8; padding: 32px 8px; border-radius: 8px; font-size: 10px; font-weight: 800; color: #3F3F46;">mapa</div>
-                <div style="background: #D4D4D8; padding: 8px; border-radius: 8px; font-size: 9px; font-weight: 800; color: #3F3F46;">fuente</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="info-card">
-            <h4>Estructura de la Pantalla Celular</h4>
-            <ul style="padding-left: 18px; font-size: 11px; line-height: 1.8; color: #262626; font-weight: 600;">
-              <li><strong>Cabecera:</strong> Marca INE y selector inmediato de región.</li>
-              <li><strong>Ficha de tu región:</strong> Cifra masiva de desempleo y comparación directa con el país.</li>
-              <li><strong>Mapa:</strong> Resumen territorial con colores monocromáticos.</li>
-              <li><strong>Línea de fuente:</strong> Transparencia obligatoria y uso de IA.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 6: PÁGINAS -->
-      <section class="slide-content" id="slide-5">
-        <div class="slide-header">
-          <span class="slide-badge">Columna 5</span>
-          <h2 class="slide-title">Páginas: La Plantilla con Datos Reales</h2>
-          <p class="slide-subtitle">Lo que ve el lector final al consultar con datos de /api/regiones</p>
-        </div>
-
-        <div class="grid-2" style="align-items: center;">
-          <div style="display: flex; justify-content: center;">
-            <div style="width: 210px; background: #0A0A0A; border-radius: 32px; padding: 10px; border: 3px solid #333;">
-              <div style="width: 50px; height: 6px; background: #333; border-radius: 10px; margin: 0 auto 8px;"></div>
-              <div style="background: #fff; border-radius: 20px; padding: 10px; display: flex; flex-direction: column; gap: 6px; text-align: center;">
-                <div style="background: #0A0A0A; color: #fff; padding: 5px; border-radius: 8px; font-size: 10px; font-weight: 800; display: flex; justify-content: space-between;">
-                  <span>Observatorio</span>
-                  <span style="background: #F04E23; padding: 1px 4px; border-radius: 4px; font-size: 8px;">INE</span>
-                </div>
-                <div style="border: 2px solid #0A0A0A; border-radius: 10px; padding: 8px; background: #F5F5F7;">
-                  <span style="font-size: 9px; font-weight: 800; color: #525252;" id="pagRegion">Tu región: Ñuble</span>
-                  <div style="font-size: 28px; font-weight: 900; margin: 2px 0;" id="pagRate">11,2%</div>
-                  <span style="font-size: 10px; font-weight: 800; color: #F04E23;" id="pagVar">+1,1 pp país 9,6%</span>
-                </div>
-                <div style="font-size: 9px; color: #525252; display: flex; justify-content: space-between; border-top: 1px solid #E5E5E5; padding-top: 4px;">
-                  <span>Fuente: INE, ENE</span>
-                  <span style="color: #F04E23; font-weight: 800;">Uso de IA</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="info-card">
-            <h4>El Producto en Funcionamiento</h4>
-            <p>La vista inyecta los datos reales de la encuesta trimestral del INE, permitiendo:</p>
-            <ul style="padding-left: 18px; font-size: 11px; line-height: 1.8; color: #262626; font-weight: 600; margin-top: 6px;">
-              <li>Visualizar la tasa exacta con coma decimal chilena.</li>
-              <li>Apreciar la variación interanual en puntos porcentuales (pp).</li>
-              <li>Comparar directamente con el promedio del país (9,6%).</li>
-              <li>Acceder a la respuesta asistida por IA para dudas ciudadanas.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 7: MATRIZ DE ESTADOS EN VIVO -->
-      <section class="slide-content" id="slide-6">
-        <div class="slide-header">
-          <span class="slide-badge">Sección 8, 9 y 10</span>
-          <h2 class="slide-title">Matriz de Estados, Voz y Ética de IA</h2>
-          <p class="slide-subtitle">Toca los botones para previsualizar cada estado en vivo</p>
-        </div>
-
-        <!-- Botones de Estado -->
-        <div style="display: flex; gap: 4px; overflow-x: auto; margin-bottom: 10px; scrollbar-width: none;">
-          <button class="tool-btn active" id="stBtn-success" onclick="showStateDemo('success')">1. Éxito</button>
-          <button class="tool-btn" id="stBtn-loading" onclick="showStateDemo('loading')">2. Cargando</button>
-          <button class="tool-btn" id="stBtn-empty" onclick="showStateDemo('empty')">3. Vacío</button>
-          <button class="tool-btn" id="stBtn-error" onclick="showStateDemo('error')">4. Error</button>
-          <button class="tool-btn" id="stBtn-noconsta" onclick="showStateDemo('noconsta')">5. No Consta</button>
-        </div>
-
-        <!-- Caja de Demostración de Estados -->
-        <div id="stateDemoBox" style="min-height: 140px; border: 2px solid #0A0A0A; border-radius: 14px; padding: 14px; background: #F0FDF4;">
-          <h4 style="color: #166534; font-size: 12px; font-weight: 800; margin-bottom: 4px;">✓ Estado: Éxito / Datos Disponibles</h4>
-          <p style="font-size: 11px; color: #14532D; line-height: 1.5;">Los datos del boletín se descargaron correctamente. Tasa de desempleo regional disponible para consulta ciudadana.</p>
-        </div>
-
-        <div style="background: #0A0A0A; color: #fff; padding: 12px; border-radius: 14px; margin-top: 12px; text-align: center;">
-          <h4 style="color: #F04E23; font-size: 12px; margin-bottom: 2px;">Regla de Oro de Lenguaje Claro</h4>
-          <p style="font-size: 11px; color: #E5E5E5;">Las tasas se comparan siempre en <strong>puntos porcentuales (pp)</strong>, jamás en porcentaje (%).</p>
-        </div>
-      </section>
-
-      <!-- Barra Inferior de Navegación (visible en escritorio) -->
-      <footer class="bottom-bar">
-        <button class="nav-btn secondary" id="prevBtn" onclick="prevSlide()" disabled>
-          ◀ Anterior
-        </button>
-
-        <div class="slide-counter" id="bottomSlideCounter">
-          1 / 7
-        </div>
-
-        <button class="nav-btn primary" id="nextBtn" onclick="nextSlide()">
-          Siguiente ▶
-        </button>
-      </footer>
-
-    </main>
-  </div>
-
-  <!-- BARRA INFERIOR FIJA PARA CELULARES (Thumb-zone) -->
-  <div class="mobile-thumb-bar">
-    <button class="mobile-thumb-btn secondary" id="mobPrevBtn" onclick="prevSlide()" disabled>
-      ◀ Ant.
-    </button>
-    <button class="mobile-thumb-btn secondary" onclick="openIndexModal()">
-      📋 <span id="mobSlideCounter">1 / 7</span>
-    </button>
-    <button class="mobile-thumb-btn primary" id="mobNextBtn" onclick="nextSlide()">
-      Sig. ▶
-    </button>
-  </div>
-
-  <!-- Modal de Índice de Secciones -->
-  <div class="index-drawer" id="indexModal" onclick="closeIndexModal()">
-    <div class="index-box" onclick="event.stopPropagation()">
-      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 12px;">
-        <h3 style="font-size: 15px; font-weight: 900;">Índice de Secciones</h3>
-        <button onclick="closeIndexModal()" style="border: none; background: transparent; font-size: 18px; font-weight: 900; cursor: pointer; padding: 4px 8px;">✕</button>
       </div>
 
-      <button class="index-item" onclick="goToSlide(0); closeIndexModal();">1. Portada & Banner Interactivo</button>
-      <button class="index-item" onclick="goToSlide(1); closeIndexModal();">2. Átomos (Tokens, Colores, Fuentes)</button>
-      <button class="index-item" onclick="goToSlide(2); closeIndexModal();">3. Moléculas (Tarjeta, Selector, Leyenda)</button>
-      <button class="index-item" onclick="goToSlide(3); closeIndexModal();">4. Organismos (Ficha y Mapa de Chile)</button>
-      <button class="index-item" onclick="goToSlide(4); closeIndexModal();">5. Plantillas (Esqueleto móvil)</button>
-      <button class="index-item" onclick="goToSlide(5); closeIndexModal();">6. Páginas (El producto con datos reales)</button>
-      <button class="index-item" onclick="goToSlide(6); closeIndexModal();">7. Matriz de Estados (Cargando, Vacío, Error, No Consta)</button>
-    </div>
+      <div class="area-card" onclick="openArea(2)">
+        <div class="area-top">
+          <span class="area-code">P1.2 · Fundaciones</span>
+          <span>→</span>
+        </div>
+        <div>
+          <h3 class="area-title">2. Principios</h3>
+          <p class="area-desc">Accesibilidad total WCAG 2.1 AA/AAA, tipografía sans-serif sin serifa, alto contraste y transparencia con fuentes oficiales.</p>
+        </div>
+        <div class="area-footer">
+          <span>Doc principios.md</span>
+          <span>Contraste ≥ 7:1</span>
+        </div>
+      </div>
+
+      <div class="area-card" onclick="openArea(3)">
+        <div class="area-top">
+          <span class="area-code">P1.3 · Fundaciones</span>
+          <span>→</span>
+        </div>
+        <div>
+          <h3 class="area-title">3. Tokens de Diseño</h3>
+          <p class="area-desc">Acento 690 (#F04E23), Tinta pura (#0A0A0A), Papeles neutros (#FFFFFF / #F5F5F7) y escala de espaciado 4-8-16-24-32.</p>
+        </div>
+        <div class="area-footer">
+          <span>Doc tokens.md</span>
+          <span>Capa semántica</span>
+        </div>
+      </div>
+
+      <div class="area-card" onclick="openArea(4)">
+        <div class="area-top">
+          <span class="area-code">P2.1 · Componentes</span>
+          <span>→</span>
+        </div>
+        <div>
+          <h3 class="area-title">4. Átomos</h3>
+          <p class="area-desc">Botones naranjos ≥ 44px, etiquetas limpias sin píldoras, íconos accesibles de ayuda y cifras sans-serif tabulares.</p>
+        </div>
+        <div class="area-footer">
+          <span>Doc atomos.md</span>
+          <span>Piezas mínimas</span>
+        </div>
+      </div>
+
+      <div class="area-card" onclick="openArea(5)">
+        <div class="area-top">
+          <span class="area-code">P2.2 · Componentes</span>
+          <span>→</span>
+        </div>
+        <div>
+          <h3 class="area-title">5. Moléculas</h3>
+          <p class="area-desc">Tarjeta de cifra regional, selector de región accesible y leyenda monocromática naranja de 5 escalones (6% a 12%+).</p>
+        </div>
+        <div class="area-footer">
+          <span>Doc moleculas.md</span>
+          <span>Átomos combinados</span>
+        </div>
+      </div>
+
+      <div class="area-card" onclick="openArea(6)">
+        <div class="area-top">
+          <span class="area-code">P2.3 · Componentes</span>
+          <span>→</span>
+        </div>
+        <div>
+          <h3 class="area-title">6. Organismos</h3>
+          <p class="area-desc">Ficha regional con benchmark país 9,6%, mapa territorial apilado, comparador de regiones y tabulado analítico.</p>
+        </div>
+        <div class="area-footer">
+          <span>Doc organismos.md</span>
+          <span>Sección completa</span>
+        </div>
+      </div>
+
+      <div class="area-card" onclick="openArea(7)">
+        <div class="area-top">
+          <span class="area-code">P3.1 · Cascarón</span>
+          <span>→</span>
+        </div>
+        <div>
+          <h3 class="area-title">7. Plantillas y Páginas</h3>
+          <p class="area-desc">Esqueleto móvil ordenado verticalmente (cabecera, ficha, mapa, fuente) e inyección en vivo de la ENE.</p>
+        </div>
+        <div class="area-footer">
+          <span>Doc plantillas.md</span>
+          <span>Mobile-first</span>
+        </div>
+      </div>
+
+      <div class="area-card" onclick="openArea(8)">
+        <div class="area-top">
+          <span class="area-code">P4.1 · Comportamiento</span>
+          <span>→</span>
+        </div>
+        <div>
+          <h3 class="area-title">8. Matriz de Estados</h3>
+          <p class="area-desc">Foco visible de 3px por teclado, hover/encima, cargando (skeleton accesible), error con reintento y estado "no consta".</p>
+        </div>
+        <div class="area-footer">
+          <span>Doc estados.md</span>
+          <span>6 estados forzados</span>
+        </div>
+      </div>
+
+      <div class="area-card" onclick="openArea(9)">
+        <div class="area-top">
+          <span class="area-code">P4.2 · Voz y Datos</span>
+          <span>→</span>
+        </div>
+        <div>
+          <h3 class="area-title">9. Datos y Voz</h3>
+          <p class="area-desc">Regla de oro: las tasas se comparan en puntos porcentuales (pp), nunca en porcentaje (%). Glosario de trimestre móvil.</p>
+        </div>
+        <div class="area-footer">
+          <span>Doc voz.md</span>
+          <span>Lenguaje claro</span>
+        </div>
+      </div>
+
+      <div class="area-card" onclick="openArea(10)">
+        <div class="area-top">
+          <span class="area-code">P5.1 · Ética</span>
+          <span>→</span>
+        </div>
+        <div>
+          <h3 class="area-title">10. Accesibilidad e IA</h3>
+          <p class="area-desc">Verificación matemática de ratios de contraste, etiquetas ARIA semánticas y declaración de asistencia con IA regulada.</p>
+        </div>
+        <div class="area-footer">
+          <span>Doc accesibilidad.md</span>
+          <span>IA supervisada</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- VISTA 2: TABLA "COMPONENTES: ÚSALO PARA, NO LO USES PARA" -->
+    <section id="view-componentes" class="table-container" style="display: none;">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 25%;">Componente</th>
+            <th style="width: 15%;">Nivel</th>
+            <th style="width: 30%;">Úsalo para</th>
+            <th style="width: 30%;">No lo uses para</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>StatCard</strong><br><span style="color:#525252;">Tarjeta de Cifra</span></td>
+            <td><span class="tag-family">Molécula</span></td>
+            <td class="text-positive">✓ Mostrar la tasa regional con su variación anual en pp y su fuente oficial INE.</td>
+            <td class="text-negative">✕ Expresar la variación en porcentaje (%) relativo o esconder el trimestre de medición.</td>
+          </tr>
+          <tr>
+            <td><strong>RegionSelect</strong><br><span style="color:#525252;">Selector Rápido</span></td>
+            <td><span class="tag-family">Molécula</span></td>
+            <td class="text-positive">✓ Cambiar de forma ágil y accesible la región activa con teclado o toque en celulares.</td>
+            <td class="text-negative">✕ Obligar al usuario a tipear texto a mano o desplegar menús que desborden en móvil.</td>
+          </tr>
+          <tr>
+            <td><strong>RegionProfile</strong><br><span style="color:#525252;">Ficha Regional</span></td>
+            <td><span class="tag-family">Organismo</span></td>
+            <td class="text-positive">✓ Ficha con barras comparativas Región vs País (9,6%), brecha de género e informalidad.</td>
+            <td class="text-negative">✕ Ocultar la fuente INE o usar colores tipo semáforo que confundan a personas con daltonismo.</td>
+          </tr>
+          <tr>
+            <td><strong>ChileMap</strong><br><span style="color:#525252;">Mapa Regional</span></td>
+            <td><span class="tag-family">Organismo</span></td>
+            <td class="text-positive">✓ Mapa esquemático apilado de 16 regiones coloreadas con gradiente monocromático naranja.</td>
+            <td class="text-negative">✕ Cargar mapas pesados con polígonos que demoren segundos en redes móviles lentas.</td>
+          </tr>
+          <tr>
+            <td><strong>RegionComparator</strong><br><span style="color:#525252;">Comparador</span></td>
+            <td><span class="tag-family">Organismo</span></td>
+            <td class="text-positive">✓ Contrastar 2 regiones y calcular la diferencia matemática en puntos porcentuales (pp).</td>
+            <td class="text-negative">✕ Comparar más de 2 regiones a la vez en celulares o restar tasas en porcentaje.</td>
+          </tr>
+          <tr>
+            <td><strong>RegionalTableRanking</strong><br><span style="color:#525252;">Tabulado Territorial</span></td>
+            <td><span class="tag-family">Organismo</span></td>
+            <td class="text-positive">✓ Tabla analítica ordenable por tasa, variación o informalidad con filtros de macrozona.</td>
+            <td class="text-negative">✕ Tablas sin scroll contenido o que requieran zoom manual en pantallas pequeñas.</td>
+          </tr>
+          <tr>
+            <td><strong>CitizenAskSection</strong><br><span style="color:#525252;">Preguntas con IA</span></td>
+            <td><span class="tag-family">Organismo</span></td>
+            <td class="text-positive">✓ Consultas ciudadanas en lenguaje simple con manejo explícito de "no consta", carga y error.</td>
+            <td class="text-negative">✕ Inventar cifras ajenas a la ENE o emitir respuestas sin declarar el uso de IA.</td>
+          </tr>
+          <tr>
+            <td><strong>Button</strong><br><span style="color:#525252;">Botón Naranjo</span></td>
+            <td><span class="tag-family">Átomo</span></td>
+            <td class="text-positive">✓ Acciones principales como "Cambiar región" o "Consultar" con tamaño táctil ≥ 44 px.</td>
+            <td class="text-negative">✕ Más de un botón primario naranja por contenedor visual para no diluir el foco.</td>
+          </tr>
+          <tr>
+            <td><strong>ProgressBar</strong><br><span style="color:#525252;">Barra Comparativa</span></td>
+            <td><span class="tag-family">Átomo</span></td>
+            <td class="text-positive">✓ Comparar visualmente la tasa regional (naranjo) contra el benchmark país 9,6% (gris).</td>
+            <td class="text-negative">✕ Barras sin cifra numérica visible al lado o sin etiqueta semántica para lectores de pantalla.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- VISTA 3: TABLA "TOKENS POR FAMILIA" -->
+    <section id="view-tokens" class="table-container" style="display: none;">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 20%;">Familia</th>
+            <th style="width: 25%;">Fuente de verdad</th>
+            <th style="width: 55%;">Cómo se usa en la aplicación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Color</strong></td>
+            <td style="font-family: monospace; color: var(--color-accent-690); font-weight: bold;">tokens.css · WCAG 2.1 AA/AAA</td>
+            <td>#F04E23 (acento 690), #0A0A0A (tinta negra pura), #FFFFFF (papel 1) y #F5F5F7 (papel 2). Contraste medido ≥ 7:1 en textos y ≥ 4,5:1 en UI.</td>
+          </tr>
+          <tr>
+            <td><strong>Tipografía</strong></td>
+            <td style="font-family: monospace; color: var(--color-accent-690); font-weight: bold;">Plus Jakarta Sans · sans-serif</td>
+            <td>Sans-serif accesible con font-variant-numeric: tabular-nums para alineación matemática exacta de cifras y comas decimales.</td>
+          </tr>
+          <tr>
+            <td><strong>Espacio y Layout</strong></td>
+            <td style="font-family: monospace; color: var(--color-accent-690); font-weight: bold;">Escala oficial: 4 - 8 - 16 - 24 - 32</td>
+            <td>gap-1 (4px), gap-2 (8px), gap-4 (16px), gap-6 (24px), gap-8 (32px). Breakpoints móviles (375-430px) y escritorio (max-w-7xl).</td>
+          </tr>
+          <tr>
+            <td><strong>Forma y Profundidad</strong></td>
+            <td style="font-family: monospace; color: var(--color-accent-690); font-weight: bold;">shape.css · Zero-Pill</td>
+            <td>rounded-xl (12px), rounded-2xl (16px), border-2 y border-3 en #0A0A0A. Anillo de foco exterior ring-3 con separación de 2px.</td>
+          </tr>
+          <tr>
+            <td><strong>Movimiento y Estados</strong></td>
+            <td style="font-family: monospace; color: var(--color-accent-690); font-weight: bold;">motion.css · Sin JS pesado</td>
+            <td>Transiciones de 150-200ms con transform y opacity. Respeto nativo a prefers-reduced-motion.</td>
+          </tr>
+          <tr>
+            <td><strong>Voz y Datos</strong></td>
+            <td style="font-family: monospace; color: var(--color-accent-690); font-weight: bold;">Manual de Estilo INE · Lenguaje Claro</td>
+            <td>Obligatorio comparar tasas en "puntos porcentuales (pp)". Prohibido usar "%" para diferencias absolutas entre tasas.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- VISTA 4: LO QUE NO SE NEGOCIA -->
+    <section id="view-reglas" class="grid-rules" style="display: none;">
+      <div class="rule-card">
+        <span class="rule-num">1</span>
+        <div>
+          <h3 class="rule-title">Tokens o nada</h3>
+          <p class="rule-desc">Ningún color, espaciado, sombra o radio a mano. Toda la interfaz se rige por las variables oficiales del sistema de diseño.</p>
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-num">2</span>
+        <div>
+          <h3 class="rule-title">Puntos porcentuales (pp), nunca %</h3>
+          <p class="rule-desc">Si una tasa pasa de 10,1% a 11,2%, la diferencia es estrictamente +1,1 pp. Decir "subió 1,1%" es un error matemático grave.</p>
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-num">3</span>
+        <div>
+          <h3 class="rule-title">Alto contraste sin excepciones</h3>
+          <p class="rule-desc">Acento en naranjo intenso (#F04E23), tinta en negro puro (#0A0A0A) y fondos limpios. Prohibido texto gris claro sobre fondos blancos.</p>
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-num">4</span>
+        <div>
+          <h3 class="rule-title">Sans-serif con números tabulares</h3>
+          <p class="rule-desc">Prohibidas las fuentes ornamentales o con serifa en datos. Tipografía sans-serif con tabular-nums para facilitar la lectura a cualquier ciudadano.</p>
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-num">5</span>
+        <div>
+          <h3 class="rule-title">Transparencia y supervisión de IA</h3>
+          <p class="rule-desc">Ningún dato flota sin su fuente ("Fuente: INE, ENE Jun-ago"). Toda intervención de IA se declara explícitamente en la interfaz.</p>
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-num">6</span>
+        <div>
+          <h3 class="rule-title">Mobile First real (zona del pulgar)</h3>
+          <p class="rule-desc">Objetivos táctiles de al menos 44 px. Barra dock fija para navegación con una sola mano. Cero desborde o scroll horizontal involuntario.</p>
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-num">7</span>
+        <div>
+          <h3 class="rule-title">Manejo estricto de los 6 estados</h3>
+          <p class="rule-desc">Normal, encima (hover), foco visible con teclado, cargando (skeleton accesible), éxito, error con reintento y estado "no consta".</p>
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-num">8</span>
+        <div>
+          <h3 class="rule-title">prefers-reduced-motion siempre</h3>
+          <p class="rule-desc">Toda animación debe tener su estado estático inmediato para personas con condiciones vestibulares o que prefieran rendimiento.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VISTA 5: SANDBOX INTERACTIVO VIVO -->
+    <section id="view-sandbox" class="sandbox-panel" style="display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-bottom: 2px solid var(--color-border); padding-bottom: 12px;">
+        <div>
+          <span style="font-size: 11px; font-weight: 900; color: var(--color-accent-690); text-transform: uppercase;">Demostrador Vivo</span>
+          <h3 style="font-size: 20px; font-weight: 900;">Ficha Regional de Prueba</h3>
+        </div>
+
+        <div>
+          <label for="sbRegion" style="font-size: 11px; font-weight: 800; display: block; margin-bottom: 4px;">Cambiar Región:</label>
+          <select id="sbRegion" class="region-select" onchange="updateSandbox(this.value)">
+            <option value="nuble" selected>Ñuble (11,2%) — Región destacada</option>
+            <option value="araucania">La Araucanía (10,3%)</option>
+            <option value="biobio">Biobío (9,1%)</option>
+            <option value="metropolitana">Metropolitana (8,9%)</option>
+            <option value="valparaiso">Valparaíso (8,8%)</option>
+            <option value="los-lagos">Los Lagos (6,5%)</option>
+            <option value="magallanes">Magallanes (5,8%)</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr; gap: 20px;" id="sbGrid">
+        <div style="padding: 16px; background: var(--color-papel-2); border: 2px solid var(--color-border); border-radius: 14px;">
+          <span style="font-size: 11px; font-weight: 800; color: var(--color-muted); text-transform: uppercase;">Tasa de desocupación regional</span>
+          <div class="stat-hero" id="sbRate">11,2%</div>
+          <div class="pp-badge" id="sbVar">+1,1 pp en doce meses</div>
+          <p style="font-size: 11px; color: var(--color-muted); margin-top: 8px;" id="sbSource">Fuente: INE, ENE Jun-ago</p>
+        </div>
+
+        <div style="padding: 16px; background: #fff; border: 2px solid var(--color-border); border-radius: 14px;">
+          <span style="font-size: 12px; font-weight: 800; text-transform: uppercase;">Comparativa con el promedio del país (9,6%):</span>
+          
+          <div style="margin-top: 10px;">
+            <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 800;">
+              <span id="sbRegName">Ñuble (Tu región)</span>
+              <span id="sbRegRateTxt">11,2%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill-accent" id="sbBarAccent" style="width: 74%;"></div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 800;">
+              <span>Promedio País (Benchmark INE)</span>
+              <span>9,6%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill-benchmark" style="width: 64%;"></div>
+            </div>
+
+            <p style="font-size: 11px; font-weight: 700; color: var(--color-accent-690);" id="sbDiffTxt">
+              La desocupación en Ñuble es 1,6 pp más alta que el promedio nacional.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pie de Página Institucional -->
+    <footer>
+      <div>
+        <strong>Instituto Nacional de Estadísticas de Chile (INE)</strong> · Sistema de Diseño Accesible
+      </div>
+      <div>
+        Alto Contraste WCAG 2.1 AA/AAA · Sans-serif Legible · Supervisión de IA
+      </div>
+    </footer>
   </div>
 
-  <!-- Modal Lightbox para Ampliar la Infografía -->
-  <div class="modal-overlay" id="zoomModal" onclick="closeModal()">
-    <div class="modal-content" onclick="event.stopPropagation()">
-      <button style="position: absolute; top: -38px; right: 0; background: #fff; border:none; padding: 6px 12px; border-radius: 8px; font-weight:900; cursor:pointer;" onclick="closeModal()">✕ Cerrar</button>
-      <img src="/assets/aistudio/Gemini_Generated_Image_4lvrqz4lvrqz4lvr_0578b393.jpeg" alt="Infografía Oficial Ampliada" style="width: 100%; max-height: 80vh; object-fit: contain; border-radius: 12px;">
-    </div>
-  </div>
+  <div id="toast" class="toast">Código HTML copiado al portapapeles</div>
 
   <script>
-    let currentSlide = 0;
-    const totalSlides = 7;
-    let currentMobileStage = 0;
-
-    const regionDataMap = {
-      nuble: { name: 'Ñuble', rate: '11,2%', var: '+1,1 pp en un año', width: '75%' },
-      metropolitana: { name: 'Metropolitana', rate: '8,9%', var: '-0,1 pp en un año', width: '58%' },
-      biobio: { name: 'Biobío', rate: '9,1%', var: '+0,7 pp en un año', width: '60%' },
-      araucania: { name: 'Araucanía', rate: '10,3%', var: '+0,9 pp en un año', width: '68%' },
-      magallanes: { name: 'Magallanes', rate: '5,8%', var: '+0,2 pp en un año', width: '38%' },
-      tarapaca: { name: 'Tarapacá', rate: '8,4%', var: '-0,2 pp en un año', width: '55%' },
+    const REGIONS_DATA = {
+      'nuble': { name: 'Ñuble', rate: '11,2%', varPp: '+1,1 pp en doce meses', width: '74%', diff: 'La desocupación en Ñuble es 1,6 pp más alta que el promedio nacional.' },
+      'araucania': { name: 'La Araucanía', rate: '10,3%', varPp: '+0,9 pp en doce meses', width: '68%', diff: 'La desocupación en La Araucanía es 0,7 pp más alta que el promedio nacional.' },
+      'biobio': { name: 'Biobío', rate: '9,1%', varPp: '+0,7 pp en doce meses', width: '60%', diff: 'La desocupación en Biobío es 0,5 pp más baja que el promedio nacional.' },
+      'metropolitana': { name: 'Metropolitana de Santiago', rate: '8,9%', varPp: '-0,1 pp en doce meses', width: '58%', diff: 'La desocupación en Santiago es 0,7 pp más baja que el promedio nacional.' },
+      'valparaiso': { name: 'Valparaíso', rate: '8,8%', varPp: '+0,2 pp en doce meses', width: '57%', diff: 'La desocupación en Valparaíso es 0,8 pp más baja que el promedio nacional.' },
+      'los-lagos': { name: 'Los Lagos', rate: '6,5%', varPp: '-0,3 pp en doce meses', width: '43%', diff: 'La desocupación en Los Lagos es 3,1 pp más baja que el promedio nacional.' },
+      'magallanes': { name: 'Magallanes', rate: '5,8%', varPp: '+0,2 pp en doce meses', width: '38%', diff: 'La desocupación en Magallanes es 3,8 pp más baja que el promedio nacional.' }
     };
 
-    function updateSlideUI() {
-      for (let i = 0; i < totalSlides; i++) {
-        const slideEl = document.getElementById('slide-' + i);
-        if (slideEl) {
-          slideEl.classList.toggle('active', i === currentSlide);
-        }
-      }
-
-      const indicators = document.querySelectorAll('.indicator-btn');
-      indicators.forEach((btn, idx) => {
-        btn.classList.toggle('active', idx === currentSlide);
-      });
-
-      document.getElementById('topSlideCounter').innerHTML =
-        'Diapositiva <strong>' + (currentSlide + 1) + '</strong> de ' + totalSlides;
-      document.getElementById('bottomSlideCounter').innerText =
-        (currentSlide + 1) + ' / ' + totalSlides;
-      document.getElementById('mobSlideCounter').innerText =
-        (currentSlide + 1) + ' / ' + totalSlides;
-
-      const isFirst = currentSlide === 0;
-      const isLast = currentSlide === totalSlides - 1;
-
-      document.getElementById('prevBtn').disabled = isFirst;
-      document.getElementById('nextBtn').disabled = isLast;
-      document.getElementById('mobPrevBtn').disabled = isFirst;
-      document.getElementById('mobNextBtn').disabled = isLast;
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function goToSlide(idx) {
-      if (idx >= 0 && idx < totalSlides) {
-        currentSlide = idx;
-        updateSlideUI();
-      }
-    }
-
-    function nextSlide() {
-      if (currentSlide < totalSlides - 1) {
-        currentSlide++;
-        updateSlideUI();
-      }
-    }
-
-    function prevSlide() {
-      if (currentSlide > 0) {
-        currentSlide--;
-        updateSlideUI();
-      }
-    }
-
-    function setMobileStage(stageIdx) {
-      currentMobileStage = stageIdx;
-      const isMobile = window.innerWidth < 768;
-      for (let i = 0; i < 5; i++) {
-        const col = document.getElementById('col-stage-' + i);
-        if (col && isMobile) {
-          col.style.display = (i === stageIdx) ? 'flex' : 'none';
-        } else if (col) {
-          col.style.display = 'flex';
-        }
-      }
-      const stageBtns = document.querySelectorAll('.mobile-stage-btn');
-      stageBtns.forEach((btn, idx) => {
-        btn.classList.toggle('active', idx === stageIdx);
+    function switchTab(tabId) {
+      const views = ['indice', 'componentes', 'tokens', 'reglas', 'sandbox'];
+      views.forEach(v => {
+        const el = document.getElementById('view-' + v);
+        const btn = document.getElementById('tabBtn-' + v);
+        if (el) el.style.display = (v === tabId) ? (v === 'componentes' || v === 'tokens' ? 'block' : (v === 'sandbox' ? 'flex' : 'grid')) : 'none';
+        if (btn) btn.classList.toggle('active', v === tabId);
       });
     }
 
-    function nextMobileStage() {
-      if (currentMobileStage < 4) {
-        setMobileStage(currentMobileStage + 1);
-      }
+    function openArea(num) {
+      switchTab('sandbox');
     }
 
-    function prevMobileStage() {
-      if (currentMobileStage > 0) {
-        setMobileStage(currentMobileStage - 1);
-      }
+    function updateSandbox(regId) {
+      const data = REGIONS_DATA[regId] || REGIONS_DATA['nuble'];
+      document.getElementById('sbRate').innerText = data.rate;
+      document.getElementById('sbVar').innerText = data.varPp;
+      document.getElementById('sbRegName').innerText = data.name + ' (Tu región)';
+      document.getElementById('sbRegRateTxt').innerText = data.rate;
+      document.getElementById('sbBarAccent').style.width = data.width;
+      document.getElementById('sbDiffTxt').innerText = data.diff;
     }
 
-    window.addEventListener('resize', () => {
-      if (window.innerWidth >= 768) {
-        for (let i = 0; i < 5; i++) {
-          const col = document.getElementById('col-stage-' + i);
-          if (col) col.style.display = 'flex';
-        }
-      } else {
-        setMobileStage(currentMobileStage);
-      }
-    });
-
-    function changeRegion(regionKey) {
-      const data = regionDataMap[regionKey] || regionDataMap.nuble;
-      document.getElementById('bannerRate1').innerText = data.rate;
-      document.getElementById('bannerRegion2').innerText = data.name;
-      document.getElementById('bannerRate2').innerText = data.rate;
-      document.getElementById('bannerVar2').innerText = data.var;
-      document.getElementById('bannerRegion3').innerText = data.name;
-      document.getElementById('bannerRate3').innerText = data.rate;
-      document.getElementById('bannerRegion5').innerText = 'Tu región: ' + data.name;
-      document.getElementById('bannerRate5').innerText = data.rate;
-      document.getElementById('atomRate').innerText = data.rate;
-      document.getElementById('molRegion').innerText = data.name;
-      document.getElementById('molRate').innerText = data.rate;
-      document.getElementById('molVar').innerText = data.var;
-      document.getElementById('molSelectorText').innerText = data.name;
-      document.getElementById('orgRegion').innerText = data.name;
-      document.getElementById('orgRate').innerText = data.rate;
-      document.getElementById('orgRegionLabel').innerText = data.name + ' (Tu región)';
-      document.getElementById('orgRateLabel').innerText = data.rate;
-      document.getElementById('orgBar').style.width = data.width;
-      document.getElementById('pagRegion').innerText = 'Tu región: ' + data.name;
-      document.getElementById('pagRate').innerText = data.rate;
-      document.getElementById('regionPicker').value = regionKey;
+    function toggleReducedMotion() {
+      const body = document.body;
+      const btn = document.getElementById('btnMotion');
+      const isReduced = body.classList.toggle('motion-reduce');
+      btn.innerText = isReduced ? '⚡ Movimiento: Reducido' : '⚡ Reducir movimiento';
     }
 
-    function cycleRegion() {
-      const keys = Object.keys(regionDataMap);
-      const current = document.getElementById('regionPicker').value;
-      const nextIdx = (keys.indexOf(current) + 1) % keys.length;
-      changeRegion(keys[nextIdx]);
-    }
-
-    function setViewport(mode) {
-      const wrapper = document.getElementById('slideWrapper');
-      const btnDesk = document.getElementById('btnDesktop');
-      const btnMob = document.getElementById('btnMobile');
-
-      if (mode === 'mobile') {
-        wrapper.classList.add('mobile-viewport');
-        btnMob.classList.add('active');
-        btnDesk.classList.remove('active');
-      } else {
-        wrapper.classList.remove('mobile-viewport');
-        btnDesk.classList.add('active');
-        btnMob.classList.remove('active');
-      }
-    }
-
-    function copyToken(text, label) {
-      navigator.clipboard.writeText(text).then(() => {
-        showToast('¡' + label + ' (' + text + ') copiado!');
+    function copyGithubSnippet() {
+      const htmlText = document.documentElement.outerHTML;
+      navigator.clipboard.writeText(htmlText).then(() => {
+        showToast('¡Código HTML completo copiado! Pégalo en tu repositorio de GitHub.');
       }).catch(() => {
-        showToast('Token: ' + text);
+        showToast('Código disponible en /public/github-design-system.html');
       });
     }
 
     function showToast(msg) {
-      const toast = document.getElementById('toastMsg');
-      toast.innerText = msg;
-      toast.classList.add('show');
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 2500);
+      const t = document.getElementById('toast');
+      t.innerText = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3500);
     }
-
-    function showStateDemo(state) {
-      const box = document.getElementById('stateDemoBox');
-      const buttons = document.querySelectorAll('[id^="stBtn-"]');
-      buttons.forEach(b => b.classList.remove('active'));
-      const activeBtn = document.getElementById('stBtn-' + state);
-      if (activeBtn) activeBtn.classList.add('active');
-
-      if (state === 'success') {
-        box.style.background = '#F0FDF4';
-        box.style.borderColor = '#86EFAC';
-        box.innerHTML = '<h4 style="color: #166534; font-size: 12px; font-weight: 800; margin-bottom: 4px;">✓ Estado: Éxito / Datos Disponibles</h4><p style="font-size: 11px; color: #14532D; line-height: 1.5;">Los datos del boletín se descargaron correctamente. Tasa regional disponible.</p>';
-      } else if (state === 'loading') {
-        box.style.background = '#F5F5F7';
-        box.style.borderColor = '#E5E5E5';
-        box.innerHTML = '<h4 style="color: #0A0A0A; font-size: 12px; font-weight: 800; margin-bottom: 4px;">⏳ Estado: Cargando datos (Skeleton)...</h4><p style="font-size: 11px; color: #525252; line-height: 1.5;">Consultando /api/regiones con indicador aria-live para lectores de pantalla.</p>';
-      } else if (state === 'empty') {
-        box.style.background = '#FAFAFA';
-        box.style.borderColor = '#A1A1AA';
-        box.innerHTML = '<h4 style="color: #0A0A0A; font-size: 12px; font-weight: 800; margin-bottom: 4px;">📭 Estado: Vacío / Sin Resultados</h4><p style="font-size: 11px; color: #525252; line-height: 1.5;">No hay registros para la búsqueda. Restablece el filtro.</p>';
-      } else if (state === 'error') {
-        box.style.background = '#FEF2F2';
-        box.style.borderColor = '#FCA5A5';
-        box.innerHTML = '<h4 style="color: #991B1B; font-size: 12px; font-weight: 800; margin-bottom: 4px;">⚠ Estado: Error de Conexión</h4><p style="font-size: 11px; color: #7F1D1D; line-height: 1.5;">Fallo de red al conectar con el INE. Botón de reintento accesible activo.</p>';
-      } else if (state === 'noconsta') {
-        box.style.background = '#FFFBEB';
-        box.style.borderColor = '#FCD34D';
-        box.innerHTML = '<h4 style="color: #92400E; font-size: 12px; font-weight: 800; margin-bottom: 4px;">ℹ Estado: No Consta en este Boletín</h4><p style="font-size: 11px; color: #78350F; line-height: 1.5;">La ENE mide ocupación e informalidad. Para IPC o inflación consulta el boletín de precios.</p>';
-      }
-    }
-
-    function openModal() {
-      document.getElementById('zoomModal').classList.add('active');
-    }
-
-    function closeModal() {
-      document.getElementById('zoomModal').classList.remove('active');
-    }
-
-    function openIndexModal() {
-      document.getElementById('indexModal').classList.add('active');
-    }
-
-    function closeIndexModal() {
-      document.getElementById('indexModal').classList.remove('active');
-    }
-
-    // Navegación por gestos táctiles (Swipe)
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    document.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    document.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      handleSwipe();
-    }, { passive: true });
-
-    function handleSwipe() {
-      const diff = touchStartX - touchEndX;
-      if (Math.abs(diff) > 50) {
-        if (diff > 0) nextSlide();
-        else prevSlide();
-      }
-    }
-
-    // Navegación por teclado
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
-      else if (e.key === 'ArrowLeft') prevSlide();
-    });
-
-    // Iniciar con la etapa 0 en móvil
-    setMobileStage(0);
   </script>
 </body>
 </html>
+
