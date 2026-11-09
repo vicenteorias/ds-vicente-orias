@@ -21,11 +21,7 @@
       --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background-color: var(--color-papel-2);
@@ -37,11 +33,7 @@
       line-height: 1.5;
     }
 
-    @media (min-width: 768px) {
-      body {
-        padding: 24px;
-      }
-    }
+    @media (min-width: 768px) { body { padding: 24px; } }
 
     .container {
       max-width: 1180px;
@@ -51,7 +43,6 @@
       gap: 20px;
     }
 
-    /* Masthead institucional */
     .masthead {
       background: var(--color-papel-1);
       border: 2px solid var(--color-border);
@@ -64,12 +55,7 @@
       flex-wrap: wrap;
     }
 
-    .masthead-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
+    .masthead-brand { display: flex; align-items: center; gap: 10px; }
     .brand-badge {
       background: var(--color-accent-690);
       color: #fff;
@@ -77,28 +63,11 @@
       font-size: 13px;
       padding: 4px 8px;
       border-radius: 6px;
-      letter-spacing: 0.5px;
     }
+    .brand-title { font-size: 15px; font-weight: 900; }
+    .brand-subtitle { font-size: 11px; color: var(--color-muted); font-weight: 600; display: block; }
 
-    .brand-title {
-      font-size: 15px;
-      font-weight: 900;
-      letter-spacing: -0.3px;
-    }
-
-    .brand-subtitle {
-      font-size: 11px;
-      color: var(--color-muted);
-      font-weight: 600;
-      display: block;
-    }
-
-    .masthead-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
+    .masthead-actions { display: flex; align-items: center; gap: 8px; }
     .btn-action {
       background: var(--color-papel-2);
       border: 1.5px solid var(--color-border);
@@ -112,26 +81,12 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.15s ease;
       min-height: 36px;
       text-decoration: none;
     }
-
-    .btn-action:hover {
-      background: var(--color-border);
-      color: #fff;
-    }
-
-    .btn-primary {
-      background: var(--color-accent-690);
-      color: #fff;
-      border-color: var(--color-accent-690);
-    }
-
-    .btn-primary:hover {
-      background: var(--color-accent-hover);
-      border-color: var(--color-accent-hover);
-    }
+    .btn-action:hover { background: var(--color-border); color: #fff; }
+    .btn-primary { background: var(--color-accent-690); color: #fff; border-color: var(--color-accent-690); }
+    .btn-primary:hover { background: var(--color-accent-hover); }
 
     /* Cartelera Clara / Hero (Poptaim Reference) */
     .hero-cartelera {
@@ -140,25 +95,10 @@
       border: 3px solid var(--color-accent-690);
       border-radius: 24px;
       padding: 24px;
-      position: relative;
-      overflow: hidden;
     }
+    @media (min-width: 768px) { .hero-cartelera { padding: 40px; border-width: 4px; } }
 
-    @media (min-width: 768px) {
-      .hero-cartelera {
-        padding: 40px;
-        border-width: 4px;
-      }
-    }
-
-    .hero-eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-      flex-wrap: wrap;
-    }
-
+    .hero-eyebrow { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
     .badge-code {
       background: var(--color-accent-690);
       color: #fff;
@@ -167,42 +107,14 @@
       padding: 3px 8px;
       border-radius: 6px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
+    .badge-subcode { font-size: 11px; color: #A1A1AA; font-weight: 600; }
 
-    .badge-subcode {
-      font-size: 11px;
-      color: #A1A1AA;
-      font-weight: 600;
-    }
+    .hero-title { font-size: 26px; font-weight: 900; line-height: 1.15; margin-bottom: 12px; }
+    @media (min-width: 768px) { .hero-title { font-size: 42px; } }
 
-    .hero-title {
-      font-size: 26px;
-      font-weight: 900;
-      line-height: 1.15;
-      letter-spacing: -0.5px;
-      margin-bottom: 12px;
-    }
-
-    @media (min-width: 768px) {
-      .hero-title {
-        font-size: 42px;
-      }
-    }
-
-    .hero-desc {
-      font-size: 13px;
-      color: #D4D4D8;
-      max-width: 720px;
-      line-height: 1.6;
-      font-weight: 500;
-    }
-
-    @media (min-width: 768px) {
-      .hero-desc {
-        font-size: 16px;
-      }
-    }
+    .hero-desc { font-size: 13px; color: #D4D4D8; max-width: 720px; line-height: 1.6; font-weight: 500; }
+    @media (min-width: 768px) { .hero-desc { font-size: 16px; } }
 
     .hero-stats {
       margin-top: 20px;
@@ -215,20 +127,8 @@
       font-weight: 700;
       color: #A1A1AA;
     }
-
-    .stat-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: #fff;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--color-accent-690);
-    }
+    .stat-item { display: flex; align-items: center; gap: 6px; color: #fff; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-accent-690); }
 
     /* Pestañas de Navegación */
     .nav-tabs {
@@ -241,7 +141,6 @@
       overflow-x: auto;
       scrollbar-width: none;
     }
-
     .tab-btn {
       background: transparent;
       border: none;
@@ -253,31 +152,14 @@
       border-radius: 10px;
       cursor: pointer;
       white-space: nowrap;
-      transition: all 0.15s ease;
       min-height: 38px;
     }
+    .tab-btn:hover { background: var(--color-papel-2); }
+    .tab-btn.active { background: var(--color-accent-690); color: #fff; }
 
-    .tab-btn:hover {
-      background: var(--color-papel-2);
-    }
-
-    .tab-btn.active {
-      background: var(--color-accent-690);
-      color: #fff;
-    }
-
-    /* Tarjetas de Áreas del Sistema */
-    .grid-areas {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-
-    @media (min-width: 768px) {
-      .grid-areas {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
+    /* Tarjetas de Áreas */
+    .grid-areas { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    @media (min-width: 768px) { .grid-areas { grid-template-columns: repeat(2, 1fr); } }
 
     .area-card {
       background: var(--color-papel-1);
@@ -288,42 +170,14 @@
       flex-direction: column;
       justify-content: space-between;
       gap: 12px;
-      transition: all 0.15s ease;
       cursor: pointer;
+      transition: all 0.15s ease;
     }
-
-    .area-card:hover {
-      border-color: var(--color-accent-690);
-      box-shadow: 0 4px 12px rgba(240, 78, 35, 0.15);
-      transform: translateY(-2px);
-    }
-
-    .area-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .area-code {
-      font-size: 11px;
-      font-weight: 900;
-      color: var(--color-accent-690);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .area-title {
-      font-size: 16px;
-      font-weight: 900;
-      margin: 4px 0;
-    }
-
-    .area-desc {
-      font-size: 12px;
-      color: var(--color-muted);
-      line-height: 1.5;
-    }
-
+    .area-card:hover { border-color: var(--color-accent-690); transform: translateY(-2px); }
+    .area-top { display: flex; justify-content: space-between; align-items: center; }
+    .area-code { font-size: 11px; font-weight: 900; color: var(--color-accent-690); text-transform: uppercase; }
+    .area-title { font-size: 16px; font-weight: 900; margin: 4px 0; }
+    .area-desc { font-size: 12px; color: var(--color-muted); line-height: 1.5; }
     .area-footer {
       border-top: 1px solid var(--color-papel-3);
       padding-top: 10px;
@@ -334,73 +188,24 @@
       color: var(--color-muted);
     }
 
-    /* Tablas Técnicas (Estilo Poptaim) */
+    /* Tablas Técnicas */
     .table-container {
       background: var(--color-papel-1);
       border: 2px solid var(--color-border);
       border-radius: 18px;
       overflow-x: auto;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; text-align: left; }
+    th { background: var(--color-tinta); color: #fff; font-weight: 900; font-size: 11px; text-transform: uppercase; padding: 12px 14px; }
+    td { padding: 12px 14px; border-bottom: 1px solid var(--color-papel-3); vertical-align: top; }
+    tr:hover td { background: #FFF8F5; }
+    .tag-family { background: var(--color-papel-2); border: 1px solid var(--color-border); padding: 2px 6px; border-radius: 6px; font-weight: 800; font-size: 10px; }
+    .text-positive { color: #166534; font-weight: 600; }
+    .text-negative { color: #991B1B; font-weight: 600; }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 12px;
-    }
-
-    th {
-      background: var(--color-tinta);
-      color: #fff;
-      font-weight: 900;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      padding: 12px 14px;
-    }
-
-    td {
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--color-papel-3);
-      vertical-align: top;
-    }
-
-    tr:hover td {
-      background: #FFF8F5;
-    }
-
-    .tag-family {
-      background: var(--color-papel-2);
-      border: 1px solid var(--color-border);
-      padding: 2px 6px;
-      border-radius: 6px;
-      font-weight: 800;
-      font-size: 10px;
-    }
-
-    .text-positive {
-      color: #166534;
-      font-weight: 600;
-    }
-
-    .text-negative {
-      color: #991B1B;
-      font-weight: 600;
-    }
-
-    /* Decálogo: Lo que no se negocia */
-    .grid-rules {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-
-    @media (min-width: 768px) {
-      .grid-rules {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
+    /* Decálogo */
+    .grid-rules { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    @media (min-width: 768px) { .grid-rules { grid-template-columns: repeat(2, 1fr); } }
 
     .rule-card {
       background: var(--color-papel-1);
@@ -411,7 +216,6 @@
       gap: 12px;
       align-items: flex-start;
     }
-
     .rule-num {
       width: 28px;
       height: 28px;
@@ -425,20 +229,10 @@
       justify-content: center;
       flex-shrink: 0;
     }
+    .rule-title { font-size: 14px; font-weight: 900; margin-bottom: 4px; }
+    .rule-desc { font-size: 12px; color: var(--color-muted); line-height: 1.45; }
 
-    .rule-title {
-      font-size: 14px;
-      font-weight: 900;
-      margin-bottom: 4px;
-    }
-
-    .rule-desc {
-      font-size: 12px;
-      color: var(--color-muted);
-      line-height: 1.45;
-    }
-
-    /* Sandbox y Ficha interactiva */
+    /* Sandbox */
     .sandbox-panel {
       background: var(--color-papel-1);
       border: 2px solid var(--color-border);
@@ -448,7 +242,6 @@
       flex-direction: column;
       gap: 16px;
     }
-
     .region-select {
       background: var(--color-papel-2);
       border: 2px solid var(--color-border);
@@ -461,15 +254,7 @@
       width: 100%;
       max-width: 320px;
     }
-
-    .stat-hero {
-      font-size: 48px;
-      font-weight: 900;
-      font-variant-numeric: tabular-nums;
-      color: var(--color-tinta);
-      line-height: 1;
-    }
-
+    .stat-hero { font-size: 48px; font-weight: 900; font-variant-numeric: tabular-nums; color: var(--color-tinta); line-height: 1; }
     .pp-badge {
       display: inline-flex;
       align-items: center;
@@ -483,7 +268,6 @@
       border-radius: 6px;
       margin-top: 6px;
     }
-
     .progress-track {
       width: 100%;
       height: 14px;
@@ -493,16 +277,8 @@
       margin: 6px 0 14px;
       border: 1px solid var(--color-border);
     }
-
-    .progress-fill-accent {
-      height: 100%;
-      background: var(--color-accent-690);
-    }
-
-    .progress-fill-benchmark {
-      height: 100%;
-      background: #737373;
-    }
+    .progress-fill-accent { height: 100%; background: var(--color-accent-690); }
+    .progress-fill-benchmark { height: 100%; background: #737373; }
 
     /* Toast */
     .toast {
@@ -518,18 +294,8 @@
       font-weight: 800;
       display: none;
       z-index: 1000;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
     }
-
-    .toast.show {
-      display: block;
-      animation: fadeIn 0.2s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    .toast.show { display: block; }
 
     footer {
       border-top: 2px solid var(--color-border);
@@ -542,19 +308,11 @@
       color: var(--color-muted);
       text-align: center;
     }
-
-    @media (min-width: 768px) {
-      footer {
-        flex-direction: row;
-        justify-content: space-between;
-        text-align: left;
-      }
-    }
+    @media (min-width: 768px) { footer { flex-direction: row; justify-content: space-between; text-align: left; } }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Masthead Institucional -->
     <header class="masthead">
       <div class="masthead-brand">
         <span class="brand-badge">INE</span>
@@ -571,17 +329,13 @@
         <button type="button" class="btn-action btn-primary" onclick="copyGithubSnippet()">
           📋 Copiar Código HTML
         </button>
-        <a href="/presentacion-ine.html" class="btn-action">
-          Diapositivas ENE
-        </a>
       </div>
     </header>
 
-    <!-- Cartelera Clara (Hero Poptaim Reference) -->
     <section class="hero-cartelera">
       <div class="hero-eyebrow">
         <span class="badge-code">Design System · Índice · P3.16</span>
-        <span class="badge-subcode">Arquitectura de Referencia Poptaim adaptada al INE</span>
+        <span class="badge-subcode">Referencia Poptaim adaptada al INE</span>
       </div>
 
       <h1 class="hero-title">El sistema del INE: Boletines Claros y Accesibles</h1>
@@ -600,7 +354,6 @@
       </div>
     </section>
 
-    <!-- Pestañas de Navegación -->
     <nav class="nav-tabs" role="tablist">
       <button class="tab-btn active" onclick="switchTab('indice')" id="tabBtn-indice">
         Índice de Áreas (10 Secciones)
@@ -622,157 +375,97 @@
     <!-- VISTA 1: ÍNDICE DE ÁREAS -->
     <section id="view-indice" class="grid-areas">
       <div class="area-card" onclick="openArea(1)">
-        <div class="area-top">
-          <span class="area-code">P1.1 · El Producto</span>
-          <span>→</span>
-        </div>
+        <div class="area-top"><span class="area-code">P1.1 · El Producto</span><span>→</span></div>
         <div>
           <h3 class="area-title">1. El Producto</h3>
           <p class="area-desc">Plataforma que consume GET /api/regiones y POST /api/preguntar para traducir datos complejos a lenguaje ciudadano.</p>
         </div>
-        <div class="area-footer">
-          <span>Doc producto.md</span>
-          <span>API viva</span>
-        </div>
+        <div class="area-footer"><span>Doc producto.md</span><span>API viva</span></div>
       </div>
 
       <div class="area-card" onclick="openArea(2)">
-        <div class="area-top">
-          <span class="area-code">P1.2 · Fundaciones</span>
-          <span>→</span>
-        </div>
+        <div class="area-top"><span class="area-code">P1.2 · Fundaciones</span><span>→</span></div>
         <div>
           <h3 class="area-title">2. Principios</h3>
           <p class="area-desc">Accesibilidad total WCAG 2.1 AA/AAA, tipografía sans-serif sin serifa, alto contraste y transparencia con fuentes oficiales.</p>
         </div>
-        <div class="area-footer">
-          <span>Doc principios.md</span>
-          <span>Contraste ≥ 7:1</span>
-        </div>
+        <div class="area-footer"><span>Doc principios.md</span><span>Contraste ≥ 7:1</span></div>
       </div>
 
       <div class="area-card" onclick="openArea(3)">
-        <div class="area-top">
-          <span class="area-code">P1.3 · Fundaciones</span>
-          <span>→</span>
-        </div>
+        <div class="area-top"><span class="area-code">P1.3 · Fundaciones</span><span>→</span></div>
         <div>
           <h3 class="area-title">3. Tokens de Diseño</h3>
           <p class="area-desc">Acento 690 (#F04E23), Tinta pura (#0A0A0A), Papeles neutros (#FFFFFF / #F5F5F7) y escala de espaciado 4-8-16-24-32.</p>
         </div>
-        <div class="area-footer">
-          <span>Doc tokens.md</span>
-          <span>Capa semántica</span>
-        </div>
+        <div class="area-footer"><span>Doc tokens.md</span><span>Capa semántica</span></div>
       </div>
 
       <div class="area-card" onclick="openArea(4)">
-        <div class="area-top">
-          <span class="area-code">P2.1 · Componentes</span>
-          <span>→</span>
-        </div>
+        <div class="area-top"><span class="area-code">P2.1 · Componentes</span><span>→</span></div>
         <div>
           <h3 class="area-title">4. Átomos</h3>
           <p class="area-desc">Botones naranjos ≥ 44px, etiquetas limpias sin píldoras, íconos accesibles de ayuda y cifras sans-serif tabulares.</p>
         </div>
-        <div class="area-footer">
-          <span>Doc atomos.md</span>
-          <span>Piezas mínimas</span>
-        </div>
+        <div class="area-footer"><span>Doc atomos.md</span><span>Piezas mínimas</span></div>
       </div>
 
       <div class="area-card" onclick="openArea(5)">
-        <div class="area-top">
-          <span class="area-code">P2.2 · Componentes</span>
-          <span>→</span>
-        </div>
+        <div class="area-top"><span class="area-code">P2.2 · Componentes</span><span>→</span></div>
         <div>
           <h3 class="area-title">5. Moléculas</h3>
           <p class="area-desc">Tarjeta de cifra regional, selector de región accesible y leyenda monocromática naranja de 5 escalones (6% a 12%+).</p>
         </div>
-        <div class="area-footer">
-          <span>Doc moleculas.md</span>
-          <span>Átomos combinados</span>
-        </div>
+        <div class="area-footer"><span>Doc moleculas.md</span><span>Átomos combinados</span></div>
       </div>
 
       <div class="area-card" onclick="openArea(6)">
-        <div class="area-top">
-          <span class="area-code">P2.3 · Componentes</span>
-          <span>→</span>
-        </div>
+        <div class="area-top"><span class="area-code">P2.3 · Componentes</span><span>→</span></div>
         <div>
           <h3 class="area-title">6. Organismos</h3>
           <p class="area-desc">Ficha regional con benchmark país 9,6%, mapa territorial apilado, comparador de regiones y tabulado analítico.</p>
         </div>
-        <div class="area-footer">
-          <span>Doc organismos.md</span>
-          <span>Sección completa</span>
-        </div>
+        <div class="area-footer"><span>Doc organismos.md</span><span>Sección completa</span></div>
       </div>
 
       <div class="area-card" onclick="openArea(7)">
-        <div class="area-top">
-          <span class="area-code">P3.1 · Cascarón</span>
-          <span>→</span>
-        </div>
+        <div class="area-top"><span class="area-code">P3.1 · Cascarón</span><span>→</span></div>
         <div>
           <h3 class="area-title">7. Plantillas y Páginas</h3>
           <p class="area-desc">Esqueleto móvil ordenado verticalmente (cabecera, ficha, mapa, fuente) e inyección en vivo de la ENE.</p>
         </div>
-        <div class="area-footer">
-          <span>Doc plantillas.md</span>
-          <span>Mobile-first</span>
-        </div>
+        <div class="area-footer"><span>Doc plantillas.md</span><span>Mobile-first</span></div>
       </div>
 
       <div class="area-card" onclick="openArea(8)">
-        <div class="area-top">
-          <span class="area-code">P4.1 · Comportamiento</span>
-          <span>→</span>
-        </div>
+        <div class="area-top"><span class="area-code">P4.1 · Comportamiento</span><span>→</span></div>
         <div>
           <h3 class="area-title">8. Matriz de Estados</h3>
           <p class="area-desc">Foco visible de 3px por teclado, hover/encima, cargando (skeleton accesible), error con reintento y estado "no consta".</p>
         </div>
-        <div class="area-footer">
-          <span>Doc estados.md</span>
-          <span>6 estados forzados</span>
-        </div>
+        <div class="area-footer"><span>Doc estados.md</span><span>6 estados forzados</span></div>
       </div>
 
       <div class="area-card" onclick="openArea(9)">
-        <div class="area-top">
-          <span class="area-code">P4.2 · Voz y Datos</span>
-          <span>→</span>
-        </div>
+        <div class="area-top"><span class="area-code">P4.2 · Voz y Datos</span><span>→</span></div>
         <div>
           <h3 class="area-title">9. Datos y Voz</h3>
           <p class="area-desc">Regla de oro: las tasas se comparan en puntos porcentuales (pp), nunca en porcentaje (%). Glosario de trimestre móvil.</p>
         </div>
-        <div class="area-footer">
-          <span>Doc voz.md</span>
-          <span>Lenguaje claro</span>
-        </div>
+        <div class="area-footer"><span>Doc voz.md</span><span>Lenguaje claro</span></div>
       </div>
 
       <div class="area-card" onclick="openArea(10)">
-        <div class="area-top">
-          <span class="area-code">P5.1 · Ética</span>
-          <span>→</span>
-        </div>
+        <div class="area-top"><span class="area-code">P5.1 · Ética</span><span>→</span></div>
         <div>
           <h3 class="area-title">10. Accesibilidad e IA</h3>
           <p class="area-desc">Verificación matemática de ratios de contraste, etiquetas ARIA semánticas y declaración de asistencia con IA regulada.</p>
         </div>
-        <div class="area-footer">
-          <span>Doc accesibilidad.md</span>
-          <span>IA supervisada</span>
-        </div>
+        <div class="area-footer"><span>Doc accesibilidad.md</span><span>IA supervisada</span></div>
       </div>
     </section>
 
-    <!-- VISTA 2: TABLA "COMPONENTES: ÚSALO PARA, NO LO USES PARA" -->
+    <!-- VISTA 2: TABLA COMPONENTES ÚSALO PARA / NO LO USES PARA -->
     <section id="view-componentes" class="table-container" style="display: none;">
       <table>
         <thead>
@@ -842,7 +535,7 @@
       </table>
     </section>
 
-    <!-- VISTA 3: TABLA "TOKENS POR FAMILIA" -->
+    <!-- VISTA 3: TOKENS POR FAMILIA -->
     <section id="view-tokens" class="table-container" style="display: none;">
       <table>
         <thead>
@@ -896,7 +589,6 @@
           <p class="rule-desc">Ningún color, espaciado, sombra o radio a mano. Toda la interfaz se rige por las variables oficiales del sistema de diseño.</p>
         </div>
       </div>
-
       <div class="rule-card">
         <span class="rule-num">2</span>
         <div>
@@ -904,7 +596,6 @@
           <p class="rule-desc">Si una tasa pasa de 10,1% a 11,2%, la diferencia es estrictamente +1,1 pp. Decir "subió 1,1%" es un error matemático grave.</p>
         </div>
       </div>
-
       <div class="rule-card">
         <span class="rule-num">3</span>
         <div>
@@ -912,7 +603,6 @@
           <p class="rule-desc">Acento en naranjo intenso (#F04E23), tinta en negro puro (#0A0A0A) y fondos limpios. Prohibido texto gris claro sobre fondos blancos.</p>
         </div>
       </div>
-
       <div class="rule-card">
         <span class="rule-num">4</span>
         <div>
@@ -920,7 +610,6 @@
           <p class="rule-desc">Prohibidas las fuentes ornamentales o con serifa en datos. Tipografía sans-serif con tabular-nums para facilitar la lectura a cualquier ciudadano.</p>
         </div>
       </div>
-
       <div class="rule-card">
         <span class="rule-num">5</span>
         <div>
@@ -928,7 +617,6 @@
           <p class="rule-desc">Ningún dato flota sin su fuente ("Fuente: INE, ENE Jun-ago"). Toda intervención de IA se declara explícitamente en la interfaz.</p>
         </div>
       </div>
-
       <div class="rule-card">
         <span class="rule-num">6</span>
         <div>
@@ -936,7 +624,6 @@
           <p class="rule-desc">Objetivos táctiles de al menos 44 px. Barra dock fija para navegación con una sola mano. Cero desborde o scroll horizontal involuntario.</p>
         </div>
       </div>
-
       <div class="rule-card">
         <span class="rule-num">7</span>
         <div>
@@ -944,7 +631,6 @@
           <p class="rule-desc">Normal, encima (hover), foco visible con teclado, cargando (skeleton accesible), éxito, error con reintento y estado "no consta".</p>
         </div>
       </div>
-
       <div class="rule-card">
         <span class="rule-num">8</span>
         <div>
@@ -954,14 +640,13 @@
       </div>
     </section>
 
-    <!-- VISTA 5: SANDBOX INTERACTIVO VIVO -->
+    <!-- VISTA 5: SANDBOX INTERACTIVO -->
     <section id="view-sandbox" class="sandbox-panel" style="display: none;">
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-bottom: 2px solid var(--color-border); padding-bottom: 12px;">
         <div>
           <span style="font-size: 11px; font-weight: 900; color: var(--color-accent-690); text-transform: uppercase;">Demostrador Vivo</span>
           <h3 style="font-size: 20px; font-weight: 900;">Ficha Regional de Prueba</h3>
         </div>
-
         <div>
           <label for="sbRegion" style="font-size: 11px; font-weight: 800; display: block; margin-bottom: 4px;">Cambiar Región:</label>
           <select id="sbRegion" class="region-select" onchange="updateSandbox(this.value)">
@@ -976,33 +661,28 @@
         </div>
       </div>
 
-      <div style="display: grid; grid-template-columns: 1fr; gap: 20px;" id="sbGrid">
+      <div style="display: grid; grid-template-columns: 1fr; gap: 20px;">
         <div style="padding: 16px; background: var(--color-papel-2); border: 2px solid var(--color-border); border-radius: 14px;">
           <span style="font-size: 11px; font-weight: 800; color: var(--color-muted); text-transform: uppercase;">Tasa de desocupación regional</span>
           <div class="stat-hero" id="sbRate">11,2%</div>
           <div class="pp-badge" id="sbVar">+1,1 pp en doce meses</div>
-          <p style="font-size: 11px; color: var(--color-muted); margin-top: 8px;" id="sbSource">Fuente: INE, ENE Jun-ago</p>
+          <p style="font-size: 11px; color: var(--color-muted); margin-top: 8px;">Fuente: INE, ENE Jun-ago</p>
         </div>
 
         <div style="padding: 16px; background: #fff; border: 2px solid var(--color-border); border-radius: 14px;">
           <span style="font-size: 12px; font-weight: 800; text-transform: uppercase;">Comparativa con el promedio del país (9,6%):</span>
-          
           <div style="margin-top: 10px;">
             <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 800;">
               <span id="sbRegName">Ñuble (Tu región)</span>
               <span id="sbRegRateTxt">11,2%</span>
             </div>
-            <div class="progress-track">
-              <div class="progress-fill-accent" id="sbBarAccent" style="width: 74%;"></div>
-            </div>
+            <div class="progress-track"><div class="progress-fill-accent" id="sbBarAccent" style="width: 74%;"></div></div>
 
             <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 800;">
               <span>Promedio País (Benchmark INE)</span>
               <span>9,6%</span>
             </div>
-            <div class="progress-track">
-              <div class="progress-fill-benchmark" style="width: 64%;"></div>
-            </div>
+            <div class="progress-track"><div class="progress-fill-benchmark" style="width: 64%;"></div></div>
 
             <p style="font-size: 11px; font-weight: 700; color: var(--color-accent-690);" id="sbDiffTxt">
               La desocupación en Ñuble es 1,6 pp más alta que el promedio nacional.
@@ -1012,14 +692,9 @@
       </div>
     </section>
 
-    <!-- Pie de Página Institucional -->
     <footer>
-      <div>
-        <strong>Instituto Nacional de Estadísticas de Chile (INE)</strong> · Sistema de Diseño Accesible
-      </div>
-      <div>
-        Alto Contraste WCAG 2.1 AA/AAA · Sans-serif Legible · Supervisión de IA
-      </div>
+      <div><strong>Instituto Nacional de Estadísticas de Chile (INE)</strong> · Sistema de Diseño Accesible</div>
+      <div>Alto Contraste WCAG 2.1 AA/AAA · Sans-serif Legible · Supervisión de IA</div>
     </footer>
   </div>
 
@@ -1046,9 +721,7 @@
       });
     }
 
-    function openArea(num) {
-      switchTab('sandbox');
-    }
+    function openArea(num) { switchTab('sandbox'); }
 
     function updateSandbox(regId) {
       const data = REGIONS_DATA[regId] || REGIONS_DATA['nuble'];
@@ -1061,18 +734,16 @@
     }
 
     function toggleReducedMotion() {
-      const body = document.body;
-      const btn = document.getElementById('btnMotion');
-      const isReduced = body.classList.toggle('motion-reduce');
-      btn.innerText = isReduced ? '⚡ Movimiento: Reducido' : '⚡ Reducir movimiento';
+      const isReduced = document.body.classList.toggle('motion-reduce');
+      document.getElementById('btnMotion').innerText = isReduced ? '⚡ Movimiento: Reducido' : '⚡ Reducir movimiento';
     }
 
     function copyGithubSnippet() {
       const htmlText = document.documentElement.outerHTML;
       navigator.clipboard.writeText(htmlText).then(() => {
-        showToast('¡Código HTML completo copiado! Pégalo en tu repositorio de GitHub.');
+        showToast('¡Código HTML copiado! Pégalo en tu repositorio de GitHub.');
       }).catch(() => {
-        showToast('Código disponible en /public/github-design-system.html');
+        showToast('Código listo en /public/github-design-system.html');
       });
     }
 
@@ -1080,9 +751,8 @@
       const t = document.getElementById('toast');
       t.innerText = msg;
       t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 3500);
+      setTimeout(() => t.classList.remove('show'), 3000);
     }
   </script>
 </body>
 </html>
-
