@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-  <title>Design System | Boletines INE (Referencia Poptaim)</title>
-  <meta name="description" content="Sistema de Diseño Accesible para Boletines del Instituto Nacional de Estadísticas de Chile (INE). Metodología Atomic Design y arquitectura editorial de referencia Poptaim.">
+  <title>Design System Accesible | Boletines INE (Referencia Poptaim)</title>
+  <meta name="description" content="Sistema de Diseño Accesible para Boletines del Instituto Nacional de Estadísticas de Chile (INE). Metodología Atomic Design de 5 columnas interactivas y arquitectura Poptaim.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -12,6 +12,8 @@
     :root {
       --color-accent-690: #F04E23;
       --color-accent-hover: #D93D14;
+      --color-accent-light: #FFF0EB;
+      --color-accent-border: #FFB899;
       --color-tinta: #0A0A0A;
       --color-papel-1: #FFFFFF;
       --color-papel-2: #F5F5F7;
@@ -43,8 +45,13 @@
       }
     }
 
+    body.motion-reduce * {
+      animation: none !important;
+      transition: none !important;
+    }
+
     .container {
-      max-width: 1180px;
+      max-width: 1200px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
@@ -97,6 +104,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      flex-wrap: wrap;
     }
 
     .btn-action {
@@ -146,7 +154,7 @@
 
     @media (min-width: 768px) {
       .hero-cartelera {
-        padding: 40px;
+        padding: 36px;
         border-width: 4px;
       }
     }
@@ -186,21 +194,21 @@
 
     @media (min-width: 768px) {
       .hero-title {
-        font-size: 42px;
+        font-size: 40px;
       }
     }
 
     .hero-desc {
       font-size: 13px;
       color: #D4D4D8;
-      max-width: 720px;
+      max-width: 750px;
       line-height: 1.6;
       font-weight: 500;
     }
 
     @media (min-width: 768px) {
       .hero-desc {
-        font-size: 16px;
+        font-size: 15px;
       }
     }
 
@@ -254,7 +262,10 @@
       cursor: pointer;
       white-space: nowrap;
       transition: all 0.15s ease;
-      min-height: 38px;
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .tab-btn:hover {
@@ -266,7 +277,307 @@
       color: #fff;
     }
 
-    /* Tarjetas de Áreas del Sistema */
+    /* ========================================================
+       PORTADA INTERACTIVA DE ATOMIC DESIGN (5 COLUMNAS)
+       ======================================================== */
+    .atomic-banner-container {
+      background: var(--color-papel-1);
+      border: 2px solid var(--color-border);
+      border-radius: 20px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .atomic-banner-container {
+        padding: 24px;
+        border-width: 3px;
+      }
+    }
+
+    .atomic-banner-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 2px solid var(--color-papel-3);
+      padding-bottom: 12px;
+    }
+
+    .atomic-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* Indicador móvil de etapas */
+    .stepper-nav {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      width: 100%;
+      padding-bottom: 4px;
+    }
+
+    @media (min-width: 1024px) {
+      .stepper-nav {
+        display: none;
+      }
+    }
+
+    .step-btn {
+      background: var(--color-papel-2);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .step-btn.active {
+      background: var(--color-accent-690);
+      color: #fff;
+      border-color: var(--color-accent-690);
+    }
+
+    /* Grilla de 5 Columnas de Atomic Design */
+    .atomic-columns-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 1024px) {
+      .atomic-columns-grid {
+        grid-template-columns: repeat(5, 1fr);
+        align-items: stretch;
+      }
+    }
+
+    .atomic-column {
+      background: var(--color-papel-2);
+      border: 2px solid var(--color-border);
+      border-radius: 16px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+    }
+
+    .atomic-column.highlight {
+      border-color: var(--color-accent-690);
+      background: #FFFDFB;
+      box-shadow: 0 4px 14px rgba(240, 78, 35, 0.12);
+    }
+
+    .col-header {
+      background: var(--color-tinta);
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .col-header h4 {
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--color-accent-690);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .col-header span {
+      font-size: 10px;
+      color: #A1A1AA;
+      display: block;
+      margin-top: 2px;
+    }
+
+    .col-body {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-grow: 1;
+    }
+
+    /* Componentes visuales dentro de las columnas */
+    .token-chip-row {
+      display: flex;
+      gap: 6px;
+    }
+
+    .token-chip {
+      flex: 1;
+      height: 40px;
+      border-radius: 8px;
+      border: 1.5px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .token-chip:hover {
+      transform: scale(1.05);
+    }
+
+    .token-chip.orange {
+      background: var(--color-accent-690);
+      color: #fff;
+      border-color: var(--color-accent-690);
+    }
+
+    .token-chip.black {
+      background: var(--color-tinta);
+      color: #fff;
+    }
+
+    .token-chip.paper {
+      background: var(--color-papel-1);
+      color: var(--color-tinta);
+    }
+
+    .atom-box {
+      background: var(--color-papel-1);
+      border: 1.5px solid var(--color-border);
+      border-radius: 12px;
+      padding: 10px;
+    }
+
+    .atom-box-title {
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--color-muted);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .interactive-btn {
+      width: 100%;
+      background: var(--color-accent-690);
+      color: #fff;
+      border: none;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      min-height: 44px;
+    }
+
+    .interactive-btn:hover {
+      background: var(--color-accent-hover);
+    }
+
+    .interactive-btn:focus-visible {
+      outline: 3px solid #0A0A0A;
+      outline-offset: 2px;
+    }
+
+    .interactive-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #FFF0EB;
+      border: 1.5px solid var(--color-accent-border);
+      color: #C2330D;
+      font-weight: 800;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+
+    .col-footer-note {
+      border-top: 1px solid var(--color-papel-3);
+      padding-top: 8px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--color-muted);
+      text-align: center;
+    }
+
+    /* ========================================================
+       MODAL / DRAWER DE INSPECCIÓN DE LAS 10 CASILLAS
+       ======================================================== */
+    .inspector-panel {
+      background: #FFFDFB;
+      border: 3px solid var(--color-accent-690);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 8px 24px rgba(240, 78, 35, 0.15);
+      animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .inspector-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 2px solid var(--color-border);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+
+    .inspector-title {
+      font-size: 18px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .inspector-badge {
+      background: var(--color-accent-690);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .btn-close {
+      background: var(--color-papel-1);
+      border: 1.5px solid var(--color-border);
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .btn-close:hover {
+      background: var(--color-accent-690);
+      color: #fff;
+    }
+
+    /* Grilla de Áreas del Sistema */
     .grid-areas {
       display: grid;
       grid-template-columns: 1fr;
@@ -289,13 +600,56 @@
       justify-content: space-between;
       gap: 12px;
       transition: all 0.15s ease;
-      cursor: pointer;
     }
 
     .area-card:hover {
       border-color: var(--color-accent-690);
       box-shadow: 0 4px 12px rgba(240, 78, 35, 0.15);
-      transform: translateY(-2px);
+    }
+
+    .area-card.expanded {
+      border-color: var(--color-accent-690);
+      background: #FFFDFB;
+      box-shadow: 0 6px 20px rgba(240, 78, 35, 0.2);
+      grid-column: 1 / -1;
+    }
+
+    .btn-explore-toggle {
+      background: var(--color-accent-light);
+      color: #C2330D;
+      border: 1px solid var(--color-accent-border);
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+      min-height: 34px;
+    }
+
+    .btn-explore-toggle:hover {
+      background: var(--color-accent-690);
+      color: #fff;
+    }
+
+    .area-card.expanded .btn-explore-toggle {
+      background: var(--color-tinta);
+      color: #fff;
+      border-color: var(--color-tinta);
+    }
+
+    .area-inline-drawer {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 2px solid var(--color-accent-690);
+      background: #FAF9F6;
+      border-radius: 12px;
+      padding: 16px;
+      animation: fadeIn 0.2s ease;
     }
 
     .area-top {
@@ -334,7 +688,12 @@
       color: var(--color-muted);
     }
 
-    /* Tablas Técnicas (Estilo Poptaim) */
+    .explore-cue {
+      color: var(--color-accent-690);
+      font-weight: 800;
+    }
+
+    /* Tablas Técnicas (Poptaim Reference) */
     .table-container {
       background: var(--color-papel-1);
       border: 2px solid var(--color-border);
@@ -463,7 +822,7 @@
     }
 
     .stat-hero {
-      font-size: 48px;
+      font-size: 44px;
       font-weight: 900;
       font-variant-numeric: tabular-nums;
       color: var(--color-tinta);
@@ -497,6 +856,7 @@
     .progress-fill-accent {
       height: 100%;
       background: var(--color-accent-690);
+      transition: width 0.3s ease;
     }
 
     .progress-fill-benchmark {
@@ -504,11 +864,11 @@
       background: #737373;
     }
 
-    /* Toast */
+    /* Toast Flotante */
     .toast {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 24px;
+      right: 24px;
       background: var(--color-tinta);
       color: #fff;
       border: 2px solid var(--color-accent-690);
@@ -516,29 +876,25 @@
       border-radius: 12px;
       font-size: 12px;
       font-weight: 800;
-      display: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
       z-index: 1000;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      display: none;
+      align-items: center;
+      gap: 8px;
     }
 
     .toast.show {
-      display: block;
-      animation: fadeIn 0.2s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
+      display: flex;
     }
 
     footer {
-      border-top: 2px solid var(--color-border);
-      padding-top: 20px;
       margin-top: 20px;
+      padding-top: 16px;
+      border-top: 2px solid var(--color-border);
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      font-size: 11px;
+      gap: 8px;
+      font-size: 12px;
       color: var(--color-muted);
       text-align: center;
     }
@@ -553,232 +909,548 @@
   </style>
 </head>
 <body>
+
   <div class="container">
-    <!-- Masthead Institucional -->
+    <!-- MASTHEAD INSTITUCIONAL -->
     <header class="masthead">
       <div class="masthead-brand">
         <span class="brand-badge">INE</span>
         <div>
           <span class="brand-title">Sistema de Diseño Accesible</span>
-          <span class="brand-subtitle">Boletín ENE · Metodología Atomic Design</span>
+          <span class="brand-subtitle">Boletines Oficiales · Metodología Atomic Design</span>
         </div>
       </div>
 
       <div class="masthead-actions">
-        <button type="button" class="btn-action" onclick="toggleReducedMotion()" id="btnMotion">
+        <button type="button" id="btnMotion" class="btn-action" onclick="toggleReducedMotion()">
           ⚡ Reducir movimiento
         </button>
-        <button type="button" class="btn-action btn-primary" onclick="copyGithubSnippet()">
-          📋 Copiar Código HTML
-        </button>
-        <a href="/presentacion-ine.html" class="btn-action">
-          Diapositivas ENE
-        </a>
       </div>
     </header>
 
-    <!-- Cartelera Clara (Hero Poptaim Reference) -->
+    <!-- HERO / CARTELERA CLARA (Referencia Poptaim) -->
     <section class="hero-cartelera">
       <div class="hero-eyebrow">
-        <span class="badge-code">Design System · Índice · P3.16</span>
-        <span class="badge-subcode">Arquitectura de Referencia Poptaim adaptada al INE</span>
+        <span class="badge-code">Design System · P3.16</span>
+        <span class="badge-subcode">Metodología Atomic Design Progresiva</span>
       </div>
 
       <h1 class="hero-title">El sistema del INE: Boletines Claros y Accesibles</h1>
       <p class="hero-desc">
-        Papel, tinta y un solo naranjo intenso (#F04E23); sans-serif accesible para las cifras y textos que se leen y se tocan. Cada área tiene su página viva con variantes, estados forzados y su contrato de accesibilidad.
+        Acento único en naranjo intenso (<span style="color: #FF7A59; font-weight: 800;">#F04E23</span>), tinta pura (<span style="color: #fff; font-weight: 800;">#0A0A0A</span>) y tipografía sans-serif sin serifas confusas. Diseñado para transformar los boletines del Instituto Nacional de Estadísticas en experiencias directas y comprensibles para la comunidad en celulares y computadores.
       </p>
 
       <div class="hero-stats">
-        <span class="stat-item"><span class="dot"></span> 10 Secciones Atómicas</span>
-        <span>·</span>
-        <span class="stat-item">5 Familias de Tokens</span>
-        <span>·</span>
-        <span class="stat-item">16 Regiones de Chile</span>
-        <span>·</span>
-        <span class="stat-item">WCAG 2.1 AA / AAA</span>
+        <div class="stat-item"><span class="dot"></span> 5 Columnas de Atomic Design</div>
+        <div class="stat-item"><span class="dot"></span> 10 Secciones con Exploración en Casillas</div>
+        <div class="stat-item"><span class="dot"></span> 16 Regiones de Chile en Vivo</div>
+        <div class="stat-item"><span class="dot"></span> Contraste Estricto WCAG 2.1 AA/AAA</div>
       </div>
     </section>
 
-    <!-- Pestañas de Navegación -->
+    <!-- PESTAÑAS PRINCIPALES DE LA ARQUITECTURA -->
     <nav class="nav-tabs" role="tablist">
-      <button class="tab-btn active" onclick="switchTab('indice')" id="tabBtn-indice">
-        Índice de Áreas (10 Secciones)
+      <button type="button" class="tab-btn active" id="tabBtn-portada" onclick="switchTab('portada')">
+        🔬 Portada Atomic Design (Interactivo)
       </button>
-      <button class="tab-btn" onclick="switchTab('componentes')" id="tabBtn-componentes">
-        Componentes: úsalo para, no lo uses para
+      <button type="button" class="tab-btn" id="tabBtn-indice" onclick="switchTab('indice')">
+        🗂️ Índice de Áreas (10 Secciones)
       </button>
-      <button class="tab-btn" onclick="switchTab('tokens')" id="tabBtn-tokens">
-        Tokens por familia
+      <button type="button" class="tab-btn" id="tabBtn-componentes" onclick="switchTab('componentes')">
+        📋 Componentes: úsalo para / no lo uses
       </button>
-      <button class="tab-btn" onclick="switchTab('reglas')" id="tabBtn-reglas">
-        Lo que no se negocia
+      <button type="button" class="tab-btn" id="tabBtn-tokens" onclick="switchTab('tokens')">
+        🎨 Tokens por Familia
       </button>
-      <button class="tab-btn" onclick="switchTab('sandbox')" id="tabBtn-sandbox">
-        Sandbox Interactivo
+      <button type="button" class="tab-btn" id="tabBtn-reglas" onclick="switchTab('reglas')">
+        ⚖️ Lo que no se negocia
+      </button>
+      <button type="button" class="tab-btn" id="tabBtn-sandbox" onclick="switchTab('sandbox')">
+        🚀 Demostrador Vivo
       </button>
     </nav>
 
-    <!-- VISTA 1: ÍNDICE DE ÁREAS -->
-    <section id="view-indice" class="grid-areas">
-      <div class="area-card" onclick="openArea(1)">
-        <div class="area-top">
-          <span class="area-code">P1.1 · El Producto</span>
-          <span>→</span>
-        </div>
+    <!-- VISTA 1: PORTADA INTERACTIVA DE ATOMIC DESIGN -->
+    <section id="view-portada" class="atomic-banner-container">
+      <div class="atomic-banner-header">
         <div>
-          <h3 class="area-title">1. El Producto</h3>
-          <p class="area-desc">Plataforma que consume GET /api/regiones y POST /api/preguntar para traducir datos complejos a lenguaje ciudadano.</p>
+          <span style="font-size: 11px; font-weight: 900; color: var(--color-accent-690); text-transform: uppercase;">
+            Metodología Visual Progresiva
+          </span>
+          <h2 style="font-size: 22px; font-weight: 900; margin-top: 2px;">
+            Las 5 Columnas del Atomic Design en Acción
+          </h2>
+          <p style="font-size: 12px; color: var(--color-muted);">
+            Toca los botones, copia tokens de color con un clic o cambia la región para ver cómo todo se actualiza en cascada.
+          </p>
         </div>
-        <div class="area-footer">
-          <span>Doc producto.md</span>
-          <span>API viva</span>
+
+        <div class="atomic-controls">
+          <label for="bannerRegionSelect" style="font-size: 11px; font-weight: 800;">Región de ejemplo:</label>
+          <select id="bannerRegionSelect" class="region-select" onchange="changeActiveRegion(this.value)" style="width: auto; min-width: 220px;">
+            <option value="nuble" selected>Ñuble (11,2%) — Región destacada</option>
+            <option value="araucania">La Araucanía (10,3%)</option>
+            <option value="biobio">Biobío (9,1%)</option>
+            <option value="metropolitana">Metropolitana (8,9%)</option>
+            <option value="valparaiso">Valparaíso (8,8%)</option>
+            <option value="antofagasta">Antofagasta (8,7%)</option>
+            <option value="maule">Maule (7,8%)</option>
+            <option value="los-lagos">Los Lagos (6,5%)</option>
+            <option value="magallanes">Magallanes (5,8%)</option>
+          </select>
         </div>
       </div>
 
-      <div class="area-card" onclick="openArea(2)">
-        <div class="area-top">
-          <span class="area-code">P1.2 · Fundaciones</span>
-          <span>→</span>
-        </div>
-        <div>
-          <h3 class="area-title">2. Principios</h3>
-          <p class="area-desc">Accesibilidad total WCAG 2.1 AA/AAA, tipografía sans-serif sin serifa, alto contraste y transparencia con fuentes oficiales.</p>
-        </div>
-        <div class="area-footer">
-          <span>Doc principios.md</span>
-          <span>Contraste ≥ 7:1</span>
-        </div>
+      <!-- Selector de pasos móvil -->
+      <div class="stepper-nav">
+        <button type="button" class="step-btn active" onclick="showAtomicStep(0)">1. Átomos</button>
+        <button type="button" class="step-btn" onclick="showAtomicStep(1)">2. Moléculas</button>
+        <button type="button" class="step-btn" onclick="showAtomicStep(2)">3. Organismos</button>
+        <button type="button" class="step-btn" onclick="showAtomicStep(3)">4. Plantillas</button>
+        <button type="button" class="step-btn" onclick="showAtomicStep(4)">5. Páginas</button>
       </div>
 
-      <div class="area-card" onclick="openArea(3)">
-        <div class="area-top">
-          <span class="area-code">P1.3 · Fundaciones</span>
-          <span>→</span>
+      <!-- LAS 5 COLUMNAS VISUALES -->
+      <div class="atomic-columns-grid" id="atomicGrid">
+        
+        <!-- COLUMNA 1: ÁTOMOS -->
+        <div class="atomic-column" id="col-atomos">
+          <div class="col-header">
+            <h4>ÁTOMOS</h4>
+            <span>las piezas mínimas</span>
+          </div>
+          <div class="col-body">
+            <div>
+              <span class="atom-box-title">Colores (Tokens) · Clic para copiar</span>
+              <div class="token-chip-row">
+                <div class="token-chip orange" onclick="copyToken('#F04E23', 'Acento 690')" title="Copiar #F04E23">
+                  <span>acento 690</span>
+                  <span style="font-size: 8px;">#F04E23</span>
+                </div>
+                <div class="token-chip black" onclick="copyToken('#0A0A0A', 'Tinta')" title="Copiar #0A0A0A">
+                  <span>tinta</span>
+                  <span style="font-size: 8px;">#0A0A0A</span>
+                </div>
+                <div class="token-chip paper" onclick="copyToken('#FFFFFF', 'Papel 1')" title="Copiar #FFFFFF">
+                  <span>papel 1</span>
+                  <span style="font-size: 8px;">#FFFFFF</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="atom-box">
+              <span class="atom-box-title">Tipografía Sans-serif</span>
+              <div style="font-size: 26px; font-weight: 900; font-variant-numeric: tabular-nums;" id="col1-rate">11,2%</div>
+              <span style="font-size: 10px; color: var(--color-muted);">Sans-serif accesible y legible</span>
+            </div>
+
+            <div class="atom-box">
+              <span class="atom-box-title">Botón Naranjo (Prueba estados al clic)</span>
+              <button type="button" class="interactive-btn" id="demoStateBtn" onclick="cycleButtonState()">
+                <span id="demoBtnText">Cambiar región</span>
+              </button>
+              <span style="font-size: 9px; color: var(--color-muted); display: block; margin-top: 4px;" id="demoBtnStateName">
+                Estado: Normal
+              </span>
+            </div>
+
+            <div class="atom-box">
+              <span class="atom-box-title">Etiqueta Metodológica</span>
+              <div class="interactive-badge">INE · ENE</div>
+            </div>
+
+            <div class="atom-box">
+              <span class="atom-box-title">Espaciado Oficial</span>
+              <div style="font-size: 11px; font-weight: 800;">4 · 8 · 16 · 24 · 32 px</div>
+            </div>
+          </div>
+          <div class="col-footer-note">átomos + átomos = moléculas</div>
         </div>
+
+        <!-- COLUMNA 2: MOLÉCULAS -->
+        <div class="atomic-column" id="col-moleculas">
+          <div class="col-header">
+            <h4>MOLÉCULAS</h4>
+            <span>átomos que trabajan juntos</span>
+          </div>
+          <div class="col-body">
+            <div class="atom-box" style="background: #fff; border-width: 2px; text-align: center;">
+              <span class="atom-box-title">Tarjeta de Cifra</span>
+              <div style="font-size: 15px; font-weight: 900;" id="col2-name">Ñuble</div>
+              <div style="font-size: 32px; font-weight: 900; line-height: 1.1; margin: 4px 0;" id="col2-rate">11,2%</div>
+              <div class="pp-badge" id="col2-var">+1,1 pp en doce meses</div>
+              <div style="font-size: 9px; color: var(--color-muted); margin-top: 6px;">Fuente: INE, ENE Jun-ago</div>
+            </div>
+
+            <div class="atom-box">
+              <span class="atom-box-title">Selector de Región</span>
+              <div style="background: var(--color-papel-2); border: 1.5px solid var(--color-border); padding: 8px 10px; border-radius: 8px; font-size: 12px; font-weight: 800; display: flex; justify-content: space-between; align-items: center;">
+                <span id="col2-selectName">Ñuble</span>
+                <span>▼</span>
+              </div>
+            </div>
+
+            <div class="atom-box">
+              <span class="atom-box-title">Leyenda Monocromática</span>
+              <div style="display: flex; height: 12px; border-radius: 4px; overflow: hidden; border: 1px solid var(--color-border); margin: 6px 0;">
+                <div style="flex: 1; background: #FFD2C2;"></div>
+                <div style="flex: 1; background: #FF9E7D;"></div>
+                <div style="flex: 1; background: #F04E23;"></div>
+                <div style="flex: 1; background: #B33410;"></div>
+                <div style="flex: 1; background: #0A0A0A;"></div>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 10px; font-weight: 800;">
+                <span>6%</span>
+                <span>12%+</span>
+              </div>
+            </div>
+
+            <div class="atom-box">
+              <span class="atom-box-title">Línea de Fuente</span>
+              <span style="font-size: 10px; color: var(--color-muted);">Fuente: INE · Aprobado por equipo · IA Supervisada</span>
+            </div>
+          </div>
+          <div class="col-footer-note">moléculas = una sección</div>
+        </div>
+
+        <!-- COLUMNA 3: ORGANISMOS -->
+        <div class="atomic-column" id="col-organismos">
+          <div class="col-header">
+            <h4>ORGANISMOS</h4>
+            <span>secciones completas</span>
+          </div>
+          <div class="col-body">
+            <div class="atom-box" style="background: #fff; border-width: 2px;">
+              <span class="atom-box-title">Ficha de tu Región</span>
+              <div style="font-size: 14px; font-weight: 900;" id="col3-name">Ñuble</div>
+              <div style="font-size: 28px; font-weight: 900;" id="col3-rate">11,2%</div>
+              
+              <div style="margin-top: 8px;">
+                <div style="display: flex; justify-content: space-between; font-size: 10px; font-weight: 800;">
+                  <span>Tu región</span>
+                  <span id="col3-rateBarTxt">11,2%</span>
+                </div>
+                <div class="progress-track" style="height: 10px; margin: 3px 0 8px;">
+                  <div class="progress-fill-accent" id="col3-bar" style="width: 74%;"></div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; font-size: 10px; font-weight: 800;">
+                  <span>País 9,6%</span>
+                  <span>Benchmark</span>
+                </div>
+                <div class="progress-track" style="height: 10px; margin: 3px 0 8px;">
+                  <div class="progress-fill-benchmark" style="width: 64%;"></div>
+                </div>
+              </div>
+              <div style="font-size: 9px; color: var(--color-muted);">Fuente: INE</div>
+            </div>
+
+            <div class="atom-box" style="text-align: center;">
+              <span class="atom-box-title">Mapa con Leyenda</span>
+              <!-- Mini mapa esquemático de 5 bloques apilados -->
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 6px 0;">
+                <div style="width: 44px; height: 8px; background: #FFD2C2; border: 1px solid #0A0A0A; border-radius: 2px;"></div>
+                <div style="width: 50px; height: 8px; background: #FF9E7D; border: 1px solid #0A0A0A; border-radius: 2px;"></div>
+                <div style="width: 56px; height: 10px; background: #F04E23; border: 2px solid #0A0A0A; border-radius: 3px; box-shadow: 0 0 6px rgba(240, 78, 35, 0.4);" id="col3-mapHighlight"></div>
+                <div style="width: 48px; height: 8px; background: #B33410; border: 1px solid #0A0A0A; border-radius: 2px;"></div>
+                <div style="width: 40px; height: 8px; background: #FFD2C2; border: 1px solid #0A0A0A; border-radius: 2px;"></div>
+              </div>
+              <span style="font-size: 9px; font-weight: 700; color: var(--color-accent-690);">16 regiones esquemáticas</span>
+            </div>
+          </div>
+          <div class="col-footer-note">organismos = la estructura</div>
+        </div>
+
+        <!-- COLUMNA 4: PLANTILLAS -->
+        <div class="atomic-column" id="col-plantillas">
+          <div class="col-header">
+            <h4>PLANTILLAS</h4>
+            <span>el esqueleto, sin contenido</span>
+          </div>
+          <div class="col-body" style="align-items: center;">
+            <!-- Wireframe de teléfono móvil esquemático -->
+            <div style="width: 100%; max-width: 170px; background: #1C1917; border: 3px solid #0A0A0A; border-radius: 22px; padding: 10px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+              
+              <div style="height: 24px; background: #44403C; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; color: #fff;">
+                cabecera
+              </div>
+
+              <div style="height: 52px; background: #44403C; border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; color: #fff; padding: 4px; text-align: center;">
+                ficha de tu región
+              </div>
+
+              <div style="height: 60px; background: #44403C; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; color: #fff;">
+                mapa
+              </div>
+
+              <div style="height: 20px; background: #44403C; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; color: #fff;">
+                fuente
+              </div>
+            </div>
+
+            <p style="font-size: 11px; color: var(--color-muted); text-align: center; margin-top: 4px;">
+              Esqueleto vertical Mobile-First sin marcos artificiales de pantalla.
+            </p>
+          </div>
+          <div class="col-footer-note">la arquitectura de la pantalla</div>
+        </div>
+
+        <!-- COLUMNA 5: PÁGINAS -->
+        <div class="atomic-column" id="col-paginas">
+          <div class="col-header">
+            <h4>PÁGINAS</h4>
+            <span>la plantilla con datos reales</span>
+          </div>
+          <div class="col-body" style="align-items: center;">
+            <!-- Teléfono con la página real inyectada -->
+            <div style="width: 100%; max-width: 170px; background: #fff; border: 3px solid #0A0A0A; border-radius: 22px; padding: 8px; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 4px 14px rgba(240, 78, 35, 0.2);">
+              
+              <div style="background: #0A0A0A; color: #fff; padding: 4px 6px; border-radius: 6px; font-size: 9px; font-weight: 900; text-align: center;">
+                Observatorio INE
+              </div>
+
+              <div style="background: var(--color-papel-2); border: 1px solid var(--color-border); border-radius: 6px; padding: 6px; text-align: center;">
+                <span style="font-size: 9px; font-weight: 700; color: var(--color-muted);">Tu región: <span id="col5-name">Ñuble</span></span>
+                <div style="font-size: 20px; font-weight: 900; color: var(--color-tinta);" id="col5-rate">11,2%</div>
+                <span style="font-size: 8px; font-weight: 800; color: var(--color-accent-690);" id="col5-sub">+1,1 pp país 9,6%</span>
+              </div>
+
+              <!-- Mini mapa esquemático -->
+              <div style="background: var(--color-papel-2); border: 1px solid var(--color-border); border-radius: 6px; padding: 4px; display: flex; flex-direction: column; align-items: center; gap: 2px;">
+                <div style="width: 32px; height: 5px; background: #FFD2C2; border-radius: 1px;"></div>
+                <div style="width: 36px; height: 5px; background: #FF9E7D; border-radius: 1px;"></div>
+                <div style="width: 42px; height: 6px; background: #F04E23; border-radius: 1px;"></div>
+                <div style="width: 34px; height: 5px; background: #B33410; border-radius: 1px;"></div>
+              </div>
+
+              <div style="font-size: 8px; color: var(--color-muted); text-align: center;">
+                Fuente: INE · ENE
+              </div>
+            </div>
+
+            <p style="font-size: 11px; color: var(--color-muted); text-align: center; margin-top: 4px;">
+              Lo que ve el ciudadano: datos oficiales traducidos a lenguaje directo.
+            </p>
+          </div>
+          <div class="col-footer-note">el producto final en mano</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- VISTA 2: ÍNDICE DE ÁREAS (10 SECCIONES CON EXPLORADOR INTERACTIVO INLINE) -->
+    <section id="view-indice" style="display: none; flex-direction: column; gap: 16px;">
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; border-bottom: 2px solid var(--color-border); padding-bottom: 8px;">
         <div>
-          <h3 class="area-title">3. Tokens de Diseño</h3>
-          <p class="area-desc">Acento 690 (#F04E23), Tinta pura (#0A0A0A), Papeles neutros (#FFFFFF / #F5F5F7) y escala de espaciado 4-8-16-24-32.</p>
+          <h2 style="font-size: 20px; font-weight: 900;">10 Áreas del Sistema de Diseño</h2>
+          <p style="font-size: 12px; color: var(--color-muted);">Toca "Explorar casilla aquí" para abrir de inmediato el contenido interactivo dentro de la misma tarjeta.</p>
         </div>
-        <div class="area-footer">
-          <span>Doc tokens.md</span>
-          <span>Capa semántica</span>
-        </div>
+        <span style="font-size: 11px; font-weight: 800; background: #FFF0EB; color: #C2330D; border: 1px solid #FFB899; padding: 4px 8px; border-radius: 6px;">
+          ✓ Se despliega ahí mismo sin saltos
+        </span>
       </div>
 
-      <div class="area-card" onclick="openArea(4)">
-        <div class="area-top">
-          <span class="area-code">P2.1 · Componentes</span>
-          <span>→</span>
+      <div class="grid-areas">
+        <!-- ÁREA 1 -->
+        <div class="area-card" id="card-area-1">
+          <div class="area-top">
+            <span class="area-code">P1.1 · Arquitectura</span>
+            <button type="button" class="btn-explore-toggle" id="btn-toggle-1" onclick="toggleAreaInline(1, event)">
+              Explorar casilla aquí →
+            </button>
+          </div>
+          <div onclick="toggleAreaInline(1, event)" style="cursor: pointer;">
+            <h3 class="area-title">1. El Producto</h3>
+            <p class="area-desc">Plataforma que consume GET /api/regiones y POST /api/preguntar para traducir datos de la ENE a lenguaje claro para el ciudadano.</p>
+          </div>
+          <div class="area-footer">
+            <span>API en vivo</span>
+            <span style="color: var(--color-accent-690); font-weight: 800; cursor: pointer;" onclick="toggleAreaInline(1, event)">Tocar para abrir aquí</span>
+          </div>
+          <div class="area-inline-drawer" id="drawer-area-1" style="display: none;"></div>
         </div>
-        <div>
-          <h3 class="area-title">4. Átomos</h3>
-          <p class="area-desc">Botones naranjos ≥ 44px, etiquetas limpias sin píldoras, íconos accesibles de ayuda y cifras sans-serif tabulares.</p>
-        </div>
-        <div class="area-footer">
-          <span>Doc atomos.md</span>
-          <span>Piezas mínimas</span>
-        </div>
-      </div>
 
-      <div class="area-card" onclick="openArea(5)">
-        <div class="area-top">
-          <span class="area-code">P2.2 · Componentes</span>
-          <span>→</span>
+        <!-- ÁREA 2 -->
+        <div class="area-card" id="card-area-2">
+          <div class="area-top">
+            <span class="area-code">P1.2 · Calidad</span>
+            <button type="button" class="btn-explore-toggle" id="btn-toggle-2" onclick="toggleAreaInline(2, event)">
+              Explorar casilla aquí →
+            </button>
+          </div>
+          <div onclick="toggleAreaInline(2, event)" style="cursor: pointer;">
+            <h3 class="area-title">2. Principios</h3>
+            <p class="area-desc">Accesibilidad total WCAG 2.1 AA/AAA, tipografía sans-serif sin adornos distractores, contraste estricto y transparencia de fuente.</p>
+          </div>
+          <div class="area-footer">
+            <span>Contraste ≥ 7:1</span>
+            <span style="color: var(--color-accent-690); font-weight: 800; cursor: pointer;" onclick="toggleAreaInline(2, event)">Tocar para abrir aquí</span>
+          </div>
+          <div class="area-inline-drawer" id="drawer-area-2" style="display: none;"></div>
         </div>
-        <div>
-          <h3 class="area-title">5. Moléculas</h3>
-          <p class="area-desc">Tarjeta de cifra regional, selector de región accesible y leyenda monocromática naranja de 5 escalones (6% a 12%+).</p>
-        </div>
-        <div class="area-footer">
-          <span>Doc moleculas.md</span>
-          <span>Átomos combinados</span>
-        </div>
-      </div>
 
-      <div class="area-card" onclick="openArea(6)">
-        <div class="area-top">
-          <span class="area-code">P2.3 · Componentes</span>
-          <span>→</span>
+        <!-- ÁREA 3 -->
+        <div class="area-card" id="card-area-3">
+          <div class="area-top">
+            <span class="area-code">P1.3 · Base</span>
+            <button type="button" class="btn-explore-toggle" id="btn-toggle-3" onclick="toggleAreaInline(3, event)">
+              Explorar casilla aquí →
+            </button>
+          </div>
+          <div onclick="toggleAreaInline(3, event)" style="cursor: pointer;">
+            <h3 class="area-title">3. Tokens</h3>
+            <p class="area-desc">Paleta de alto contraste: Acento 690 (#F04E23), tinta (#0A0A0A), papeles neutros y escala de espaciado 4-8-16-24-32 px.</p>
+          </div>
+          <div class="area-footer">
+            <span>#F04E23</span>
+            <span style="color: var(--color-accent-690); font-weight: 800; cursor: pointer;" onclick="toggleAreaInline(3, event)">Tocar para abrir aquí</span>
+          </div>
+          <div class="area-inline-drawer" id="drawer-area-3" style="display: none;"></div>
         </div>
-        <div>
-          <h3 class="area-title">6. Organismos</h3>
-          <p class="area-desc">Ficha regional con benchmark país 9,6%, mapa territorial apilado, comparador de regiones y tabulado analítico.</p>
-        </div>
-        <div class="area-footer">
-          <span>Doc organismos.md</span>
-          <span>Sección completa</span>
-        </div>
-      </div>
 
-      <div class="area-card" onclick="openArea(7)">
-        <div class="area-top">
-          <span class="area-code">P3.1 · Cascarón</span>
-          <span>→</span>
+        <!-- ÁREA 4 -->
+        <div class="area-card" id="card-area-4">
+          <div class="area-top">
+            <span class="area-code">P2.1 · Componentes</span>
+            <button type="button" class="btn-explore-toggle" id="btn-toggle-4" onclick="toggleAreaInline(4, event)">
+              Explorar casilla aquí →
+            </button>
+          </div>
+          <div onclick="toggleAreaInline(4, event)" style="cursor: pointer;">
+            <h3 class="area-title">4. Átomos</h3>
+            <p class="area-desc">Botones naranjos ≥ 44px con foco visible de 3px, etiquetas INE-ENE limpias, cifras destacadas con números tabulares e íconos.</p>
+          </div>
+          <div class="area-footer">
+            <span>Botón Naranjo</span>
+            <span style="color: var(--color-accent-690); font-weight: 800; cursor: pointer;" onclick="toggleAreaInline(4, event)">Tocar para abrir aquí</span>
+          </div>
+          <div class="area-inline-drawer" id="drawer-area-4" style="display: none;"></div>
         </div>
-        <div>
-          <h3 class="area-title">7. Plantillas y Páginas</h3>
-          <p class="area-desc">Esqueleto móvil ordenado verticalmente (cabecera, ficha, mapa, fuente) e inyección en vivo de la ENE.</p>
-        </div>
-        <div class="area-footer">
-          <span>Doc plantillas.md</span>
-          <span>Mobile-first</span>
-        </div>
-      </div>
 
-      <div class="area-card" onclick="openArea(8)">
-        <div class="area-top">
-          <span class="area-code">P4.1 · Comportamiento</span>
-          <span>→</span>
+        <!-- ÁREA 5 -->
+        <div class="area-card" id="card-area-5">
+          <div class="area-top">
+            <span class="area-code">P2.2 · Composición</span>
+            <button type="button" class="btn-explore-toggle" id="btn-toggle-5" onclick="toggleAreaInline(5, event)">
+              Explorar casilla aquí →
+            </button>
+          </div>
+          <div onclick="toggleAreaInline(5, event)" style="cursor: pointer;">
+            <h3 class="area-title">5. Moléculas</h3>
+            <p class="area-desc">Tarjeta de cifra con variación en pp, selector de región accesible y leyenda monocromática sin colores semáforo engañosos.</p>
+          </div>
+          <div class="area-footer">
+            <span>Tarjeta Cifra</span>
+            <span style="color: var(--color-accent-690); font-weight: 800; cursor: pointer;" onclick="toggleAreaInline(5, event)">Tocar para abrir aquí</span>
+          </div>
+          <div class="area-inline-drawer" id="drawer-area-5" style="display: none;"></div>
         </div>
-        <div>
-          <h3 class="area-title">8. Matriz de Estados</h3>
-          <p class="area-desc">Foco visible de 3px por teclado, hover/encima, cargando (skeleton accesible), error con reintento y estado "no consta".</p>
-        </div>
-        <div class="area-footer">
-          <span>Doc estados.md</span>
-          <span>6 estados forzados</span>
-        </div>
-      </div>
 
-      <div class="area-card" onclick="openArea(9)">
-        <div class="area-top">
-          <span class="area-code">P4.2 · Voz y Datos</span>
-          <span>→</span>
+        <!-- ÁREA 6 -->
+        <div class="area-card" id="card-area-6">
+          <div class="area-top">
+            <span class="area-code">P2.3 · Secciones</span>
+            <button type="button" class="btn-explore-toggle" id="btn-toggle-6" onclick="toggleAreaInline(6, event)">
+              Explorar casilla aquí →
+            </button>
+          </div>
+          <div onclick="toggleAreaInline(6, event)" style="cursor: pointer;">
+            <h3 class="area-title">6. Organismos</h3>
+            <p class="area-desc">Ficha regional con benchmark 9,6%, mapa interactivo de 16 regiones de Chile y comparador territorial en tiempo real.</p>
+          </div>
+          <div class="area-footer">
+            <span>16 Regiones</span>
+            <span style="color: var(--color-accent-690); font-weight: 800; cursor: pointer;" onclick="toggleAreaInline(6, event)">Tocar para abrir aquí</span>
+          </div>
+          <div class="area-inline-drawer" id="drawer-area-6" style="display: none;"></div>
         </div>
-        <div>
-          <h3 class="area-title">9. Datos y Voz</h3>
-          <p class="area-desc">Regla de oro: las tasas se comparan en puntos porcentuales (pp), nunca en porcentaje (%). Glosario de trimestre móvil.</p>
-        </div>
-        <div class="area-footer">
-          <span>Doc voz.md</span>
-          <span>Lenguaje claro</span>
-        </div>
-      </div>
 
-      <div class="area-card" onclick="openArea(10)">
-        <div class="area-top">
-          <span class="area-code">P5.1 · Ética</span>
-          <span>→</span>
+        <!-- ÁREA 7 -->
+        <div class="area-card" id="card-area-7">
+          <div class="area-top">
+            <span class="area-code">P3.1 · Layout</span>
+            <button type="button" class="btn-explore-toggle" id="btn-toggle-7" onclick="toggleAreaInline(7, event)">
+              Explorar casilla aquí →
+            </button>
+          </div>
+          <div onclick="toggleAreaInline(7, event)" style="cursor: pointer;">
+            <h3 class="area-title">7. Plantillas y Páginas</h3>
+            <p class="area-desc">Esqueleto vertical para teléfonos móviles (cabecera, ficha, mapa, fuente) e inyección de datos de la ruta oficial del INE.</p>
+          </div>
+          <div class="area-footer">
+            <span>Zona del Pulgar</span>
+            <span style="color: var(--color-accent-690); font-weight: 800; cursor: pointer;" onclick="toggleAreaInline(7, event)">Tocar para abrir aquí</span>
+          </div>
+          <div class="area-inline-drawer" id="drawer-area-7" style="display: none;"></div>
         </div>
-        <div>
-          <h3 class="area-title">10. Accesibilidad e IA</h3>
-          <p class="area-desc">Verificación matemática de ratios de contraste, etiquetas ARIA semánticas y declaración de asistencia con IA regulada.</p>
+
+        <!-- ÁREA 8 -->
+        <div class="area-card" id="card-area-8">
+          <div class="area-top">
+            <span class="area-code">P4.1 · Dinámica</span>
+            <button type="button" class="btn-explore-toggle" id="btn-toggle-8" onclick="toggleAreaInline(8, event)">
+              Explorar casilla aquí →
+            </button>
+          </div>
+          <div onclick="toggleAreaInline(8, event)" style="cursor: pointer;">
+            <h3 class="area-title">8. Estados</h3>
+            <p class="area-desc">Matriz de 6 estados: Normal, Encima (hover), Foco accesible (:focus-visible), Cargando (skeleton), Error con reintento y "No consta".</p>
+          </div>
+          <div class="area-footer">
+            <span>6 Estados</span>
+            <span style="color: var(--color-accent-690); font-weight: 800; cursor: pointer;" onclick="toggleAreaInline(8, event)">Tocar para abrir aquí</span>
+          </div>
+          <div class="area-inline-drawer" id="drawer-area-8" style="display: none;"></div>
         </div>
-        <div class="area-footer">
-          <span>Doc accesibilidad.md</span>
-          <span>IA supervisada</span>
+
+        <!-- ÁREA 9 -->
+        <div class="area-card" id="card-area-9">
+          <div class="area-top">
+            <span class="area-code">P4.2 · Contenido</span>
+            <button type="button" class="btn-explore-toggle" id="btn-toggle-9" onclick="toggleAreaInline(9, event)">
+              Explorar casilla aquí →
+            </button>
+          </div>
+          <div onclick="toggleAreaInline(9, event)" style="cursor: pointer;">
+            <h3 class="area-title">9. Datos y Voz</h3>
+            <p class="area-desc">Regla innegociable: las diferencias entre tasas se escriben en puntos porcentuales (pp), nunca en porcentaje (%).</p>
+          </div>
+          <div class="area-footer">
+            <span>Regla "pp"</span>
+            <span style="color: var(--color-accent-690); font-weight: 800; cursor: pointer;" onclick="toggleAreaInline(9, event)">Tocar para abrir aquí</span>
+          </div>
+          <div class="area-inline-drawer" id="drawer-area-9" style="display: none;"></div>
+        </div>
+
+        <!-- ÁREA 10 -->
+        <div class="area-card" id="card-area-10">
+          <div class="area-top">
+            <span class="area-code">P5.1 · Ética</span>
+            <button type="button" class="btn-explore-toggle" id="btn-toggle-10" onclick="toggleAreaInline(10, event)">
+              Explorar casilla aquí →
+            </button>
+          </div>
+          <div onclick="toggleAreaInline(10, event)" style="cursor: pointer;">
+            <h3 class="area-title">10. Accesibilidad e IA</h3>
+            <p class="area-desc">Verificación matemática de ratio de contraste, textos alternativos para lectores de pantalla y declaración explícita de IA.</p>
+          </div>
+          <div class="area-footer">
+            <span>WCAG 2.1</span>
+            <span style="color: var(--color-accent-690); font-weight: 800; cursor: pointer;" onclick="toggleAreaInline(10, event)">Tocar para abrir aquí</span>
+          </div>
+          <div class="area-inline-drawer" id="drawer-area-10" style="display: none;"></div>
         </div>
       </div>
     </section>
 
-    <!-- VISTA 2: TABLA "COMPONENTES: ÚSALO PARA, NO LO USES PARA" -->
+    <!-- VISTA 3: TABLA "COMPONENTES: ÚSALO PARA / NO LO USES PARA" -->
     <section id="view-componentes" class="table-container" style="display: none;">
       <table>
         <thead>
           <tr>
             <th style="width: 25%;">Componente</th>
-            <th style="width: 15%;">Nivel</th>
+            <th style="width: 15%;">Familia</th>
             <th style="width: 30%;">Úsalo para</th>
             <th style="width: 30%;">No lo uses para</th>
           </tr>
@@ -787,44 +1459,32 @@
           <tr>
             <td><strong>StatCard</strong><br><span style="color:#525252;">Tarjeta de Cifra</span></td>
             <td><span class="tag-family">Molécula</span></td>
-            <td class="text-positive">✓ Mostrar la tasa regional con su variación anual en pp y su fuente oficial INE.</td>
-            <td class="text-negative">✕ Expresar la variación en porcentaje (%) relativo o esconder el trimestre de medición.</td>
+            <td class="text-positive">✓ Mostrar la tasa regional principal, su variación anual en "pp" y la fuente oficial INE.</td>
+            <td class="text-negative">✕ Comparaciones de más de dos variables simultáneas en la misma tarjeta.</td>
           </tr>
           <tr>
-            <td><strong>RegionSelect</strong><br><span style="color:#525252;">Selector Rápido</span></td>
+            <td><strong>RegionSelect</strong><br><span style="color:#525252;">Selector de Región</span></td>
             <td><span class="tag-family">Molécula</span></td>
-            <td class="text-positive">✓ Cambiar de forma ágil y accesible la región activa con teclado o toque en celulares.</td>
-            <td class="text-negative">✕ Obligar al usuario a tipear texto a mano o desplegar menús que desborden en móvil.</td>
+            <td class="text-positive">✓ Selección rápida de las 16 regiones de Chile con orden geográfico norte a sur y objetivo táctil ≥ 44 px.</td>
+            <td class="text-negative">✕ Reemplazar el mapa de Chile cuando hay espacio suficiente en pantalla.</td>
+          </tr>
+          <tr>
+            <td><strong>MapLegend</strong><br><span style="color:#525252;">Leyenda Monocromática</span></td>
+            <td><span class="tag-family">Molécula</span></td>
+            <td class="text-positive">✓ Explicar la escala de color naranja de 5 tramos (6% al 12%+) con soporte accesible para personas con daltonismo.</td>
+            <td class="text-negative">✕ Escalas policromáticas con verde/rojo tipo semáforo que confundan a personas con daltonismo.</td>
           </tr>
           <tr>
             <td><strong>RegionProfile</strong><br><span style="color:#525252;">Ficha Regional</span></td>
             <td><span class="tag-family">Organismo</span></td>
-            <td class="text-positive">✓ Ficha con barras comparativas Región vs País (9,6%), brecha de género e informalidad.</td>
-            <td class="text-negative">✕ Ocultar la fuente INE o usar colores tipo semáforo que confundan a personas con daltonismo.</td>
+            <td class="text-positive">✓ Ficha completa con barras comparativas Región vs País (9,6%), brecha de género e informalidad.</td>
+            <td class="text-negative">✕ Ocultar la fuente INE o usar colores que no cumplan el ratio de contraste.</td>
           </tr>
           <tr>
             <td><strong>ChileMap</strong><br><span style="color:#525252;">Mapa Regional</span></td>
             <td><span class="tag-family">Organismo</span></td>
             <td class="text-positive">✓ Mapa esquemático apilado de 16 regiones coloreadas con gradiente monocromático naranja.</td>
             <td class="text-negative">✕ Cargar mapas pesados con polígonos que demoren segundos en redes móviles lentas.</td>
-          </tr>
-          <tr>
-            <td><strong>RegionComparator</strong><br><span style="color:#525252;">Comparador</span></td>
-            <td><span class="tag-family">Organismo</span></td>
-            <td class="text-positive">✓ Contrastar 2 regiones y calcular la diferencia matemática en puntos porcentuales (pp).</td>
-            <td class="text-negative">✕ Comparar más de 2 regiones a la vez en celulares o restar tasas en porcentaje.</td>
-          </tr>
-          <tr>
-            <td><strong>RegionalTableRanking</strong><br><span style="color:#525252;">Tabulado Territorial</span></td>
-            <td><span class="tag-family">Organismo</span></td>
-            <td class="text-positive">✓ Tabla analítica ordenable por tasa, variación o informalidad con filtros de macrozona.</td>
-            <td class="text-negative">✕ Tablas sin scroll contenido o que requieran zoom manual en pantallas pequeñas.</td>
-          </tr>
-          <tr>
-            <td><strong>CitizenAskSection</strong><br><span style="color:#525252;">Preguntas con IA</span></td>
-            <td><span class="tag-family">Organismo</span></td>
-            <td class="text-positive">✓ Consultas ciudadanas en lenguaje simple con manejo explícito de "no consta", carga y error.</td>
-            <td class="text-negative">✕ Inventar cifras ajenas a la ENE o emitir respuestas sin declarar el uso de IA.</td>
           </tr>
           <tr>
             <td><strong>Button</strong><br><span style="color:#525252;">Botón Naranjo</span></td>
@@ -842,7 +1502,7 @@
       </table>
     </section>
 
-    <!-- VISTA 3: TABLA "TOKENS POR FAMILIA" -->
+    <!-- VISTA 4: TABLA "TOKENS POR FAMILIA" -->
     <section id="view-tokens" class="table-container" style="display: none;">
       <table>
         <thead>
@@ -887,7 +1547,7 @@
       </table>
     </section>
 
-    <!-- VISTA 4: LO QUE NO SE NEGOCIA -->
+    <!-- VISTA 5: LO QUE NO SE NEGOCIA -->
     <section id="view-reglas" class="grid-rules" style="display: none;">
       <div class="rule-card">
         <span class="rule-num">1</span>
@@ -954,7 +1614,7 @@
       </div>
     </section>
 
-    <!-- VISTA 5: SANDBOX INTERACTIVO VIVO -->
+    <!-- VISTA 6: DEMOSTRADOR VIVO (SANDBOX) -->
     <section id="view-sandbox" class="sandbox-panel" style="display: none;">
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-bottom: 2px solid var(--color-border); padding-bottom: 12px;">
         <div>
@@ -964,7 +1624,7 @@
 
         <div>
           <label for="sbRegion" style="font-size: 11px; font-weight: 800; display: block; margin-bottom: 4px;">Cambiar Región:</label>
-          <select id="sbRegion" class="region-select" onchange="updateSandbox(this.value)">
+          <select id="sbRegion" class="region-select" onchange="changeActiveRegion(this.value)">
             <option value="nuble" selected>Ñuble (11,2%) — Región destacada</option>
             <option value="araucania">La Araucanía (10,3%)</option>
             <option value="biobio">Biobío (9,1%)</option>
@@ -1012,13 +1672,13 @@
       </div>
     </section>
 
-    <!-- Pie de Página Institucional -->
+    <!-- PIE DE PÁGINA INSTITUCIONAL -->
     <footer>
       <div>
         <strong>Instituto Nacional de Estadísticas de Chile (INE)</strong> · Sistema de Diseño Accesible
       </div>
       <div>
-        Alto Contraste WCAG 2.1 AA/AAA · Sans-serif Legible · Supervisión de IA
+        Alto Contraste WCAG 2.1 AA/AAA · Sans-serif Legible · Metodología Atomic Design
       </div>
     </footer>
   </div>
@@ -1026,40 +1686,486 @@
   <div id="toast" class="toast">Código HTML copiado al portapapeles</div>
 
   <script>
+    // DATOS DE LAS 16 REGIONES DE CHILE (AUTÓNOMO, SIN SERVIDOR EXTERNO)
     const REGIONS_DATA = {
+      'arica': { name: 'Arica y Parinacota', rate: '8,4%', varPp: '+0,4 pp', width: '56%', diff: 'La tasa está 1,2 pp por debajo de la media nacional.' },
+      'tarapaca': { name: 'Tarapacá', rate: '9,2%', varPp: '+0,6 pp', width: '61%', diff: 'La tasa está 0,4 pp por debajo de la media nacional.' },
+      'antofagasta': { name: 'Antofagasta', rate: '8,7%', varPp: '-0,2 pp', width: '58%', diff: 'La tasa está 0,9 pp por debajo de la media nacional.' },
+      'atacama': { name: 'Atacama', rate: '9,5%', varPp: '+0,8 pp', width: '63%', diff: 'La tasa está 0,1 pp por debajo de la media nacional.' },
+      'coquimbo': { name: 'Coquimbo', rate: '9,8%', varPp: '+1,0 pp', width: '65%', diff: 'La tasa está 0,2 pp sobre la media nacional.' },
+      'valparaiso': { name: 'Valparaíso', rate: '8,8%', varPp: '+0,2 pp', width: '57%', diff: 'La desocupación en Valparaíso es 0,8 pp más baja que el promedio nacional.' },
+      'metropolitana': { name: 'Metropolitana de Santiago', rate: '8,9%', varPp: '-0,1 pp', width: '58%', diff: 'La desocupación en Santiago es 0,7 pp más baja que el promedio nacional.' },
+      'ohiggins': { name: "O'Higgins", rate: '8,1%', varPp: '+0,3 pp', width: '54%', diff: 'La tasa está 1,5 pp por debajo de la media nacional.' },
+      'maule': { name: 'Maule', rate: '7,8%', varPp: '-0,5 pp', width: '52%', diff: 'La tasa está 1,8 pp por debajo de la media nacional.' },
       'nuble': { name: 'Ñuble', rate: '11,2%', varPp: '+1,1 pp en doce meses', width: '74%', diff: 'La desocupación en Ñuble es 1,6 pp más alta que el promedio nacional.' },
-      'araucania': { name: 'La Araucanía', rate: '10,3%', varPp: '+0,9 pp en doce meses', width: '68%', diff: 'La desocupación en La Araucanía es 0,7 pp más alta que el promedio nacional.' },
-      'biobio': { name: 'Biobío', rate: '9,1%', varPp: '+0,7 pp en doce meses', width: '60%', diff: 'La desocupación en Biobío es 0,5 pp más baja que el promedio nacional.' },
-      'metropolitana': { name: 'Metropolitana de Santiago', rate: '8,9%', varPp: '-0,1 pp en doce meses', width: '58%', diff: 'La desocupación en Santiago es 0,7 pp más baja que el promedio nacional.' },
-      'valparaiso': { name: 'Valparaíso', rate: '8,8%', varPp: '+0,2 pp en doce meses', width: '57%', diff: 'La desocupación en Valparaíso es 0,8 pp más baja que el promedio nacional.' },
-      'los-lagos': { name: 'Los Lagos', rate: '6,5%', varPp: '-0,3 pp en doce meses', width: '43%', diff: 'La desocupación en Los Lagos es 3,1 pp más baja que el promedio nacional.' },
-      'magallanes': { name: 'Magallanes', rate: '5,8%', varPp: '+0,2 pp en doce meses', width: '38%', diff: 'La desocupación en Magallanes es 3,8 pp más baja que el promedio nacional.' }
+      'biobio': { name: 'Biobío', rate: '9,1%', varPp: '+0,7 pp', width: '60%', diff: 'La desocupación en Biobío es 0,5 pp más baja que el promedio nacional.' },
+      'araucania': { name: 'La Araucanía', rate: '10,3%', varPp: '+0,9 pp', width: '68%', diff: 'La desocupación en La Araucanía es 0,7 pp más alta que el promedio nacional.' },
+      'los-rios': { name: 'Los Ríos', rate: '7,4%', varPp: '-0,1 pp', width: '49%', diff: 'La tasa está 2,2 pp por debajo de la media nacional.' },
+      'los-lagos': { name: 'Los Lagos', rate: '6,5%', varPp: '-0,3 pp', width: '43%', diff: 'La desocupación en Los Lagos es 3,1 pp más baja que el promedio nacional.' },
+      'aysen': { name: 'Aysén', rate: '4,6%', varPp: '-0,4 pp', width: '30%', diff: 'La tasa está 5,0 pp por debajo de la media nacional.' },
+      'magallanes': { name: 'Magallanes', rate: '5,8%', varPp: '+0,2 pp', width: '38%', diff: 'La desocupación en Magallanes es 3,8 pp más baja que el promedio nacional.' }
     };
 
+    let currentRegionKey = 'nuble';
+    let currentButtonStateIdx = 0;
+    const buttonStates = [
+      { name: 'Normal', bg: '#F04E23', border: 'none', label: 'Cambiar región', hint: 'Estado inicial listo para interacción táctil ≥ 44 px.' },
+      { name: 'Encima (Hover)', bg: '#D93D14', border: 'none', label: 'Cambiar región (Hover)', hint: 'Respuesta visual inmediata al posar el cursor.' },
+      { name: 'Pulsado (Active)', bg: '#B33410', border: 'none', label: 'Pulsando...', hint: 'Feedback háptico y contracción visual sutil.' },
+      { name: 'Foco Teclado', bg: '#F04E23', border: '3px solid #0A0A0A', label: 'Cambiar región (Foco)', hint: 'Anillo negro de 3px con desplazamiento para navegación con Tab.' },
+      { name: 'Cargando', bg: '#A1A1AA', border: 'none', label: 'Cargando región...', hint: 'Deshabilitado temporal con aria-busy="true".' }
+    ];
+
+    // DEFINICIÓN DE LAS 10 CASILLAS PARA EL EXPLORADOR INTERACTIVO
+    const AREAS_DETAILS = {
+      1: {
+        code: 'P1.1',
+        title: '1. El Producto (Observatorio Laboral Ciudadano)',
+        html: `
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <p style="font-size: 13px; color: var(--color-muted); line-height: 1.6;">
+              El producto es un <strong>Observatorio Laboral Ciudadano</strong> diseñado para traducir la complejidad de los boletines oficiales de la Encuesta Nacional de Empleo (ENE) en respuestas claras, comparaciones territoriales y respuestas asistidas.
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;">
+              <div style="background: #fff; border: 1.5px solid var(--color-border); border-radius: 12px; padding: 12px;">
+                <strong style="color: var(--color-accent-690); font-size: 12px; text-transform: uppercase;">GET /api/regiones</strong>
+                <p style="font-size: 12px; margin-top: 4px; color: var(--color-muted);">Entrega las 16 regiones con sus tasas, intervalos, brecha de género y variación en doce meses (pp).</p>
+              </div>
+              <div style="background: #fff; border: 1.5px solid var(--color-border); border-radius: 12px; padding: 12px;">
+                <strong style="color: var(--color-accent-690); font-size: 12px; text-transform: uppercase;">POST /api/preguntar</strong>
+                <p style="font-size: 12px; margin-top: 4px; color: var(--color-muted);">Responde preguntas ciudadanas y activa el estado estricto "no consta" si la materia no pertenece a la ENE.</p>
+              </div>
+            </div>
+            <div style="background: #FFF8F5; border: 1px solid #FFB899; padding: 10px 14px; border-radius: 10px; font-size: 12px; font-weight: 700;">
+              💡 Prueba en vivo: La región seleccionada actualmente es <span style="color: var(--color-accent-690);" id="inspRegName">Ñuble</span>.
+            </div>
+          </div>
+        `
+      },
+      2: {
+        code: 'P1.2',
+        title: '2. Principios del Sistema de Diseño',
+        html: `
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <p style="font-size: 13px; color: var(--color-muted);">
+              Cuatro pilares innegociables rigen cada átomo y componente:
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">
+              <div style="background: #fff; border: 2px solid var(--color-border); padding: 12px; border-radius: 12px;">
+                <strong style="font-size: 13px; display: block;">1. Accesibilidad Total</strong>
+                <p style="font-size: 11px; color: var(--color-muted); margin-top: 4px;">WCAG 2.1 AA/AAA verificado. Contraste de texto ≥ 7:1 y componentes UI ≥ 4,5:1.</p>
+              </div>
+              <div style="background: #fff; border: 2px solid var(--color-border); padding: 12px; border-radius: 12px;">
+                <strong style="font-size: 13px; display: block;">2. Sans-Serif Legible</strong>
+                <p style="font-size: 11px; color: var(--color-muted); margin-top: 4px;">Cero fuentes con serifa o decorativas en cifras. Uso obligatorio de números tabulares.</p>
+              </div>
+              <div style="background: #fff; border: 2px solid var(--color-border); padding: 12px; border-radius: 12px;">
+                <strong style="font-size: 13px; display: block;">3. Alto Contraste</strong>
+                <p style="font-size: 11px; color: var(--color-muted); margin-top: 4px;">Acento único #F04E23, tinta negra #0A0A0A y fondos de papel limpios sin textos gris claro.</p>
+              </div>
+              <div style="background: #fff; border: 2px solid var(--color-border); padding: 12px; border-radius: 12px;">
+                <strong style="font-size: 13px; display: block;">4. Transparencia de Fuente</strong>
+                <p style="font-size: 11px; color: var(--color-muted); margin-top: 4px;">Toda cifra indica su origen exacto ("Fuente: INE, ENE Jun-ago") y el uso de IA.</p>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      3: {
+        code: 'P1.3',
+        title: '3. Tokens de Color y Espaciado (Haz clic para copiar)',
+        html: `
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <p style="font-size: 12px; color: var(--color-muted);">Haz clic sobre cualquier token para copiar su código al portapapeles:</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+              <button type="button" class="btn-action" style="background: #F04E23; color: #fff; border-color: #F04E23;" onclick="copyToken('#F04E23', 'Acento 690')">
+                Acento 690: #F04E23 📋
+              </button>
+              <button type="button" class="btn-action" style="background: #0A0A0A; color: #fff; border-color: #0A0A0A;" onclick="copyToken('#0A0A0A', 'Tinta Negra')">
+                Tinta: #0A0A0A 📋
+              </button>
+              <button type="button" class="btn-action" style="background: #FFFFFF; color: #0A0A0A;" onclick="copyToken('#FFFFFF', 'Papel 1')">
+                Papel 1: #FFFFFF 📋
+              </button>
+              <button type="button" class="btn-action" style="background: #F5F5F7; color: #0A0A0A;" onclick="copyToken('#F5F5F7', 'Papel 2')">
+                Papel 2: #F5F5F7 📋
+              </button>
+            </div>
+            <div style="background: #fff; border: 1.5px solid var(--color-border); border-radius: 12px; padding: 12px; margin-top: 6px;">
+              <strong style="font-size: 12px; display: block;">Escala de Espaciado Oficial:</strong>
+              <div style="display: flex; align-items: center; gap: 12px; margin-top: 8px; flex-wrap: wrap; font-size: 11px; font-weight: 800;">
+                <span style="display: inline-flex; align-items: center; gap: 4px;"><span style="width: 4px; height: 16px; background: #F04E23;"></span> 4px (gap-1)</span>
+                <span style="display: inline-flex; align-items: center; gap: 4px;"><span style="width: 8px; height: 16px; background: #F04E23;"></span> 8px (gap-2)</span>
+                <span style="display: inline-flex; align-items: center; gap: 4px;"><span style="width: 16px; height: 16px; background: #F04E23;"></span> 16px (gap-4)</span>
+                <span style="display: inline-flex; align-items: center; gap: 4px;"><span style="width: 24px; height: 16px; background: #F04E23;"></span> 24px (gap-6)</span>
+                <span style="display: inline-flex; align-items: center; gap: 4px;"><span style="width: 32px; height: 16px; background: #F04E23;"></span> 32px (gap-8)</span>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      4: {
+        code: 'P2.1',
+        title: '4. Átomos (Las Piezas Mínimas)',
+        html: `
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <p style="font-size: 12px; color: var(--color-muted);">Componentes atómicos indivisibles con hitboxes táctiles de al menos 44 px:</p>
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; background: #fff; padding: 16px; border-radius: 14px; border: 2px solid var(--color-border);">
+              <button type="button" class="btn-action btn-primary" onclick="showToast('Átomo Button presionado')">
+                Cambiar región
+              </button>
+              <button type="button" class="btn-action" onclick="showToast('Átomo Secundario presionado')">
+                Ver ficha completa
+              </button>
+              <span class="interactive-badge">INE · ENE</span>
+              <span style="font-size: 26px; font-weight: 900; font-variant-numeric: tabular-nums;">11,2%</span>
+            </div>
+            <div style="font-size: 11px; color: var(--color-muted);">
+              ✓ Cada botón cuenta con altura táctil mínima de 44 px y contorno visible de 3px para accesibilidad por teclado.
+            </div>
+          </div>
+        `
+      },
+      5: {
+        code: 'P2.2',
+        title: '5. Moléculas (Unión de Átomos)',
+        html: `
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <p style="font-size: 12px; color: var(--color-muted);">Unión funcional de átomos que resuelven una tarea específica:</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;">
+              <div style="background: #fff; border: 2px solid var(--color-border); border-radius: 12px; padding: 12px; text-align: center;">
+                <span style="font-size: 10px; font-weight: 800; color: var(--color-muted); text-transform: uppercase;">Molécula: Tarjeta de Cifra</span>
+                <div style="font-size: 14px; font-weight: 900; margin-top: 4px;" id="inspCardReg">Ñuble</div>
+                <div style="font-size: 32px; font-weight: 900;" id="inspCardRate">11,2%</div>
+                <div class="pp-badge">+1,1 pp en doce meses</div>
+              </div>
+              <div style="background: #fff; border: 2px solid var(--color-border); border-radius: 12px; padding: 12px;">
+                <span style="font-size: 10px; font-weight: 800; color: var(--color-muted); text-transform: uppercase;">Molécula: Leyenda Monocromática</span>
+                <div style="display: flex; height: 12px; border-radius: 4px; overflow: hidden; border: 1px solid #0A0A0A; margin: 8px 0;">
+                  <div style="flex: 1; background: #FFD2C2;"></div>
+                  <div style="flex: 1; background: #FF9E7D;"></div>
+                  <div style="flex: 1; background: #F04E23;"></div>
+                  <div style="flex: 1; background: #B33410;"></div>
+                  <div style="flex: 1; background: #0A0A0A;"></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 10px; font-weight: 800;">
+                  <span>6%</span><span>12%+</span>
+                </div>
+                <span style="font-size: 10px; color: var(--color-muted); display: block; margin-top: 4px;">
+                  Gradiente monocromático accesible para personas con daltonismo.
+                </span>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      6: {
+        code: 'P2.3',
+        title: '6. Organismos (Secciones Completas)',
+        html: `
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <p style="font-size: 12px; color: var(--color-muted);">
+              Ensambles de moléculas que forman módulos autónomos: Ficha Regional, Mapa esquemático de Chile de 16 regiones y Comparador territorial.
+            </p>
+            <div style="background: #fff; border: 2px solid var(--color-border); border-radius: 14px; padding: 14px;">
+              <span style="font-size: 11px; font-weight: 800; color: var(--color-accent-690); text-transform: uppercase;">Ficha Regional Detallada</span>
+              <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 6px;">
+                <div>
+                  <h4 style="font-size: 16px; font-weight: 900;" id="inspOrgName">Ñuble</h4>
+                  <span style="font-size: 11px; color: var(--color-muted);">Macro Región Centro Sur</span>
+                </div>
+                <div style="font-size: 28px; font-weight: 900;" id="inspOrgRate">11,2%</div>
+              </div>
+              <div class="progress-track" style="margin-top: 10px;">
+                <div class="progress-fill-accent" style="width: 74%;"></div>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 10px; font-weight: 800; color: var(--color-muted);">
+                <span>Comparativa: País 9,6%</span>
+                <span style="color: var(--color-accent-690);">+1,6 pp sobre el promedio nacional</span>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      7: {
+        code: 'P3.1',
+        title: '7. Plantillas y Páginas',
+        html: `
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <p style="font-size: 12px; color: var(--color-muted);">
+              El esqueleto móvil organiza los organismos en una columna vertical con zona de pulgar optimizada:
+            </p>
+            <div style="background: #fff; border: 1.5px solid var(--color-border); border-radius: 12px; padding: 12px; font-size: 12px;">
+              <strong>1. Cabecera Institucional</strong> (Brand INE + Selector rápido)<br>
+              <strong>2. Ficha de Cifra Principal</strong> (Tasa + Variación en pp + Brecha)<br>
+              <strong>3. Mapa Interactivo de Chile</strong> (16 regiones ordenadas de norte a sur)<br>
+              <strong>4. Comparador Territorial</strong> (Diferencia matemática exacta)<br>
+              <strong>5. Pie de Transparencia</strong> (Fuente oficial INE y aviso de IA)
+            </div>
+          </div>
+        `
+      },
+      8: {
+        code: 'P4.1',
+        title: '8. Estados Interactivos',
+        html: `
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <p style="font-size: 12px; color: var(--color-muted);">Matriz de los 6 estados estandarizados en todo el sistema:</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px;">
+              <div style="background: #fff; border: 1px solid #0A0A0A; padding: 8px; border-radius: 8px; text-align: center;">
+                <strong style="font-size: 11px;">1. Normal</strong>
+                <span style="font-size: 10px; color: var(--color-muted); display: block;">Estado de reposo</span>
+              </div>
+              <div style="background: #fff; border: 1px solid #0A0A0A; padding: 8px; border-radius: 8px; text-align: center;">
+                <strong style="font-size: 11px; color: #D93D14;">2. Encima (Hover)</strong>
+                <span style="font-size: 10px; color: var(--color-muted); display: block;">Oscurecimiento al 10%</span>
+              </div>
+              <div style="background: #fff; border: 2px solid #0A0A0A; padding: 8px; border-radius: 8px; text-align: center; box-shadow: 0 0 0 2px #F04E23;">
+                <strong style="font-size: 11px;">3. Foco Visible</strong>
+                <span style="font-size: 10px; color: var(--color-muted); display: block;">Anillo de 3px</span>
+              </div>
+              <div style="background: #E5E5E5; border: 1px dashed #737373; padding: 8px; border-radius: 8px; text-align: center;">
+                <strong style="font-size: 11px; color: #525252;">4. Cargando</strong>
+                <span style="font-size: 10px; color: var(--color-muted); display: block;">Skeleton animado</span>
+              </div>
+              <div style="background: #FEF2F2; border: 1px solid #EF4444; padding: 8px; border-radius: 8px; text-align: center;">
+                <strong style="font-size: 11px; color: #991B1B;">5. Error</strong>
+                <span style="font-size: 10px; color: var(--color-muted); display: block;">Botón de reintento</span>
+              </div>
+              <div style="background: #F4F4F5; border: 1px solid #71717A; padding: 8px; border-radius: 8px; text-align: center;">
+                <strong style="font-size: 11px; color: #3F3F46;">6. No Consta</strong>
+                <span style="font-size: 10px; color: var(--color-muted); display: block;">Dato no registrado</span>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      9: {
+        code: 'P4.2',
+        title: '9. Datos y Voz (Regla de Puntos Porcentuales)',
+        html: `
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="background: #FFF0EB; border: 2px solid #FFB899; border-radius: 12px; padding: 14px;">
+              <strong style="color: #C2330D; font-size: 13px; display: block;">Regla Matemática Inquebrantable:</strong>
+              <p style="font-size: 12px; margin-top: 6px; line-height: 1.5;">
+                Las tasas se restan en <strong>puntos porcentuales (pp)</strong>, jamás en porcentaje (%).<br>
+                <em>Ejemplo oficial:</em> Si la desocupación en Ñuble sube de 10,1% a 11,2%, la variación es <strong>+1,1 pp</strong> (no "subió 1,1%").
+              </p>
+            </div>
+            <div style="background: #fff; border: 1.5px solid var(--color-border); border-radius: 12px; padding: 12px; font-size: 12px;">
+              <strong>Glosario de Términos ENE:</strong>
+              <ul style="padding-left: 18px; margin-top: 6px; font-size: 11px; color: var(--color-muted); line-height: 1.6;">
+                <li><strong>Trimestre móvil:</strong> Promedio continuo de 3 meses consecutivos (ej. Junio-Julio-Agosto).</li>
+                <li><strong>Ocupados informales:</strong> Quienes laboran sin cotización de salud o previsión social.</li>
+                <li><strong>Fuerza de trabajo:</strong> Personas de 15 años y más que están ocupadas o desocupadas.</li>
+              </ul>
+            </div>
+          </div>
+        `
+      },
+      10: {
+        code: 'P5.1',
+        title: '10. Accesibilidad e Inteligencia Artificial',
+        html: `
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <p style="font-size: 12px; color: var(--color-muted);">
+              Verificación matemática estricta de contrastes y compromiso ético de transparencia:
+            </p>
+            <div style="background: #fff; border: 2px solid var(--color-border); border-radius: 12px; padding: 12px;">
+              <strong style="font-size: 12px;">Ratios de Contraste Medidos:</strong>
+              <div style="display: flex; gap: 12px; margin-top: 8px; flex-wrap: wrap;">
+                <span class="tag-family" style="background: #0A0A0A; color: #fff;">Tinta #0A0A0A / Papel #FFFFFF: 18.2:1 (AAA)</span>
+                <span class="tag-family" style="background: #F04E23; color: #fff;">Acento #F04E23 / Tinta #0A0A0A: 4.8:1 (AA UI)</span>
+              </div>
+            </div>
+            <div style="background: #F5F5F7; border: 1.5px solid var(--color-border); border-radius: 12px; padding: 12px; font-size: 12px;">
+              <strong>Declaración de IA:</strong><br>
+              <span style="font-size: 11px; color: var(--color-muted);">
+                Toda síntesis o simplificación de textos oficiales incluye la etiqueta visible "Supervisado con IA", respaldada por la fuente primaria de los boletines del INE.
+              </span>
+            </div>
+          </div>
+        `
+      }
+    };
+
+    // CAMBIO DE PESTAÑAS PRINCIPALES
     function switchTab(tabId) {
-      const views = ['indice', 'componentes', 'tokens', 'reglas', 'sandbox'];
+      const views = ['portada', 'indice', 'componentes', 'tokens', 'reglas', 'sandbox'];
       views.forEach(v => {
         const el = document.getElementById('view-' + v);
         const btn = document.getElementById('tabBtn-' + v);
-        if (el) el.style.display = (v === tabId) ? (v === 'componentes' || v === 'tokens' ? 'block' : (v === 'sandbox' ? 'flex' : 'grid')) : 'none';
+        if (el) {
+          el.style.display = (v === tabId) ? (v === 'componentes' || v === 'tokens' ? 'block' : (v === 'sandbox' || v === 'portada' ? 'flex' : 'flex')) : 'none';
+        }
         if (btn) btn.classList.toggle('active', v === tabId);
       });
+      // Si cambia a la pestaña índice, aseguramos que la grilla esté visible
+      if (tabId === 'indice') {
+        const p = document.getElementById('view-indice');
+        if (p) p.style.display = 'flex';
+      }
+    }
+
+    // ABRIR EL CONTENIDO INTERACTIVO DIRECTAMENTE DENTRO DE LA CASILLA (INLINE)
+    function toggleAreaInline(num, event) {
+      if (event) event.stopPropagation();
+      const card = document.getElementById('card-area-' + num);
+      const drawer = document.getElementById('drawer-area-' + num);
+      const btn = document.getElementById('btn-toggle-' + num);
+      const isCurrentlyOpen = drawer && drawer.style.display === 'block';
+
+      // Cerrar otros para mantener la pantalla limpia
+      for (let i = 1; i <= 10; i++) {
+        const c = document.getElementById('card-area-' + i);
+        const d = document.getElementById('drawer-area-' + i);
+        const b = document.getElementById('btn-toggle-' + i);
+        if (d && d.style.display === 'block' && i !== num) {
+          d.style.display = 'none';
+          if (c) c.classList.remove('expanded');
+          if (b) b.innerHTML = 'Explorar casilla aquí →';
+        }
+      }
+
+      if (isCurrentlyOpen) {
+        drawer.style.display = 'none';
+        card.classList.remove('expanded');
+        if (btn) btn.innerHTML = 'Explorar casilla aquí →';
+      } else {
+        const area = AREAS_DETAILS[num];
+        if (area && drawer) {
+          drawer.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid var(--color-border); padding-bottom: 8px; margin-bottom: 12px;">
+              <span style="font-size: 11px; font-weight: 900; color: var(--color-accent-690); text-transform: uppercase;">
+                Demostrador Vivo: ${area.title}
+              </span>
+              <button type="button" onclick="toggleAreaInline(${num}, event)" style="background: none; border: none; font-size: 14px; font-weight: 900; color: var(--color-muted); cursor: pointer;" title="Cerrar">✕</button>
+            </div>
+            ${area.html}
+          `;
+          drawer.style.display = 'block';
+          card.classList.add('expanded');
+          if (btn) btn.innerHTML = 'Cerrar casilla ✕';
+        }
+      }
     }
 
     function openArea(num) {
-      switchTab('sandbox');
+      toggleAreaInline(num);
     }
 
-    function updateSandbox(regId) {
+    // ACTUALIZACIÓN DE REGIÓN EN TODAS LAS COLUMNAS Y DEMOSTRADORES
+    function changeActiveRegion(regId) {
+      currentRegionKey = regId;
       const data = REGIONS_DATA[regId] || REGIONS_DATA['nuble'];
-      document.getElementById('sbRate').innerText = data.rate;
-      document.getElementById('sbVar').innerText = data.varPp;
-      document.getElementById('sbRegName').innerText = data.name + ' (Tu región)';
-      document.getElementById('sbRegRateTxt').innerText = data.rate;
-      document.getElementById('sbBarAccent').style.width = data.width;
-      document.getElementById('sbDiffTxt').innerText = data.diff;
+
+      // Sincronizar selectores si existen
+      const s1 = document.getElementById('bannerRegionSelect');
+      const s2 = document.getElementById('sbRegion');
+      if (s1 && s1.value !== regId) s1.value = regId;
+      if (s2 && s2.value !== regId) s2.value = regId;
+
+      // Columna 1
+      const c1r = document.getElementById('col1-rate');
+      if (c1r) c1r.innerText = data.rate;
+
+      // Columna 2
+      const c2n = document.getElementById('col2-name');
+      const c2r = document.getElementById('col2-rate');
+      const c2v = document.getElementById('col2-var');
+      const c2s = document.getElementById('col2-selectName');
+      if (c2n) c2n.innerText = data.name;
+      if (c2r) c2r.innerText = data.rate;
+      if (c2v) c2v.innerText = data.varPp;
+      if (c2s) c2s.innerText = data.name;
+
+      // Columna 3
+      const c3n = document.getElementById('col3-name');
+      const c3r = document.getElementById('col3-rate');
+      const c3b = document.getElementById('col3-bar');
+      const c3bt = document.getElementById('col3-rateBarTxt');
+      if (c3n) c3n.innerText = data.name;
+      if (c3r) c3r.innerText = data.rate;
+      if (c3b) c3b.style.width = data.width;
+      if (c3bt) c3bt.innerText = data.rate;
+
+      // Columna 5
+      const c5n = document.getElementById('col5-name');
+      const c5r = document.getElementById('col5-rate');
+      const c5s = document.getElementById('col5-sub');
+      if (c5n) c5n.innerText = data.name;
+      if (c5r) c5r.innerText = data.rate;
+      if (c5s) c5s.innerText = data.varPp + ' país 9,6%';
+
+      // Demostrador vivo (sandbox)
+      const sbRate = document.getElementById('sbRate');
+      const sbVar = document.getElementById('sbVar');
+      const sbRegName = document.getElementById('sbRegName');
+      const sbRegRateTxt = document.getElementById('sbRegRateTxt');
+      const sbBarAccent = document.getElementById('sbBarAccent');
+      const sbDiffTxt = document.getElementById('sbDiffTxt');
+      if (sbRate) sbRate.innerText = data.rate;
+      if (sbVar) sbVar.innerText = data.varPp;
+      if (sbRegName) sbRegName.innerText = data.name + ' (Tu región)';
+      if (sbRegRateTxt) sbRegRateTxt.innerText = data.rate;
+      if (sbBarAccent) sbBarAccent.style.width = data.width;
+      if (sbDiffTxt) sbDiffTxt.innerText = data.diff;
+
+      // Inspector si está abierto
+      const inspRegName = document.getElementById('inspRegName');
+      const inspCardReg = document.getElementById('inspCardReg');
+      const inspCardRate = document.getElementById('inspCardRate');
+      const inspOrgName = document.getElementById('inspOrgName');
+      const inspOrgRate = document.getElementById('inspOrgRate');
+      if (inspRegName) inspRegName.innerText = data.name;
+      if (inspCardReg) inspCardReg.innerText = data.name;
+      if (inspCardRate) inspCardRate.innerText = data.rate;
+      if (inspOrgName) inspOrgName.innerText = data.name;
+      if (inspOrgRate) inspOrgRate.innerText = data.rate;
     }
 
+    // CICLO DE ESTADOS DEL BOTÓN INTERACTIVO
+    function cycleButtonState() {
+      currentButtonStateIdx = (currentButtonStateIdx + 1) % buttonStates.length;
+      const st = buttonStates[currentButtonStateIdx];
+      const btn = document.getElementById('demoStateBtn');
+      const txt = document.getElementById('demoBtnText');
+      const name = document.getElementById('demoBtnStateName');
+
+      if (btn && txt && name) {
+        btn.style.backgroundColor = st.bg;
+        btn.style.outline = st.border;
+        txt.innerText = st.label;
+        name.innerText = 'Estado: ' + st.name + ' — ' + st.hint;
+      }
+      showToast('Estado: ' + st.name);
+    }
+
+    // PASOS MÓVILES DEL BANNER ATOMIC
+    function showAtomicStep(stepIdx) {
+      const cols = ['col-atomos', 'col-moleculas', 'col-organismos', 'col-plantillas', 'col-paginas'];
+      cols.forEach((colId, i) => {
+        const el = document.getElementById(colId);
+        if (el) {
+          el.style.display = (i === stepIdx || window.innerWidth >= 1024) ? 'flex' : 'none';
+        }
+      });
+      const stepBtns = document.querySelectorAll('.step-btn');
+      stepBtns.forEach((b, i) => {
+        b.classList.toggle('active', i === stepIdx);
+      });
+    }
+
+    // COPIAR TOKEN CON UN CLIC
+    function copyToken(hex, name) {
+      navigator.clipboard.writeText(hex).then(() => {
+        showToast('¡Token ' + name + ' (' + hex + ') copiado!');
+      }).catch(() => {
+        showToast('Token: ' + hex);
+      });
+    }
+
+    // REDUCIR MOVIMIENTO
     function toggleReducedMotion() {
       const body = document.body;
       const btn = document.getElementById('btnMotion');
@@ -1067,23 +2173,35 @@
       btn.innerText = isReduced ? '⚡ Movimiento: Reducido' : '⚡ Reducir movimiento';
     }
 
+    // COPIAR CÓDIGO HTML COMPLETO
     function copyGithubSnippet() {
       const htmlText = document.documentElement.outerHTML;
       navigator.clipboard.writeText(htmlText).then(() => {
-        showToast('¡Código HTML completo copiado! Pégalo en tu repositorio de GitHub.');
+        showToast('¡Código HTML completo copiado! Listo para subir a tu repositorio de GitHub.');
       }).catch(() => {
         showToast('Código disponible en /public/github-design-system.html');
       });
     }
 
+    // TOAST FLOTANTE
     function showToast(msg) {
       const t = document.getElementById('toast');
       t.innerText = msg;
       t.classList.add('show');
       setTimeout(() => t.classList.remove('show'), 3500);
     }
+
+    // Inicialización adaptativa para pantallas móviles
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1024) {
+        ['col-atomos', 'col-moleculas', 'col-organismos', 'col-plantillas', 'col-paginas'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.style.display = 'flex';
+        });
+      }
+    });
   </script>
 </body>
-</html>
+</html> 
 
 
