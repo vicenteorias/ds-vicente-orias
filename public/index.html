@@ -56,6 +56,54 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
+      transition: max-width 0.3s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s ease;
+    }
+
+    /* Adaptabilidad a Formato Celular (390px) */
+    .container.mobile-format-active {
+      max-width: 420px !important;
+      margin: 20px auto !important;
+      border: 5px solid #0A0A0A !important;
+      border-radius: 44px !important;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35) !important;
+      background: #FFFFFF !important;
+      padding: 14px 10px 24px !important;
+      position: relative !important;
+      overflow: hidden !important;
+    }
+
+    .container.mobile-format-active .area-cards-grid {
+      grid-template-columns: 1fr !important;
+    }
+
+    .container.mobile-format-active .atomic-columns-grid {
+      display: flex !important;
+      flex-direction: column !important;
+    }
+
+    .mobile-format-bar {
+      display: none;
+      background: #0A0A0A;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 34px 34px 0 0;
+      margin: -14px -10px 14px;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 800;
+      border-bottom: 2px solid var(--color-accent-690);
+    }
+
+    .container.mobile-format-active .mobile-format-bar {
+      display: flex !important;
+    }
+
+    .mobile-speaker-pill {
+      width: 44px;
+      height: 5px;
+      background: #262626;
+      border-radius: 9999px;
     }
 
     /* Masthead institucional */
@@ -911,6 +959,23 @@
 <body>
 
   <div class="container">
+    <!-- BARRA DE SIMULACIÓN DE FORMATO CELULAR (Visible sólo en modo celular) -->
+    <div class="mobile-format-bar" id="mobileFormatBar">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-family: monospace; font-size: 11px; color: #A1A1AA;">9:41</span>
+        <div class="mobile-speaker-pill"></div>
+        <span style="color: #86EFAC; font-weight: 900; font-size: 10px;">● 100%</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="background: var(--color-accent-690); color: #fff; font-size: 10px; font-weight: 900; padding: 2px 8px; border-radius: 4px; text-transform: uppercase;">
+          📱 Celular 390px
+        </span>
+        <button type="button" onclick="toggleDeviceFormat()" style="background: #262626; color: #fff; border: none; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; cursor: pointer;">
+          💻 Restaurar
+        </button>
+      </div>
+    </div>
+
     <!-- MASTHEAD INSTITUCIONAL -->
     <header class="masthead">
       <div class="masthead-brand">
@@ -922,6 +987,11 @@
       </div>
 
       <div class="masthead-actions">
+        <!-- BOTÓN PARA ADAPTAR A FORMATO CELULAR -->
+        <button type="button" id="btnDeviceFormat" class="btn-action" onclick="toggleDeviceFormat()" title="Adaptar a formato celular (390px)">
+          <span id="btnDeviceFormatIcon">📱</span> <span id="btnDeviceFormatText">Adaptar a Celular</span>
+        </button>
+
         <button type="button" id="btnMotion" class="btn-action" onclick="toggleReducedMotion()">
           ⚡ Reducir movimiento
         </button>
@@ -2171,6 +2241,45 @@
       const btn = document.getElementById('btnMotion');
       const isReduced = body.classList.toggle('motion-reduce');
       btn.innerText = isReduced ? '⚡ Movimiento: Reducido' : '⚡ Reducir movimiento';
+    }
+
+    // ADAPTAR A FORMATO CELULAR O ESCRITORIO
+    let currentDeviceFormat = 'desktop';
+    function toggleDeviceFormat() {
+      currentDeviceFormat = currentDeviceFormat === 'desktop' ? 'mobile' : 'desktop';
+      const container = document.querySelector('.container');
+      const btnText = document.getElementById('btnDeviceFormatText');
+      const btnIcon = document.getElementById('btnDeviceFormatIcon');
+      const btn = document.getElementById('btnDeviceFormat');
+
+      if (currentDeviceFormat === 'mobile') {
+        container.classList.add('mobile-format-active');
+        if (btnText) btnText.innerText = 'Volver a Escritorio';
+        if (btnIcon) btnIcon.innerText = '💻';
+        if (btn) {
+          btn.style.background = 'var(--color-accent-690)';
+          btn.style.color = '#fff';
+          btn.style.borderColor = 'var(--color-accent-690)';
+        }
+        showAtomicStep(0); // Mostrar primer paso en celular
+        showToast('📱 Formato Celular adaptativo activado (390px)');
+      } else {
+        container.classList.remove('mobile-format-active');
+        if (btnText) btnText.innerText = 'Adaptar a Celular';
+        if (btnIcon) btnIcon.innerText = '📱';
+        if (btn) {
+          btn.style.background = 'var(--color-papel-2)';
+          btn.style.color = 'var(--color-tinta)';
+          btn.style.borderColor = 'var(--color-border)';
+        }
+        if (window.innerWidth >= 1024) {
+          ['col-atomos', 'col-moleculas', 'col-organismos', 'col-plantillas', 'col-paginas'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.style.display = 'flex';
+          });
+        }
+        showToast('💻 Formato Escritorio restaurado');
+      }
     }
 
 
