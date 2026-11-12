@@ -2173,15 +2173,6 @@
       btn.innerText = isReduced ? '⚡ Movimiento: Reducido' : '⚡ Reducir movimiento';
     }
 
-    // COPIAR CÓDIGO HTML COMPLETO
-    function copyGithubSnippet() {
-      const htmlText = document.documentElement.outerHTML;
-      navigator.clipboard.writeText(htmlText).then(() => {
-        showToast('¡Código HTML completo copiado! Listo para subir a tu repositorio de GitHub.');
-      }).catch(() => {
-        showToast('Código disponible en /public/github-design-system.html');
-      });
-    }
 
     // TOAST FLOTANTE
     function showToast(msg) {
@@ -2202,6 +2193,6 @@
     });
   </script>
 </body>
-</html> 
+</html>
 
 
